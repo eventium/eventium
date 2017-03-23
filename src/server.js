@@ -3,10 +3,14 @@ import path from 'path';
 import { Server } from 'http';
 import Express from 'express';
 import React from 'react';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import NotFoundPage from './components/NotFoundPage';
+import eventiumApp from './reducers'
+
 
 // initialize the server and configure support for ejs templates
 const app = new Express();
@@ -35,9 +39,17 @@ app.get('*', (req, res) => {
 
       // generate the React markup for the current route
       let markup;
+      
+      // Grab the initial state from our Redux store
+      let store = createStore(eventiumApp)
+      const preloadedState = store.getState()
       if (renderProps) {
         // if the current route matched we have renderProps
-        markup = renderToString(<RouterContext {...renderProps}/>);
+        markup = renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps}/>
+          </Provider>
+        );
       } else {
         // otherwise we can render a 404 page
         markup = renderToString(<NotFoundPage/>);
@@ -45,7 +57,7 @@ app.get('*', (req, res) => {
       }
 
       // render the index template with the embedded React markup
-      return res.render('index', { markup });
+      return res.render('index', { markup, preloadedState});
     }
   );
 });
