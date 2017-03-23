@@ -1,0 +1,22 @@
+{
+  "name": "eventium",
+  "version": "0.0.0",
+  "description": "Event scheduling app",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@csil-git1.cs.surrey.sfu.ca:callback-hell/term-project.git"
+  },
+  "keywords": [
+    "event",
+    "app"
+  ],
+  "author": "Erik Nummela, Tian Lin Tan, Oleg Matvejev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
