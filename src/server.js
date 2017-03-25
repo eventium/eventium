@@ -11,6 +11,7 @@ import routes from './routes';
 import NotFoundPage from './components/NotFoundPage';
 import eventiumApp from './reducers'
 import API from './api'
+import DB from './models';
 
 // initialize the server and configure support for ejs templates
 const app = new Express();
