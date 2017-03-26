@@ -10,6 +10,7 @@ import routes from './routes';
 import NotFoundPage from './components/NotFoundPage';
 import eventiumApp from './reducers'
 import API from './api'
+import DB from './models';
 
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
