@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
 import { loadEvent } from '../actions/events'
+import { Link } from 'react-router';
 
 class EventPage extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class EventPage extends Component {
     return (
       <div>
         <h1>{title}</h1>
+        <Link to='/'>« Back</Link>
       </div>
     )
   }
