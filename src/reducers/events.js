@@ -1,7 +1,7 @@
 import * as constants from '../constants'
 import { combineReducers } from 'redux'
 
-const events = (state = [], action) => {
+export const events = (state = [], action) => {
   switch (action.type) {
     case constants.RECEIVE_EVENTS: {
       return action.events
@@ -11,5 +11,13 @@ const events = (state = [], action) => {
   }
 }
 
-export default events
+export const event = (state = {}, action) => {
+  switch (action.type) {
+    case constants.RECEIVE_INDIVIDUAL_EVENT: {
+      return Object.assign({}, {id: action.id, title: action.title})
+    }
+    default:
+      return state
+  }
+}
  

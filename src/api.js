@@ -7,7 +7,7 @@ const API = (app) => {
 
   app.get('/api/events/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const event = events.events.filter((event) => {return event.id === id});
+    const event = events.events.find((event) => {return event.id === id});
     res.json(event);
   })
 };

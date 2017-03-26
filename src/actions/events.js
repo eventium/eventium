@@ -2,9 +2,17 @@ import fetch from 'isomorphic-fetch';
 
 import {
   REQUEST_EVENTS,
-  RECEIVE_EVENTS
+  RECEIVE_EVENTS,
+  REQUEST_INDIVIDUAL_EVENT,
+  RECEIVE_INDIVIDUAL_EVENT
 } from '../constants'
 
+const HOST = 'http://localhost:3000'
+
+
+// -------------------------------------------------------------------------------------------------
+// GET /api/events/
+// -------------------------------------------------------------------------------------------------
 
 function requestEvents() {
   return {
@@ -21,7 +29,7 @@ function receiveEvents(json) {
 }
 
 export function loadEvents() {
-  const url = 'http://localhost:3000/api/events/'
+  const url = `${HOST}/api/events/`
 
   return dispatch => {
     dispatch(requestEvents())
@@ -29,5 +37,38 @@ export function loadEvents() {
     return fetch(url)
       .then(response => response.json())
       .then(json => dispatch(receiveEvents(json)))
+  }
+}
+
+
+// -------------------------------------------------------------------------------------------------
+// GET /api/events/:id
+// -------------------------------------------------------------------------------------------------
+
+function requestEvent(id) {
+  return {
+    type: REQUEST_INDIVIDUAL_EVENT,
+    id: id,
+    title: ''
+  }
+}
+
+function receiveEvent(id, json) {
+  return {
+    type: RECEIVE_INDIVIDUAL_EVENT,
+    id: id,
+    title: json.title
+  }
+}
+
+export function loadEvent(id) {
+  const url = `${HOST}/api/events/${id}`
+
+  return dispatch => {
+    dispatch(requestEvent())
+
+    return fetch(url)
+      .then(response => response.json())
+      .then(json => dispatch(receiveEvent(id, json)))
   }
 }
