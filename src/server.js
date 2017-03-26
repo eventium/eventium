@@ -3,7 +3,6 @@ import path from 'path';
 import { Server } from 'http';
 import Express from 'express';
 import React from 'react';
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -11,6 +10,10 @@ import routes from './routes';
 import NotFoundPage from './components/NotFoundPage';
 import eventiumApp from './reducers'
 import API from './api'
+
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+
 
 // initialize the server and configure support for ejs templates
 const app = new Express();
@@ -44,7 +47,7 @@ app.get('*', (req, res) => {
       let markup;
       
       // Grab the initial state from our Redux store
-      let store = createStore(eventiumApp)
+      let store = createStore(eventiumApp, compose(applyMiddleware(thunkMiddleware)))
       const preloadedState = store.getState()
       if (renderProps) {
         // if the current route matched we have renderProps
