@@ -1,0 +1,15 @@
+[Unit]
+Description=Eventium
+ 
+[Service]
+ExecStart=/home/eventium/node_modules/.bin/babel-node --presets react,es2015 src/server.js
+Restart=always
+RestartSec=5
+User=root
+Group=root
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/home/eventium/
+ 
+[Install]
+WantedBy=multi-user.target

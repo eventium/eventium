@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  config.vm.box = 'ubuntu/trusty64'
+  config.vm.box = 'ubuntu/xenial64'
+  config.vm.box_version = '>= 20160921.0.0'
 
   config.vm.provider 'virtualbox' do |v|
     v.memory = 1024
@@ -14,8 +15,8 @@ Vagrant.configure('2') do |config|
     chef.cookbooks_path = 'chef/cookbooks'
     chef.add_recipe 'eventium'
     chef.add_recipe 'eventium::postgresql'
-    chef.add_recipe 'eventium::nodejs'
     chef.add_recipe 'eventium::nginx'
+    chef.add_recipe 'eventium::nodejs'
   end
 
   config.vm.synced_folder './', '/home/eventium'
