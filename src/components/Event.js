@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 
 export default class Event extends Component {
   render() {
-    const { id, title} = this.props
-
+    const { id, title, time, location} = this.props
+    const date = new Date(time);
     return (
       <li className='list-group-item'>
         <Link key={id} to={`/events/${id}`} >
@@ -12,8 +12,14 @@ export default class Event extends Component {
             {title}
           </div>
           <div>
-            <span className='list-item-subtitle'>Date</span>
-            <span className='list-item-subtitle'>Location</span>
+            <div>
+              <span className='list-item-subtitle'>{date.toLocaleDateString()}</span>
+              <span className='list-item-subtitle'>{date.toLocaleTimeString()}</span>
+            </div>
+            <div>
+              <span className='list-item-subtitle'>{location.address}</span>
+              <span className='list-item-subtitle'>{location.postal}</span>
+            </div>
           </div>
         </Link>
       </li>
