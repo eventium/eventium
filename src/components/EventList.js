@@ -6,7 +6,7 @@ export default class EventList extends Component {
     const { events } = this.props
 
     return (
-      <ul>
+      <ul className={'list-group'}>
         {events.map(event =>
           <Event
             key={event.id}
@@ -24,4 +24,3 @@ EventList.propTypes = {
     title: PropTypes.string.isRequired
   }).isRequired).isRequired
 }
-
