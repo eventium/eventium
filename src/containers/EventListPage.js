@@ -17,7 +17,10 @@ class EventListPage extends Component {
     const { events } = this.props;
     return (
       <div>
-        <EventList events={events}/>
+        <span className='page-header'>
+          <h1>Your events</h1>
+        </span>
+        <EventList events={events} />
       </div>
     )
   }
