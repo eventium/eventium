@@ -14,10 +14,15 @@ export const events = (state = [], action) => {
 export const event = (state = {}, action) => {
   switch (action.type) {
     case constants.RECEIVE_INDIVIDUAL_EVENT: {
-      return Object.assign({}, {id: action.id, title: action.title})
+      return Object.assign({}, {
+        id: action.id,
+        title: action.title,
+        time: action.time,
+        location: action.location,
+        description: action.description
+      })
     }
     default:
       return state
   }
 }
- 
