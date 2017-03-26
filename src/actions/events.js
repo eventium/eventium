@@ -57,7 +57,10 @@ function receiveEvent(id, json) {
   return {
     type: RECEIVE_INDIVIDUAL_EVENT,
     id: id,
-    title: json.title
+    title: json.title,
+    time: json.time,
+    location: json.location,
+    description: json.description
   }
 }
 

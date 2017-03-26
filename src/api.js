@@ -1,4 +1,29 @@
-const events = { events: [{id: 1, title: 'Hiking Hypeday'}, {id: 2, title: 'Biking Marathon'}]};
+const events = {
+  events: [
+    {
+      id: 1,
+      title: 'Hiking Hypeday',
+      time: 1490567717959,
+      location: {
+        city: 'Vancouver',
+        address: '1234 Commercial Dr.',
+        postal: 'A1B 2C3'
+      },
+      description: "Let's go hiking!"
+    },
+    {
+      id: 2,
+      title: 'Biking Marathon',
+      time: 1490567717959,
+      location: {
+        city: 'Vancouver',
+        address: '1234 Commercial Dr.',
+        postal: 'A1B 2C3'
+      },
+      description: "Let's go biking!"
+    }
+  ]
+};
 
 const API = (app) => {
   app.get('/api/events/', (req, res) => {

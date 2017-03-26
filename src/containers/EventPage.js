@@ -15,7 +15,8 @@ class EventPage extends Component {
   }
 
   render() {
-    const { title } = this.props.event;
+    const { title, time, location, description } = this.props.event;
+    const date = new Date(time)
     return (
       <div>
         <span className='page-header'>
@@ -36,51 +37,26 @@ class EventPage extends Component {
           </li>
         </ul>
         <div className='container'>
-          <div className='form-horizontal'>
-            <div className='form-group'>
-              <div className='col-md-6'>
-                <h3>Event name</h3>
-                <input type='text' className='form-control' placeholder='Name' required></input>
-                <h3>Details</h3>
-                <textarea className='form-control' rows='3' required></textarea>
-
-                <h3>Time</h3>
-                <div>
-                  <select name='Year' required>
-                    {[2017, 2018, 2019].map(year => <option value={year}>{year}</option>)}
-                  </select>
-                  <select name='Month' required>
-                    {['January', 'February', 'March', 'April', 'May', 'June',
-                      'July', 'August', 'September', 'October', 'November', 'December'].map((monthName, monthNumber) => {
-                        return <option value={monthNumber + 1}>{monthName}</option>
-                      })}
-                  </select>
-                  <select name='Day' required>
-                    {[...Array(31).keys()].map(n => <option value={n + 1}>{n + 1}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <select name='Hour' required>
-                    {[...Array(23).keys()].map(n => <option value={n}>{n}</option>)}
-                  </select>
-                  <span>:</span>
-                  <select name='Minute' required>
-                    {[...Array(12).keys()].map(n => <option value={n * 5}>{n * 5}</option>)}
-                  </select>
-                  <span>:</span>
-                  <select name='Second' required>
-                    {[...Array(12).keys()].map(n => <option value={n * 5}>{n * 5}</option>)}
-                  </select>
-                </div>
-
-                <h3>Location</h3>
-                <input type='text' className='form-control' placeholder='City' required></input>
-                <input type='text' className='form-control' placeholder='Address' required></input>
-                <input type='text' className='form-control' placeholder='Postal code' required></input>
-                <Link className='btn btn-primary btn-sm' to='#' role='button'>Save</Link>
-              </div>
-            </div>
+          <h2>Title</h2>
+          <div>{title}</div>
+          <h2>Description</h2>
+          <p>{description}</p>
+          <h2>Time</h2>
+          <div>
+            <span className='spaced-out'>{date.toLocaleDateString()}</span>
+            <span className='spaced-out'>{date.toLocaleTimeString()}</span>
           </div>
+          <h2>Location</h2>
+          {location ?
+            <div>
+              <div className='spaced-out'>{location.city}</div>
+              <div>
+                <span className='spaced-out'>{location.address}</span>
+                <span className='spaced-out'>{location.postal}</span>
+              </div>
+            </div> : <div></div>
+          }
+
         </div>
       </div>
     )
@@ -90,7 +66,14 @@ class EventPage extends Component {
 EventPage.propTypes = {
   event: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    time: PropTypes.number.isRequired,
+    location: PropTypes.shape({
+      city: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+      postal: PropTypes.string.isRequired
+    }),
+    description: PropTypes.string.isRequired
   }).isRequired).isRequired
 }
 
