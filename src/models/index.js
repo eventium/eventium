@@ -22,7 +22,7 @@ Object.keys(db).forEach(function(modelName) {
 });
 
 db.User.belongsToMany(db.Event, {through: db.Member, foreignKey: 'event_id', otherKey: 'id'});
-db.Event.belongsToMany(db.User, {as: 'Member', through: db.Member, foreignKey: 'user_id', otherKey: 'id'});
+db.Event.belongsToMany(db.User, {through: db.Member, foreignKey: 'user_id', otherKey: 'id'});
 
 db.Invite.belongsTo(db.Event, {foreignKey: 'event_id'});
 db.Invite.belongsTo(db.User, {foreignKey: 'guest_id'});
