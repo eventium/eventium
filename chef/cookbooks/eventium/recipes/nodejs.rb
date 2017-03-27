@@ -17,6 +17,12 @@ execute 'build_app' do
   command "npm run build"
 end
 
+execute 'populate_db' do
+  cwd node['app']['user']['home_dir']
+  command "npm run populate"
+end
+
+
 # Add a service file for running the music app on startup
 cookbook_file "eventium.service" do
   path "/etc/systemd/system/eventium.service"

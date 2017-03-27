@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path')
 var models = require('../models');
 
 models.sequelize.sync({force: true}).then(function() {
@@ -10,7 +11,7 @@ models.sequelize.sync({force: true}).then(function() {
 	Promise.all([events, users]).then(
 		function() {
 			messages = populate_table(fs, './messages.json', models.Message);
-			members = populate_table(fs, './members.json', models.Member);
+			//members = populate_table(fs, './members.json', models.Member);
 		},
 		function() {
 			console.log('** Error: could not populate DB with messages and members.');
@@ -21,7 +22,7 @@ models.sequelize.sync({force: true}).then(function() {
 function populate_table(fs, file, table) {
 	var promise = new Promise(function(resolve, reject) {
 		try {
-			fs.readFile(file, function(err, data) {
+			fs.readFile(path.resolve(__dirname, file), function(err, data) {
 				var contents = JSON.parse(data);
 
 				contents.forEach(function(object) {
