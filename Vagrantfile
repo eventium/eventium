@@ -9,7 +9,7 @@ Vagrant.configure('2') do |config|
     v.memory = 1024
   end
 
-  config.vm.network 'forwarded_port', guest: 3000, host: 3000
+  config.vm.network 'forwarded_port', guest: 3000, host: 3000, host_ip: "127.0.0.1"
 
   config.vm.provision 'chef_solo' do |chef|
     chef.cookbooks_path = 'chef/cookbooks'
