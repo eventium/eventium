@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataType) {
 			field: 'last_name',
 		},
 		description: {
-			type: DataType.STRING,
+			type: DataType.TEXT,
 			field: 'description',
 		},
 		avatar: {

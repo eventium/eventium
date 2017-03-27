@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataType) {
 			field: 'created_on',
 		},
 		content: {
-			type: DataType.STRING,
+			type: DataType.TEXT,
 			field: 'content',
 		},
 	});

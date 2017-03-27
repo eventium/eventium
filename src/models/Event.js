@@ -10,29 +10,37 @@ module.exports = function(sequelize, DataType) {
 			type: DataType.STRING,
 			field: 'title',
 		},
+		location: {
+			type: DataType.STRING,
+			field: 'location',
+		},
 		address: {
 			type: DataType.STRING,
-			field: 'address'
+			field: 'address',
 		},
 		city: {
 			type: DataType.STRING,
-			field: 'city'
+			field: 'city',
+		},
+		province: {
+			type: DataType.STRING,
+			field: 'province',
 		},
 		postal_code: {
 			type: DataType.STRING,
-			field: 'postal_code'
+			field: 'postal_code',
 		},
 		description: {
-			type: DataType.STRING,
-			field: 'description'
+			type: DataType.TEXT,
+			field: 'description',
 		},
 		image: {
 			type: DataType.STRING,
-			field: 'image'
+			field: 'image',
 		},
 		start_time: {
 			type: DataType.DATE,
-			field: 'start_time'
+			field: 'start_time',
 		},
 		end_time: {
 			type: DataType.DATE,
