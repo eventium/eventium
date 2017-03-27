@@ -7,8 +7,8 @@
 Callback Hell
 **Team Members**:
 - Oleg Matvejev
-- Eric Numella
-- Tian Ling (ultramailman)
+- Eric Nummela
+- Tian Lin Tan (ultramailman)
 
 ## Usage:
 ---
