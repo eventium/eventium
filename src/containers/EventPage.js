@@ -15,15 +15,16 @@ class EventPage extends Component {
   }
 
   render() {
-    const { title, time, location, description } = this.props.event;
-    const date = new Date(time)
+    const { title, description, location, address, city, province, postal_code } = this.props.event;
+    const start_time = new Date(this.props.event.start_time);
+    const end_time = new Date(this.props.event.end_time);
     return (
       <div>
         <span className='page-header'>
           <Link to='/' role='button'>
             <span className='glyphicon glyphicon-chevron-left back-button'></span>
           </Link>
-          <h1>{title}</h1>
+          <h1>Event</h1>
         </span>
         <ul className='nav nav-pills'>
           <li role='presentation' className='active'>
@@ -42,20 +43,21 @@ class EventPage extends Component {
           <h2>Description</h2>
           <p>{description}</p>
           <h2>Time</h2>
-          <div>
-            <span className='spaced-out'>{date.toLocaleDateString()}</span>
-            <span className='spaced-out'>{date.toLocaleTimeString()}</span>
+          <div className='spaced-out'>
+            <div>{'Starts: ' + start_time.toLocaleDateString() + ' ' + start_time.toLocaleTimeString()}</div>
+            <div>{'Ends  : ' + end_time.toLocaleDateString() + ' ' + end_time.toLocaleTimeString()}</div>
           </div>
           <h2>Location</h2>
-          {location ?
+
+          <div className='spaced-out'>
+            <div>{location}</div>
             <div>
-              <div className='spaced-out'>{location.city}</div>
-              <div>
-                <span className='spaced-out'>{location.address}</span>
-                <span className='spaced-out'>{location.postal}</span>
-              </div>
-            </div> : <div></div>
-          }
+              <div>{address}</div>
+              <div>{province + ' ' + city}</div>
+              <div>{postal_code}</div>
+            </div>
+          </div>
+
 
         </div>
       </div>
