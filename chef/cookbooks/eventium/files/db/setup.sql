@@ -50,10 +50,11 @@ CREATE TABLE website.messages (
 
 */
 
-CREATE ROLE app 
+CREATE ROLE app WITH
+	LOGIN
 	PASSWORD '@ppl1c@t10n';
-
-GRANT CONNECT CREATE TEMP TABLE 
+	
+GRANT ALL
 	ON DATABASE eventium
 	TO app;
 

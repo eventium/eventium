@@ -20,3 +20,26 @@ bash 'create_db' do
 	EOH
 	notifies :create, 'cookbook_file[db_setup]', :before
 end
+
+ruby_block 'get_postgresql_conf_path' do
+    block do
+        Chef::Resource::RubyBlock.send(:include, Chef::Mixin::ShellOut)
+        command = 'sudo -u postgres psql -c "SHOW hba_file;" | grep /etc/'
+        command_out = shell_out(command)
+        node.set['postgresql']['conf']['path'] = command_out.stdout
+    end
+    action :create
+end
+
+cookbook_file 'create_postgresql_conf' do
+	path node['postgresql']['conf']['path']
+	source 'postgresql/pg_hba.conf'
+	mode '0640'
+	owner 'postgres'
+	group 'postgres'
+	action :create
+end
+
+service 'postgresql' do
+	action :restart
+end
