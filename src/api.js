@@ -1,3 +1,4 @@
+var models = require('./models');
 const events = {
   events: [
     {
@@ -27,7 +28,15 @@ const events = {
 
 const API = (app) => {
   app.get('/api/events/', (req, res) => {
-    res.json(events);
+    models.Event.findAll().then(instances =>
+      instances.map(instance =>
+        instance.get()
+      )
+    ).then(events => {
+      res.json({
+        'events': events
+      });
+    })
   })
 
   app.get('/api/events/:id', (req, res) => {

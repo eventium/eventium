@@ -67,13 +67,15 @@ EventPage.propTypes = {
   event: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    time: PropTypes.number.isRequired,
-    location: PropTypes.shape({
-      city: PropTypes.string.isRequired,
-      address: PropTypes.string.isRequired,
-      postal: PropTypes.string.isRequired
-    }),
-    description: PropTypes.string.isRequired
+    location: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    province: PropTypes.string.isRequired,
+    postal_code: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    start_time: PropTypes.string.isRequired,
+    end_time: PropTypes.string.isRequired
   }).isRequired).isRequired
 }
 
