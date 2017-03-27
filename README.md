@@ -1,19 +1,17 @@
-
 # Eventium
 
 
 ## Team:
-
+---
 **Team Name**: 
 Callback Hell
-
 **Team Members**:
 - Oleg Matvejev
 - Eric Numella
 - Tian Ling (ultramailman)
 
 ## Usage:
-
+---
 #### Windows
 1. Install Git Bash (https://git-scm.com/download/win)
 2. **IMPORTANT**: Run Git Bash in Administrative mode!
@@ -29,19 +27,19 @@ Callback Hell
 Access the website at: `http://locahost:3000/`
 
 ## Development
-
+---
 Useful commands:
 - `npm start` : Will start the node server
 - `npm run build` : Will bundle the app into bundle.js
 - `npm run populate` : Will populate db with basic data
 
 ## What we have done
-
+---
 Our application requires many services on the back end, so that's where the majority of our progress has been made. One big features that we want to pursue with this project is server side rendering to have the “universal javascript”. This ended up being a lot more challenging to set up as many individual components must be linked together to get the app running on both the frontend and backend. Finally, our group spent a lot of time learning React and Redux to understand this new convention of building web apps.
 
 
 ## App Structure & Dependencies
-
+---
 #### App:
 * Redux - To store states
 * React Routes - To make routing easier and have history
