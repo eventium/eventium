@@ -34,6 +34,6 @@ execute "start_eventium" do
 end
 
 # Start music app on VM startup
-execute "startup_musicapp" do
+execute "start_eventium" do
   command "sudo systemctl enable eventium"
 end
