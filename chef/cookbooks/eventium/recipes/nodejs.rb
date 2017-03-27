@@ -28,12 +28,12 @@ cookbook_file "eventium.service" do
   path "/etc/systemd/system/eventium.service"
 end
 
-# Start the music app
+# Start the app
 execute "start_eventium" do
   command "sudo systemctl start eventium"
 end
 
-# Start music app on VM startup
+# Start the app on VM startup
 execute "start_eventium" do
   command "sudo systemctl enable eventium"
 end
