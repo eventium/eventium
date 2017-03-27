@@ -56,11 +56,17 @@ function requestEvent(id) {
 function receiveEvent(id, json) {
   return {
     type: RECEIVE_INDIVIDUAL_EVENT,
-    id: id,
+    id: json.id,
     title: json.title,
-    time: json.time,
     location: json.location,
-    description: json.description
+    address: json.address,
+    city: json.city,
+    province: json.province,
+    postal_code: json.postal_code,
+    description: json.description,
+    image: json.image,
+    start_time: json.start_time,
+    end_time: json.end_time
   }
 }
 

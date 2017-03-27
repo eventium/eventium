@@ -17,9 +17,15 @@ export const event = (state = {}, action) => {
       return Object.assign({}, {
         id: action.id,
         title: action.title,
-        time: action.time,
         location: action.location,
-        description: action.description
+        address: action.address,
+        city: action.city,
+        province: action.province,
+        postal_code: action.postal_code,
+        description: action.description,
+        image: action.image,
+        start_time: action.start_time,
+        end_time: action.end_time
       })
     }
     default:
