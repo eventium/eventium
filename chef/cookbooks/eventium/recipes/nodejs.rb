@@ -9,7 +9,7 @@ apt_package 'nodejs'
 
 execute 'install_npm' do
 	cwd node['app']['user']['home_dir']
-  command "npm install --no-bin-links"
+  command "npm install"
 end
 
 execute 'build_app' do
