@@ -2,9 +2,16 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const dev = process.env.NODE_ENV !== "production";
 
 module.exports = {
+  devtool: dev ? 'inline-sourcemap' : null,
   entry: path.join(__dirname, 'src', 'index.js'),
+  devServer: {
+    inline: true,
+    port: 3000,
+    contentBase: "src/static/",
+  },
   output: {
     path: path.join(__dirname, 'src', 'static', 'js'),
     publicPath: "/js/",
@@ -16,11 +23,11 @@ module.exports = {
       loader: 'babel-loader',
       query: {
         cacheDirectory: 'babel_cache',
-        presets: ['react', 'es2015']
+        presets: dev ? ['react', 'es2015', 'react-hmre'] : ['react', 'es2015']
       }
     }]
   },
-  plugins: [
+  plugins: dev ? [] : [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
