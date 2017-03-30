@@ -12,6 +12,11 @@ execute 'install_npm' do
   command "npm install"
 end
 
+execute 'build_app' do
+  cwd node['app']['user']['home_dir']
+  command "npm run build"
+end
+
 execute 'populate_db' do
   cwd node['app']['user']['home_dir']
   command "npm run populate"

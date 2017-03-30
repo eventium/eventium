@@ -2,7 +2,7 @@
 Description=Eventium
  
 [Service]
-ExecStart=/home/eventium/node_modules/.bin/babel-node --presets react,es2015 src/server.js
+ExecStart=/home/eventium/node_modules/.bin/babel-node src/server.js
 Restart=always
 RestartSec=5
 User=root
