@@ -56,8 +56,12 @@ We're using airbnb eslint style. The guide bellow will outline on how to install
 4. Select Package Control: Install Package
 5. Install SublimeLinter
 6. Install SublimeLinter-contrib-eslint
+7. Install eslint according to https://github.com/roadhump/SublimeLinter-eslint
 
-Make sure that your sublime eslint path points to node_modules/.bin/eslint
+To install eslint globally (works on windows), run npm install -g eslint eslint-config-airbnb eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react
+
+If installing eslint in local project, make sure that your sublime eslint path points to node_modules/.bin/eslint
+
 
 ## What we have done
 ---
