@@ -33,12 +33,12 @@ Access the website at: `http://locahost:3000/`
 3. `vagrant up`
 4. Once vagrant done setup open two terminal windows.
 
-Terminal Window #1:
+#### Terminal Window #1:
 1. cd eventium folder
 2. `vagrant ssh`
 3. `cd /home/eventium && npm run start:dev`
 
-Terminal Window #2:
+#### Terminal Window #2:
 1. cd eventium folder
 2. `vagrant ssh`
 3. `cd /home/eventium && npm run build:dev:watch`
