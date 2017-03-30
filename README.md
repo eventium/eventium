@@ -47,6 +47,18 @@ Doing this will ensure that your node server gets restarted on file save and a n
 
 You might also want to install React browser dev tools which can be found here: http://bit.ly/1dGLkxb
 
+## Linting
+We're using airbnb eslint style. The guide bellow will outline on how to install eslint in your Sublime Text
+
+1. Install Package Control `https://packagecontrol.io/installation`
+2. Press Command-Shift-P (Mac OS X) or Ctrl-Shift-P (Windows) to open the Command Palette.
+3. Start typing Package Control until you see the appropriate commands.
+4. Select Package Control: Install Package
+5. Install SublimeLinter
+6. Install SublimeLinter-contrib-eslint
+
+Make sure that your sublime eslint path points to node_modules/.bin/eslint
+
 ## What we have done
 ---
 Our application requires many services on the back end, so that's where the majority of our progress has been made. One big features that we want to pursue with this project is server side rendering to have the “universal javascript”. This ended up being a lot more challenging to set up as many individual components must be linked together to get the app running on both the frontend and backend. Finally, our group spent a lot of time learning React and Redux to understand this new convention of building web apps.
