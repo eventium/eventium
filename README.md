@@ -28,10 +28,24 @@ Access the website at: `http://locahost:3000/`
 
 ## Development
 ---
-Useful commands:
-- `npm start` : Will start the node server
-- `npm run build` : Will bundle the app into bundle.js
-- `npm run populate` : Will populate db with basic data
+1. `git clone git@csil-git1.cs.surrey.sfu.ca:callback-hell/eventium.git`
+2. `vagrant plugin install vagrant-notify-forwarder` - Used to notify vagrant when file changes
+3. `vagrant up`
+4. Once vagrant done setup open two terminal windows.
+
+Terminal Window #1:
+1. cd eventium folder
+2. `vagrant ssh`
+3. `cd /home/eventium && npm run start:dev`
+
+Terminal Window #2:
+1. cd eventium folder
+2. `vagrant ssh`
+3. `cd /home/eventium && npm run build:dev:watch`
+
+Doing this will ensure that your node server gets restarted on file save and a new bundle.js file is generated.
+
+You might also want to install React browser dev tools which can be found here: http://bit.ly/1dGLkxb
 
 ## What we have done
 ---
