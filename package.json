@@ -4,13 +4,13 @@
   "description": "Event scheduling app",
   "main": "src/server.js",
   "scripts": {
-    "start": "npm run build && babel-node src/server.js",
-    "start:dev": "npm run stop-service && export NODE_ENV=development && npm run build:dev && nodemon --exec babel-node -- src/server.js",
+    "start": "npm run build && babel-node src/server/server.js",
+    "start:dev": "npm run stop-service && export NODE_ENV=development && npm run build:dev && nodemon --exec babel-node -- src/server/server.js",
     "build": "webpack -p",
     "build:dev": "webpack -d",
     "build:dev:watch": "webpack -d --watch",
-    "populate": "node src/data/populateDb.js",
-    "stop-service": "sh ./cli/stop-eventium-service.bash"
+    "populate": "node src/server/bootstrap/populateDb.js",
+    "stop-service": "sh ./src/cli/stop-eventium-service.bash"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,6 @@
     "babel-core": "^6.24.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
-    "ejs": "^2.5.6",
     "express": "^4.15.2",
     "isomorphic-fetch": "^2.2.1",
     "pg": "^6.1.5",

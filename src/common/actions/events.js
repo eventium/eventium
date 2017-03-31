@@ -4,10 +4,10 @@ import {
   REQUEST_EVENTS,
   RECEIVE_EVENTS,
   REQUEST_INDIVIDUAL_EVENT,
-  RECEIVE_INDIVIDUAL_EVENT
-} from '../constants'
+  RECEIVE_INDIVIDUAL_EVENT,
+} from '../constants';
 
-const HOST = 'http://localhost:3000'
+const HOST = 'http://localhost:3000';
 
 
 // -------------------------------------------------------------------------------------------------
@@ -17,27 +17,27 @@ const HOST = 'http://localhost:3000'
 function requestEvents() {
   return {
     type: REQUEST_EVENTS,
-    events: []
-  }
+    events: [],
+  };
 }
 
 function receiveEvents(json) {
   return {
     type: RECEIVE_EVENTS,
-    events: json.events
-  }
+    events: json.events,
+  };
 }
 
 export function loadEvents() {
-  const url = `${HOST}/api/events/`
+  const url = `${HOST}/api/events/`;
 
   return dispatch => {
-    dispatch(requestEvents())
+    dispatch(requestEvents());
 
     return fetch(url)
       .then(response => response.json())
-      .then(json => dispatch(receiveEvents(json)))
-  }
+      .then(json => dispatch(receiveEvents(json)));
+  };
 }
 
 
@@ -48,15 +48,24 @@ export function loadEvents() {
 function requestEvent(id) {
   return {
     type: REQUEST_INDIVIDUAL_EVENT,
-    id: id,
-    title: ''
-  }
+    id: parseInt(id, 10),
+    title: '',
+    location: '',
+    address: '',
+    city: '',
+    province: '',
+    postal_code: '',
+    description: '',
+    image: '',
+    start_time: '',
+    end_time: '',
+  };
 }
 
 function receiveEvent(id, json) {
   return {
     type: RECEIVE_INDIVIDUAL_EVENT,
-    id: json.id,
+    id: parseInt(id, 10),
     title: json.title,
     location: json.location,
     address: json.address,
@@ -66,18 +75,18 @@ function receiveEvent(id, json) {
     description: json.description,
     image: json.image,
     start_time: json.start_time,
-    end_time: json.end_time
-  }
+    end_time: json.end_time,
+  };
 }
 
 export function loadEvent(id) {
-  const url = `${HOST}/api/events/${id}`
+  const url = `${HOST}/api/events/${id}`;
 
   return dispatch => {
-    dispatch(requestEvent())
+    dispatch(requestEvent());
 
     return fetch(url)
       .then(response => response.json())
-      .then(json => dispatch(receiveEvent(id, json)))
-  }
+      .then(json => dispatch(receiveEvent(id, json)));
+  };
 }
