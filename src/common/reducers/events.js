@@ -1,15 +1,14 @@
-import * as constants from '../constants'
-import { combineReducers } from 'redux'
+import * as constants from '../constants';
 
 export const events = (state = [], action) => {
   switch (action.type) {
     case constants.RECEIVE_EVENTS: {
-      return action.events
+      return action.events;
     }
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const event = (state = {}, action) => {
   switch (action.type) {
@@ -25,10 +24,10 @@ export const event = (state = {}, action) => {
         description: action.description,
         image: action.image,
         start_time: action.start_time,
-        end_time: action.end_time
-      })
+        end_time: action.end_time,
+      });
     }
     default:
-      return state
+      return state;
   }
-}
+};

@@ -1,13 +1,11 @@
-"use strict";
-
 import path from 'path';
 
 const config = {
   entry: {
-    js: './src/index.js',
+    js: './src/client/index.js',
   },
   output: {
-    path: path.join(__dirname, 'src', 'static', 'js'),
+    path: path.join(__dirname, 'src', 'common', 'static', 'js'),
     filename: 'bundle.js',
   },
   module: {
