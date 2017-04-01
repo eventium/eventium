@@ -1,8 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import * as actions from '../actions/messages';
 import Message from './Message';
+import MessageComposer from './MessageComposer';
 
 export default class Chat extends Component {
+
+  constructor(props, context) {
+    super(props, context);
+    this.handleSave = this.handleSave.bind(this);
+  }
 
   componentDidMount() {
     const { socket, dispatch } = this.props;
@@ -13,16 +19,25 @@ export default class Chat extends Component {
     );
   }
 
+  handleSave(newMessage) {
+    const { dispatch } = this.props;
+    if (newMessage.text.length !== 0) {
+      dispatch(actions.createMessage(newMessage));
+    }
+  }
+
   render() {
-    const { messages } = this.props;
+    const { messages, socket } = this.props;
 
     return (
-
-      <ul>
-        {messages.map(message =>
-          <Message message={message} key={message.id} />,
-        )}
-      </ul>
+      <div>
+        <ul>
+          {messages.map(message =>
+            <Message message={message} key={message.id} />,
+          )}
+        </ul>
+        <MessageComposer {...this.props} socket={socket} onSave={this.handleSave} />
+      </div>
     );
   }
 }

@@ -5,6 +5,7 @@ import { messages } from './messages';
 const rootReducers = combineReducers({
   events,
   event,
+  messages,
 });
 
 export default rootReducers;

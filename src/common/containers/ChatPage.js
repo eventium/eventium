@@ -21,15 +21,13 @@ class ChatPage extends Component {
 }
 
 ChatPage.propTypes = {
-  eventId: PropTypes.number.isRequired,
   messages: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    eventId: state.eventId,
-    messages: state.messages,
+    messages: state.messages.data,
   };
 };
 

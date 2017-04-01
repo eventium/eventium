@@ -6,9 +6,16 @@ const HOST = 'http://localhost:3000';
 
 
 // -------------------------------------------------------------------------------------------------
-// GET /api/events/
+// GET /api/messages/
 // -------------------------------------------------------------------------------------------------
 
+
+function addMessage(message) {
+  return {
+    type: types.ADD_MESSAGE,
+    message,
+  };
+}
 
 function requestMessages() {
   return {
@@ -32,6 +39,22 @@ export function fetchMessages() {
     return fetch(url)
       .then(response => response.json())
       .then(json => dispatch(receiveMessages(json)));
+  };
+}
+
+export function createMessage(message) {
+  const url = `${HOST}/api/messages/`;
+
+  return dispatch => {
+    dispatch(addMessage(message));
+    return fetch(url, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    })
+    .catch(error => { throw error });
   };
 }
 
