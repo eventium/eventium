@@ -1,32 +1,13 @@
-var models = require('./models');
-const events = {
-  events: [
-    {
-      id: 1,
-      title: 'Hiking Hypeday',
-      time: 1490567717959,
-      location: {
-        city: 'Vancouver',
-        address: '1234 Commercial Dr.',
-        postal: 'A1B 2C3'
-      },
-      description: "Let's go hiking!"
-    },
-    {
-      id: 2,
-      title: 'Biking Marathon',
-      time: 1490567717959,
-      location: {
-        city: 'Vancouver',
-        address: '1234 Commercial Dr.',
-        postal: 'A1B 2C3'
-      },
-      description: "Let's go biking!"
-    }
-  ]
-};
+import passport from 'passport';
+
+const models = require('./models');
 
 const API = (app) => {
+  app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+  }));
+
   app.get('/api/events/', (req, res) => {
     models.Event.findAll().then(instances =>
       instances.map(instance =>
@@ -44,8 +25,6 @@ const API = (app) => {
     models.Event.findById(id).then(instance => {
       res.json(instance.get());
     })
-    //const event = events.events.find((event) => {return event.id === id});
-    //res.json(event);
   })
 };
 
