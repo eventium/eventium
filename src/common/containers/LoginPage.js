@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import login from '../actions/session';
 
 class LoginPage extends Component {
   componentWillMount() {
@@ -9,6 +10,8 @@ class LoginPage extends Component {
 
   render() {
     const session = this.props.session;
+    const disabled = (session.state === 'requesting');
+    const errorMessage = (session.state === 'error' ? session.message : '');
     return (
       <div>
         <span className="page-header">
@@ -18,22 +21,30 @@ class LoginPage extends Component {
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            const username = document.getElementById('username-input').value;
+            const password = document.getElementById('password-input').value;
+            this.props.dispatch(login(username, password));
           }}
         >
-          <div>
-            <label htmlFor="username-input">Username</label>
-            <input type="text" id="username-input" />
-          </div>
+          <fieldset disabled={disabled}>
+            <div>
+              <label htmlFor="username-input">Username</label>
+              <input type="text" id="username-input" name="username" />
+            </div>
 
-          <div>
-            <label htmlFor="password-input">Password</label>
-            <input type="text" id="password-input" />
-          </div>
+            <div>
+              <label htmlFor="password-input">Password</label>
+              <input type="password" id="password-input" name="password" />
+            </div>
 
-          <div>
-            <Link to="/api/login" role="button">Log in</Link>
-          </div>
+            <div>
+              <input type="submit" value="Submit" />
+            </div>
+          </fieldset>
         </form>
+
+        <div>{errorMessage}</div>
+
       </div>
     );
   }

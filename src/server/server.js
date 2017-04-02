@@ -9,6 +9,7 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { createStore, applyMiddleware, compose } from 'redux';
 import passport from 'passport';
+import expressSession from 'express-session';
 
 import routes from './../common/routes';
 import NotFoundPage from './../common/components/NotFoundPage';
@@ -29,7 +30,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(Express.static(path.join(__dirname, '..', 'common', 'static')));
 
 // session middleware comes before passport middleware
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(expressSession({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 // passport middleware
 app.use(passport.initialize());
 app.use(passport.session());

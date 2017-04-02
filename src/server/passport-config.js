@@ -7,7 +7,8 @@ const user = {
   token: '12345',
 };
 const passportConfig = (passport) => {
-  passport.use(new LocalStrategy((username, password, done) => {
+  passport.use('local-login', new LocalStrategy((username, password, done) => {
+    console.log('@local strategy');
     if (username === user.username && password === user.password) {
       return done(null, user);
     } else {
@@ -16,10 +17,12 @@ const passportConfig = (passport) => {
   }));
 
   passport.serializeUser((user, done) => {
+    console.log('@serializeUser');
     done(null, user.token);
   });
 
   passport.deserializeUser((token, done) => {
+    console.log('@deserializeUser');
     if (token === user.token) {
       done(null, user);
     } else {

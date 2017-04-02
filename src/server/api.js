@@ -3,7 +3,7 @@ import passport from 'passport';
 const models = require('./models');
 
 const API = (app) => {
-  app.post('/api/login', passport.authenticate('local', {
+  app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/',
     failureRedirect: '/login',
   }));
