@@ -10,6 +10,8 @@ import { match, RouterContext } from 'react-router';
 import { createStore, applyMiddleware, compose } from 'redux';
 import passport from 'passport';
 import expressSession from 'express-session';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 
 import routes from './../common/routes';
 import NotFoundPage from './../common/components/NotFoundPage';
@@ -29,9 +31,20 @@ app.set('views', path.join(__dirname, 'views'));
 // define the folder that will be used for static assets
 app.use(Express.static(path.join(__dirname, '..', 'common', 'static')));
 
-// session middleware comes before passport middleware
-app.use(expressSession({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-// passport middleware
+// auth related middleware
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(expressSession({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: false,
+    secure: false,
+    maxAge: 600,
+  },
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 

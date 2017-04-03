@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import { browserHistory } from 'react-router';
 import {
   REQUEST_SESSION,
   RECEIVE_SESSION,
@@ -16,10 +17,9 @@ function requestSession() {
   };
 }
 
-function receiveSession(json) {
+function receiveSession() {
   return {
     type: RECEIVE_SESSION,
-    token: json.token,
   };
 }
 
@@ -32,25 +32,30 @@ function failedToLogin(err) {
 }
 
 export default function login(username, password) {
-  const url = `${HOST}/login`;
+  const url = `${HOST}/api/login`;
   const message = {
     method: 'POST',
-    body: { username, password },
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify({ username, password }),
   };
+
   return (dispatch) => {
     dispatch(requestSession());
     return fetch(url, message)
       .then((response) => {
-        // console.log('login response received');
-        return response.json();
-      })
-      .then((json) => {
-        // console.log('dispatching RECEIVE_SESSION');
-        return dispatch(receiveSession(json));
+        if (response.ok) {
+          dispatch(receiveSession());
+          browserHistory.push('/');
+        } else {
+          dispatch(failedToLogin('Username or password is incorrect.'));
+        }
       })
       .catch((err) => {
-        // console.log(`login error: ${err}`);
-        return dispatch(failedToLogin(err));
+        dispatch(failedToLogin(err));
       });
   };
 }

@@ -2,11 +2,25 @@ import passport from 'passport';
 
 const models = require('./models');
 
+// route middleware to make sure
+function isLoggedIn(req, res, next) {
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated()) { next(); }
+  // if they aren't redirect them to the home page
+  res.redirect('/login');
+}
+
+function debugMiddleware(req, res, next) {
+  console.log(req.session);
+  console.log(req.user);
+  next()
+}
+
 const API = (app) => {
-  app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  }));
+  app.post('/api/login', passport.authenticate('local-login'), (req, res) => {
+    console.log(req.session);
+    res.json({});
+  });
 
   app.get('/api/events/', (req, res) => {
     models.Event.findAll().then(instances =>

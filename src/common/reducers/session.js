@@ -8,10 +8,9 @@ function session(state = { state: 'idle' }, action) {
       };
     }
     case constants.RECEIVE_SESSION: {
-      return Object.assign({}, {
+      return {
         state: 'received',
-        token: action.token,
-      });
+      };
     }
     case constants.FAILED_TO_LOGIN: {
       return Object.assign({}, {

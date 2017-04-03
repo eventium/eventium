@@ -34,7 +34,7 @@ export function loadEvents() {
   return dispatch => {
     dispatch(requestEvents());
 
-    return fetch(url)
+    return fetch(url, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(json => dispatch(receiveEvents(json)));
   };
@@ -85,7 +85,7 @@ export function loadEvent(id) {
   return dispatch => {
     dispatch(requestEvent());
 
-    return fetch(url)
+    return fetch(url, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(json => dispatch(receiveEvent(id, json)));
   };
