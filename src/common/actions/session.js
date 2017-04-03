@@ -31,7 +31,7 @@ function failedToLogin(err) {
   };
 }
 
-export default function login(username, password) {
+export default function login(email, password) {
   const url = `${HOST}/api/login`;
   const message = {
     method: 'POST',
@@ -40,7 +40,7 @@ export default function login(username, password) {
       'Content-Type': 'application/json',
     },
     credentials: 'same-origin',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   };
 
   return (dispatch) => {
@@ -51,7 +51,7 @@ export default function login(username, password) {
           dispatch(receiveSession());
           browserHistory.push('/');
         } else {
-          dispatch(failedToLogin('Username or password is incorrect.'));
+          dispatch(failedToLogin('Email is not registered or password is incorrect.'));
         }
       })
       .catch((err) => {

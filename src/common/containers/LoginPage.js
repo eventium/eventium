@@ -24,12 +24,12 @@ class LoginPage extends Component {
         >
           <fieldset disabled={disabled}>
             <div>
-              <label htmlFor="username-input">Username</label>
+              <label htmlFor="username-input">Email:    </label>
               <input type="text" id="username-input" name="username" />
             </div>
 
             <div>
-              <label htmlFor="password-input">Password</label>
+              <label htmlFor="password-input">Password: </label>
               <input type="password" id="password-input" name="password" />
             </div>
 

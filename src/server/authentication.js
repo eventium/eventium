@@ -2,16 +2,16 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // TODO: use a real db here instead of mock user
 const user = {
-  username: 'eventium',
+  email: 'eventium',
   password: 'eventium',
   id: '1',
 };
 
 export function configPassport(passport) {
   console.log('@config passport');
-  passport.use('local-login', new LocalStrategy((username, password, done) => {
+  passport.use('local-login', new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, (email, password, done) => {
     console.log('@local-login');
-    if (username === user.username && password === user.password) {
+    if (email === user.email && password === user.password) {
       return done(null, user);
     } else {
       return done(null, false, { message: 'Failed to authenticate' });
