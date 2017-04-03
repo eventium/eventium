@@ -4,14 +4,10 @@ import { Link } from 'react-router';
 import login from '../actions/session';
 
 class LoginPage extends Component {
-  componentWillMount() {
-    const { dispatch } = this.props;
-  }
-
   render() {
     const session = this.props.session;
-    const disabled = (session.state === 'requesting');
-    const errorMessage = (session.state === 'error' ? session.message : '');
+    const disabled = (session.status === 'requesting');
+    const errorMessage = (session.status === 'error' ? session.message : '');
     return (
       <div>
         <span className="page-header">

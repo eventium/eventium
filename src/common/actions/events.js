@@ -36,7 +36,11 @@ export function loadEvents() {
 
     return fetch(url, { credentials: 'same-origin' })
       .then(response => response.json())
-      .then(json => dispatch(receiveEvents(json)));
+      .then(json => dispatch(receiveEvents(json)))
+      .catch((err) => {
+        dispatch(receiveEvents({ events: [] }));
+        console.log('failed to retrieve events');
+      });
   };
 }
 
@@ -87,6 +91,10 @@ export function loadEvent(id) {
 
     return fetch(url, { credentials: 'same-origin' })
       .then(response => response.json())
-      .then(json => dispatch(receiveEvent(id, json)));
+      .then(json => dispatch(receiveEvent(id, json)))
+      .catch((err) => {
+        dispatch(receiveEvents({ event: {} }));
+        console.log('failed to retrieve event');
+      });
   };
 }

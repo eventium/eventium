@@ -1,24 +1,11 @@
 import passport from 'passport';
+import { isLoggedIn } from './authentication';
 
 const models = require('./models');
 
-// route middleware to make sure
-function isLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated()) { next(); }
-  // if they aren't redirect them to the home page
-  res.redirect('/login');
-}
-
-function debugMiddleware(req, res, next) {
-  console.log(req.session);
-  console.log(req.user);
-  next()
-}
-
 const API = (app) => {
+  app.use(isLoggedIn);
   app.post('/api/login', passport.authenticate('local-login'), (req, res) => {
-    console.log(req.session);
     res.json({});
   });
 

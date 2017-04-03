@@ -6,7 +6,8 @@ const user = {
   password: 'eventium',
   id: '1',
 };
-const passportConfig = (passport) => {
+
+export function configPassport(passport) {
   console.log('@config passport');
   passport.use('local-login', new LocalStrategy((username, password, done) => {
     console.log('@local-login');
@@ -30,6 +31,21 @@ const passportConfig = (passport) => {
       done(null, false);
     }
   });
-};
+}
 
-export default passportConfig;
+export function isLoggedIn(req, res, next) {
+  if (req.path === '/login' || req.path === '/api/login') {
+    next();
+  } else if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(401);
+    res.end('Unauthorized');
+  }
+}
+
+export function debugMiddleware(req, res, next) {
+  console.log(req.session);
+  console.log(req.user);
+  next();
+}
