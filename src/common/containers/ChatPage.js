@@ -10,7 +10,8 @@ class ChatPage extends Component {
 
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(fetchMessages());
+    const eventId = this.props.params.id;
+    dispatch(fetchMessages(eventId));
   }
 
   render() {

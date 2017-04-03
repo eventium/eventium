@@ -6,7 +6,7 @@ export default class Message extends React.Component {
     const { message } = this.props;
     return (
       <li>
-        <div>{message.text}</div>
+        <div>{message.content}</div>
       </li>
     );
   }
@@ -14,7 +14,7 @@ export default class Message extends React.Component {
 
 Message.propTypes = {
   message: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+    uuid: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
   }).isRequired,
 };

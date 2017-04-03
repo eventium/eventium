@@ -30,20 +30,21 @@ function receiveMessages(json) {
   };
 }
 
-export function fetchMessages() {
-  const url = `${HOST}/api/messages/`;
+export function fetchMessages(eventId) {
+  const url = `${HOST}/api/events/${eventId}/messages/`;
 
   return dispatch => {
     dispatch(requestMessages());
 
     return fetch(url)
       .then(response => response.json())
-      .then(json => dispatch(receiveMessages(json)));
+      .then(json => dispatch(receiveMessages(json)))
+      .catch(error => { throw error });
   };
 }
 
-export function createMessage(message) {
-  const url = `${HOST}/api/messages/`;
+export function createMessage(eventId, message) {
+  const url = `${HOST}/api/event/${eventId}/messages/`;
 
   return dispatch => {
     dispatch(addMessage(message));

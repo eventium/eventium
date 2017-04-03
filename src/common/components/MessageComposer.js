@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import uuid from 'node-uuid';
 
 export default class MessageComposer extends React.Component {
 
@@ -19,7 +20,8 @@ export default class MessageComposer extends React.Component {
     if (event.which === 13) {
       event.preventDefault();
       const newMessage = {
-        text: text,
+        uuid: uuid.v4(),
+        content: text,
       };
       socket.emit('new message', newMessage);
 

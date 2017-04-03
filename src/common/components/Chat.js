@@ -33,7 +33,7 @@ export default class Chat extends Component {
       <div>
         <ul>
           {messages.map(message =>
-            <Message message={message} key={message.id} />,
+            <Message message={message} key={message.uuid} />,
           )}
         </ul>
         <MessageComposer {...this.props} socket={socket} onSave={this.handleSave} />

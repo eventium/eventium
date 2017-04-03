@@ -30,6 +30,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "isomorphic-fetch": "^2.2.1",
+    "node-uuid": "^1.4.8",
     "pg": "^6.1.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
