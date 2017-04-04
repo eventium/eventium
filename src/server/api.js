@@ -22,6 +22,22 @@ const API = (app) => {
         res.end();
       });
   });
+  app.get('/api/session', (req, res) => {
+    const id = req.session.passport.user;
+    models.User.findById(id)
+      .then((instance) => {
+        res.status(200);
+        res.json({
+          id: instance.get('id'),
+          email: instance.get('email'),
+          first_name: instance.get('first_name'),
+          last_name: instance.get('last_name'),
+        });
+      }).catch((err) => {
+        res.status(500);
+        res.end(`/api/session error: ${err}`);
+      });
+  });
 
   app.get('/api/events/', (req, res) => {
     models.Event.findAll().then(instances =>

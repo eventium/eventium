@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
-import login from '../actions/session';
+import { login, fetchSession } from '../actions/session';
 
 class LoginPage extends Component {
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchSession());
+  }
   componentDidUpdate(prevProps) {
     const prevSession = prevProps.session;
     const nowSession = this.props.session;

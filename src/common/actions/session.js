@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
 import {
   REQUEST_SESSION,
   RECEIVE_SESSION,
@@ -9,7 +8,7 @@ import {
 const HOST = 'http://localhost:3000';
 
 // -------------------------------------------------------------------------------------------------
-// POST /api/login/
+// POST /api/login
 // -------------------------------------------------------------------------------------------------
 function requestSession() {
   return {
@@ -32,7 +31,7 @@ function failedToLogin(err) {
   };
 }
 
-export default function login(email, password) {
+export function login(email, password) {
   const url = `${HOST}/api/login`;
   const message = {
     method: 'POST',
@@ -62,6 +61,35 @@ export default function login(email, password) {
       })
       .catch((err) => {
         dispatch(failedToLogin(err));
+      });
+  };
+}
+
+// -------------------------------------------------------------------------------------------------
+// GET /api/session
+// -------------------------------------------------------------------------------------------------
+export function fetchSession() {
+  const url = `${HOST}/api/session`;
+  const message = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+  };
+
+  return (dispatch) => {
+    return fetch(url, message)
+      .then((response) => {
+        if (response.ok) {
+          return response.json().then((json) => {
+            dispatch(receiveSession(json));
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(`fetchSession error: ${err}`);
       });
   };
 }
