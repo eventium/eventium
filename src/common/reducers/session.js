@@ -1,23 +1,23 @@
 import * as constants from '../constants';
 
-function session(state = { state: 'idle' }, action) {
+function session(state = { state: constants.SESSION_STATUS_LOGGED_OUT }, action) {
   switch (action.type) {
     case constants.REQUEST_SESSION: {
       return {
-        status: 'requesting',
+        status: constants.SESSION_STATUS_PENDING,
       };
     }
     case constants.RECEIVE_SESSION: {
       return {
-        status: 'received',
+        status: constants.SESSION_STATUS_LOGGED_IN,
         user: action.user,
       };
     }
     case constants.FAILED_TO_LOGIN: {
-      return Object.assign({}, {
-        status: 'error',
-        message: action.message,
-      });
+      return {
+        status: constants.SESSION_STATUS_LOGGED_OUT,
+        error: action.error,
+      };
     }
     default: {
       return state;

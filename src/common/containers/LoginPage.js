@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { login, fetchSession } from '../actions/session';
+import * as constants from '../constants';
 
 class LoginPage extends Component {
   componentWillMount() {
@@ -10,14 +11,14 @@ class LoginPage extends Component {
   componentDidUpdate(prevProps) {
     const prevSession = prevProps.session;
     const nowSession = this.props.session;
-    if (prevSession.status !== 'received' && nowSession.status === 'received') {
+    if (prevSession.status !== constants.SESSION_STATUS_LOGGED_IN && nowSession.status === constants.SESSION_STATUS_LOGGED_IN) {
       this.context.router.push('/');
     }
   }
   render() {
     const session = this.props.session;
-    const disabled = (session.status === 'requesting');
-    const errorMessage = (session.status === 'error' ? session.message : '');
+    const disabled = (session.status === constants.SESSION_STATUS_PENDING);
+    const errorMessage = (session.error || '');
     return (
       <div>
         <span className="page-header">
@@ -34,7 +35,7 @@ class LoginPage extends Component {
         >
           <fieldset disabled={disabled}>
             <div>
-              <label htmlFor="username-input">Email:    </label>
+              <label htmlFor="username-input">Email:</label>
               <input type="text" id="username-input" name="username" />
             </div>
 

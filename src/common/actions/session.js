@@ -23,11 +23,10 @@ function receiveSession(user) {
   };
 }
 
-function failedToLogin(err) {
-  const message = (err.toString ? err.toString() : JSON.stringify(err));
+function failedToLogin(error) {
   return {
     type: FAILED_TO_LOGIN,
-    message,
+    error,
   };
 }
 
@@ -80,16 +79,19 @@ export function fetchSession() {
   };
 
   return (dispatch) => {
+    dispatch(requestSession());
     return fetch(url, message)
       .then((response) => {
         if (response.ok) {
           return response.json().then((json) => {
             dispatch(receiveSession(json));
           });
+        } else {
+          dispatch(failedToLogin());
         }
       })
       .catch((err) => {
-        console.log(`fetchSession error: ${err}`);
+        dispatch(failedToLogin(`fetchSession error: ${err}`));
       });
   };
 }
