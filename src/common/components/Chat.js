@@ -31,12 +31,14 @@ export default class Chat extends Component {
     const { messages, socket } = this.props;
 
     return (
-      <div>
-        <ul>
-          {messages.map(message =>
-            <Message message={message} key={message.uuid} />,
-          )}
-        </ul>
+      <div className="chat">
+        <div className="messages">
+          <ul className="list-unstyled">
+            {messages.map(message =>
+              <Message message={message} key={message.uuid} />,
+            )}
+          </ul>
+        </div>
         <MessageComposer {...this.props} socket={socket} onSave={this.handleSave} />
       </div>
     );

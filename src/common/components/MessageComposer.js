@@ -37,11 +37,11 @@ export default class MessageComposer extends React.Component {
 
   render() {
     return (
-      <div>
-        <input
-          type="textarea"
+      <div className="message-box">
+        <textarea
           name="message"
           autoFocus="true"
+          rows="3"
           placeholder="Type a message..."
           value={this.state.content}
           onChange={this.handleChange}
