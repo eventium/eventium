@@ -47,20 +47,16 @@ export function login(email, password) {
     return fetch(url, message)
       .then((response) => {
         if (response.ok) {
-          return response.json().then((json) => {
-            dispatch(receiveSession(json));
-          });
+          return response.json()
+            .then(json => dispatch(receiveSession(json)));
         } else if (response.status === 401) {
-          dispatch(failedToLogin('Email is not registered or password is incorrect.'));
+          return dispatch(failedToLogin('Email is not registered or password is incorrect.'));
         } else if (response.status >= 500) {
-          dispatch(failedToLogin('Server error.'));
-        } else {
-          throw `Unexpected response: ${response.status}`;
+          return dispatch(failedToLogin('Server error.'));
         }
+        return Promise.reject(`Unexpected response: ${response.status}`);
       })
-      .catch((err) => {
-        dispatch(failedToLogin(err));
-      });
+      .catch(err => dispatch(failedToLogin(err)));
   };
 }
 
@@ -83,15 +79,11 @@ export function fetchSession() {
     return fetch(url, message)
       .then((response) => {
         if (response.ok) {
-          return response.json().then((json) => {
-            dispatch(receiveSession(json));
-          });
-        } else {
-          dispatch(failedToLogin());
+          return response.json()
+            .then(json => dispatch(receiveSession(json)));
         }
+        return dispatch(failedToLogin());
       })
-      .catch((err) => {
-        dispatch(failedToLogin(`fetchSession error: ${err}`));
-      });
+      .catch(err => dispatch(failedToLogin(`fetchSession error: ${err}`)));
   };
 }

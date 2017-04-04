@@ -11,9 +11,16 @@ class LoginPage extends Component {
   componentDidUpdate(prevProps) {
     const prevSession = prevProps.session;
     const nowSession = this.props.session;
-    if (prevSession.status !== constants.SESSION_STATUS_LOGGED_IN && nowSession.status === constants.SESSION_STATUS_LOGGED_IN) {
+    if (prevSession.status !== constants.SESSION_STATUS_LOGGED_IN &&
+      nowSession.status === constants.SESSION_STATUS_LOGGED_IN) {
       this.context.router.push('/');
     }
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    const username = document.getElementById('username-input').value;
+    const password = document.getElementById('password-input').value;
+    this.props.dispatch(login(username, password));
   }
   render() {
     const session = this.props.session;
@@ -25,14 +32,7 @@ class LoginPage extends Component {
           <h1>Eventium</h1>
         </span>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const username = document.getElementById('username-input').value;
-            const password = document.getElementById('password-input').value;
-            this.props.dispatch(login(username, password));
-          }}
-        >
+        <form onSubmit={e => this.handleSubmit(e)}>
           <fieldset disabled={disabled}>
             <div>
               <label htmlFor="username-input">Email:</label>
@@ -58,7 +58,9 @@ class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-
+  session: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+  }).isRequired,
 };
 LoginPage.contextTypes = {
   router: PropTypes.object.isRequired,

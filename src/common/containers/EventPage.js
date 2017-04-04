@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { loadEvent } from '../actions/events';
-import { fetchSession } from '../actions/session';
 
 class EventPage extends Component {
   constructor(props) {

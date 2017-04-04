@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 
-function session(state = { state: constants.SESSION_STATUS_LOGGED_OUT }, action) {
+function session(state = { status: constants.SESSION_STATUS_LOGGED_OUT }, action) {
   switch (action.type) {
     case constants.REQUEST_SESSION: {
       return {
