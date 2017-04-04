@@ -4,7 +4,7 @@ import { isLoggedIn } from './authentication';
 const models = require('./models');
 
 const API = (app) => {
-  app.use(isLoggedIn);
+  app.use(['/api/*'], isLoggedIn);
   app.post('/api/login', passport.authenticate('local-login'), (req, res) => {
     const id = req.session.passport.user;
     models.User.findById(id)

@@ -9,6 +9,11 @@ class EventPage extends Component {
   }
 
   componentWillMount() {
+    const session = this.props.session;
+    if (!session.user) {
+      this.context.router.push('/login');
+      return;
+    }
     const id = this.props.params.id;
     const { dispatch } = this.props;
     dispatch(loadEvent(id));
@@ -80,10 +85,14 @@ EventPage.propTypes = {
     end_time: PropTypes.string.isRequired,
   }).isRequired,
 };
+EventPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => {
   return {
     event: state.event,
+    session: state.session,
   };
 };
 

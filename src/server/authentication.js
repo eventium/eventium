@@ -36,13 +36,13 @@ export function configPassport(passport) {
 }
 
 export function isLoggedIn(req, res, next) {
-  if (req.path === '/login' || req.path === '/api/login') {
+  if (req.originalUrl === '/login' || req.originalUrl === '/api/login') {
     next();
   } else if (req.isAuthenticated()) {
     next();
   } else {
     res.status(401);
-    res.end('Unauthorized');
+    res.end(`Unauthorized access from ${req.originalUrl}`);
   }
 }
 

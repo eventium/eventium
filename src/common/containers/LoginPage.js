@@ -57,7 +57,7 @@ LoginPage.propTypes = {
 };
 LoginPage.contextTypes = {
   router: PropTypes.object.isRequired,
-}
+};
 
 function mapStateToProps(state) {
   return {
