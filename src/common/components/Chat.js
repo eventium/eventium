@@ -21,8 +21,9 @@ export default class Chat extends Component {
 
   handleSave(newMessage) {
     const { dispatch } = this.props;
-    if (newMessage.text.length !== 0) {
-      dispatch(actions.createMessage(newMessage));
+    const eventId = this.props.params.id;
+    if (newMessage.content.length !== 0) {
+      dispatch(actions.createMessage(eventId, newMessage));
     }
   }
 

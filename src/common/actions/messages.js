@@ -44,7 +44,7 @@ export function fetchMessages(eventId) {
 }
 
 export function createMessage(eventId, message) {
-  const url = `${HOST}/api/event/${eventId}/messages/`;
+  const url = `${HOST}/api/events/${eventId}/messages/`;
 
   return dispatch => {
     dispatch(addMessage(message));

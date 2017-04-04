@@ -14,7 +14,7 @@ messageRouter.get('/events/:id/messages/', (req, res) => {
     where: {
       event_id: eventId,
     },
-    order: 'created_on DESC',
+    order: 'created_on ASC',
   })
   .then(messages => res.json(messages));
 });
@@ -25,6 +25,7 @@ messageRouter.post('/events/:id/messages/', (req, res) => {
   const content = req.body.content;
   models.Message.create({
     content: content,
+    event_id: eventId,
   });
   return res.status(200);
 });

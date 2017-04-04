@@ -10,7 +10,7 @@ export default class MessageComposer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      text: '',
+      content: '',
     };
   }
 
@@ -27,12 +27,12 @@ export default class MessageComposer extends React.Component {
 
       // Tells the Chat.js that we have a new msg and triggers its onSave()
       this.props.onSave(newMessage);
-      this.setState({ text: '' });
+      this.setState({ content: '' });
     }
   }
 
   handleChange(event) {
-    this.setState({ text: event.target.value });
+    this.setState({ content: event.target.value });
   }
 
   render() {
@@ -43,7 +43,7 @@ export default class MessageComposer extends React.Component {
           name="message"
           autoFocus="true"
           placeholder="Type a message..."
-          value={this.state.text}
+          value={this.state.content}
           onChange={this.handleChange}
           onKeyDown={this.handleSubmit}
         />
