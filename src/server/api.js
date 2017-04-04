@@ -6,7 +6,21 @@ const models = require('./models');
 const API = (app) => {
   app.use(isLoggedIn);
   app.post('/api/login', passport.authenticate('local-login'), (req, res) => {
-    res.json({});
+    const id = req.session.passport.user;
+    models.User.findById(id)
+      .then((instance) => {
+        res.status(200);
+        res.json({
+          id: instance.get('id'),
+          email: instance.get('email'),
+          first_name: instance.get('first_name'),
+          last_name: instance.get('last_name'),
+        });
+      }).catch((err) => {
+        console.log(`/api/login error: ${err}`);
+        res.status(500);
+        res.end();
+      });
   });
 
   app.get('/api/events/', (req, res) => {

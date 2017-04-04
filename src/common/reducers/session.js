@@ -8,9 +8,10 @@ function session(state = { state: 'idle' }, action) {
       };
     }
     case constants.RECEIVE_SESSION: {
+      console.log(action.user);
       return {
         status: 'received',
-        user: {},
+        user: action.user,
       };
     }
     case constants.FAILED_TO_LOGIN: {

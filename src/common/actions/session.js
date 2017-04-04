@@ -17,9 +17,10 @@ function requestSession() {
   };
 }
 
-function receiveSession() {
+function receiveSession(user) {
   return {
     type: RECEIVE_SESSION,
+    user,
   };
 }
 
@@ -48,10 +49,16 @@ export default function login(email, password) {
     return fetch(url, message)
       .then((response) => {
         if (response.ok) {
-          dispatch(receiveSession());
-          browserHistory.push('/');
-        } else {
+          return response.json().then((json) => {
+            dispatch(receiveSession(json));
+            browserHistory.push('/');
+          });
+        } else if (response.status === 401) {
           dispatch(failedToLogin('Email is not registered or password is incorrect.'));
+        } else if (response.status >= 500) {
+          dispatch(failedToLogin('Server error.'));
+        } else {
+          throw `Unexpected response: ${response.status}`;
         }
       })
       .catch((err) => {
