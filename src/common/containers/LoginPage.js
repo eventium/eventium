@@ -4,6 +4,13 @@ import { login, fetchSession } from '../actions/session';
 import * as constants from '../constants';
 
 class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(fetchSession());
@@ -18,9 +25,13 @@ class LoginPage extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    const username = document.getElementById('username-input').value;
-    const password = document.getElementById('password-input').value;
+    const { username, password } = this.state;
     this.props.dispatch(login(username, password));
+  }
+  handleInputChange(e) {
+    const state = Object.assign({}, this.state);
+    state[e.target.name] = e.target.value;
+    this.setState(state);
   }
   render() {
     const session = this.props.session;
@@ -36,12 +47,12 @@ class LoginPage extends Component {
           <fieldset disabled={disabled}>
             <div>
               <label htmlFor="username-input">Email:</label>
-              <input type="text" id="username-input" name="username" />
+              <input type="text" id="username-input" name="username" value={this.state.username} onChange={e => this.handleInputChange(e)} />
             </div>
 
             <div>
               <label htmlFor="password-input">Password: </label>
-              <input type="password" id="password-input" name="password" />
+              <input type="password" id="password-input" name="password" value={this.state.password} onChange={e => this.handleInputChange(e)} />
             </div>
 
             <div>
