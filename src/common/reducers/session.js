@@ -8,7 +8,6 @@ function session(state = { state: 'idle' }, action) {
       };
     }
     case constants.RECEIVE_SESSION: {
-      console.log(action.user);
       return {
         status: 'received',
         user: action.user,

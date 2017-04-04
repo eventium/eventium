@@ -1,9 +1,15 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import login from '../actions/session';
 
 class LoginPage extends Component {
+  componentDidUpdate(prevProps) {
+    const prevSession = prevProps.session;
+    const nowSession = this.props.session;
+    if (prevSession.status !== 'received' && nowSession.status === 'received') {
+      this.context.router.push('/');
+    }
+  }
   render() {
     const session = this.props.session;
     const disabled = (session.status === 'requesting');
@@ -49,6 +55,9 @@ class LoginPage extends Component {
 LoginPage.propTypes = {
 
 };
+LoginPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+}
 
 function mapStateToProps(state) {
   return {

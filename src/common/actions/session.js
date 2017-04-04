@@ -51,7 +51,6 @@ export default function login(email, password) {
         if (response.ok) {
           return response.json().then((json) => {
             dispatch(receiveSession(json));
-            browserHistory.push('/');
           });
         } else if (response.status === 401) {
           dispatch(failedToLogin('Email is not registered or password is incorrect.'));
