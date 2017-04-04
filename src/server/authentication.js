@@ -1,21 +1,22 @@
 const LocalStrategy = require('passport-local').Strategy;
-
-// TODO: use a real db here instead of mock user
-const user = {
-  email: 'eventium',
-  password: 'eventium',
-  id: '1',
-};
+const models = require('./models');
 
 export function configPassport(passport) {
   console.log('@config passport');
   passport.use('local-login', new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, (email, password, done) => {
     console.log('@local-login');
-    if (email === user.email && password === user.password) {
-      return done(null, user);
-    } else {
-      return done(null, false, { message: 'Failed to authenticate' });
-    }
+    models.User.findOne({ where: { email } })
+      .then((instance) => {
+        if (instance.get('password') === password) {
+          return done(null, instance);
+        } else {
+          return done(null, false, { message: 'Failed to authenticate' });
+        }
+      })
+      .catch((err) => {
+        console.log(`error!: ${err}`);
+        return done(null, false, { message: `Error: ${err}` });
+      });
   }));
 
   passport.serializeUser((user, done) => {
@@ -25,11 +26,12 @@ export function configPassport(passport) {
 
   passport.deserializeUser((id, done) => {
     console.log('@deserializeUser');
-    if (id === user.id) {
-      done(null, user);
-    } else {
-      done(null, false);
-    }
+    models.User.findById(id)
+      .then((instance) => {
+        return done(null, instance);
+      }).catch((err) => {
+        return done(null, false, { message: `Error: ${err}` });
+      });
   });
 }
 
