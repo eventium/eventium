@@ -9,6 +9,11 @@ class EventListPage extends Component {
   }
 
   componentWillMount() {
+    const session = this.props.session;
+    if (!session.user) {
+      this.context.router.push('/login');
+      return;
+    }
     const { dispatch } = this.props
     dispatch(loadEvents())
   }
@@ -29,11 +34,15 @@ class EventListPage extends Component {
 EventListPage.propTypes = {
   events: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
-}
+};
+EventListPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
 
 const mapStateToProps = (state) => {
   return {
-    events: state.events
+    events: state.events,
+    session: state.session,
   }
 }
 

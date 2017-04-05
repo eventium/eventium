@@ -1,32 +1,44 @@
-var models = require('./models');
-const events = {
-  events: [
-    {
-      id: 1,
-      title: 'Hiking Hypeday',
-      time: 1490567717959,
-      location: {
-        city: 'Vancouver',
-        address: '1234 Commercial Dr.',
-        postal: 'A1B 2C3'
-      },
-      description: "Let's go hiking!"
-    },
-    {
-      id: 2,
-      title: 'Biking Marathon',
-      time: 1490567717959,
-      location: {
-        city: 'Vancouver',
-        address: '1234 Commercial Dr.',
-        postal: 'A1B 2C3'
-      },
-      description: "Let's go biking!"
-    }
-  ]
-};
+import passport from 'passport';
+import { isLoggedIn } from './authentication';
+
+const models = require('./models');
 
 const API = (app) => {
+  app.use(['/api/*'], isLoggedIn);
+  app.post('/api/login', passport.authenticate('local-login'), (req, res) => {
+    const id = req.session.passport.user;
+    models.User.findById(id)
+      .then((instance) => {
+        res.status(200);
+        res.json({
+          id: instance.get('id'),
+          email: instance.get('email'),
+          first_name: instance.get('first_name'),
+          last_name: instance.get('last_name'),
+        });
+      }).catch((err) => {
+        console.log(`/api/login error: ${err}`);
+        res.status(500);
+        res.end();
+      });
+  });
+  app.get('/api/session', (req, res) => {
+    const id = req.session.passport.user;
+    models.User.findById(id)
+      .then((instance) => {
+        res.status(200);
+        res.json({
+          id: instance.get('id'),
+          email: instance.get('email'),
+          first_name: instance.get('first_name'),
+          last_name: instance.get('last_name'),
+        });
+      }).catch((err) => {
+        res.status(500);
+        res.end(`/api/session error: ${err}`);
+      });
+  });
+
   app.get('/api/events/', (req, res) => {
     models.Event.findAll().then(instances =>
       instances.map(instance =>
@@ -44,8 +56,6 @@ const API = (app) => {
     models.Event.findById(id).then(instance => {
       res.json(instance.get());
     })
-    //const event = events.events.find((event) => {return event.id === id});
-    //res.json(event);
   })
 };
 

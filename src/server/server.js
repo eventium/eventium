@@ -8,14 +8,21 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { createStore, applyMiddleware, compose } from 'redux';
+import passport from 'passport';
+import expressSession from 'express-session';
+import bodyParser from 'body-parser';
 
 import routes from './../common/routes';
 import NotFoundPage from './../common/components/NotFoundPage';
 import eventiumApp from './../common/reducers';
 import API from './api';
 import db from './models';
+
 import socketEvents from './socketEvents';
 import { messageRouter } from './routes/message_routes';
+import { configPassport } from './authentication';
+
+configPassport(passport);
 
 // initialize the server and configure support for ejs templates
 const app = new Express();
@@ -23,6 +30,24 @@ const app = new Express();
 
 // define the folder that will be used for static assets
 app.use(Express.static(path.join(__dirname, '..', 'common', 'static')));
+
+// auth related middleware
+// app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(expressSession({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: false,
+    secure: false,
+    maxAge: 600 * 1000,
+    path: '/',
+  },
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Registrated API routes
 API(app);
