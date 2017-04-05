@@ -23,6 +23,7 @@ class EventPage extends Component {
     const { title, description, location, address, city, province, postal_code } = this.props.event;
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
+    const id = this.props.params.id;
     return (
       <div>
         <span className="page-header">
@@ -39,7 +40,7 @@ class EventPage extends Component {
             <Link to="#">People</Link>
           </li>
           <li role="presentation">
-            <Link to="#">Chat</Link>
+            <Link to={`events/${id}/chat`}>Chat</Link>
           </li>
         </ul>
         <div className="container">
