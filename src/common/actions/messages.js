@@ -36,7 +36,7 @@ export function fetchMessages(eventId) {
   return dispatch => {
     dispatch(requestMessages());
 
-    return fetch(url)
+    return fetch(url, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(json => dispatch(receiveMessages(json)))
       .catch(error => { throw error });
@@ -49,6 +49,7 @@ export function createMessage(eventId, message) {
   return dispatch => {
     dispatch(addMessage(message));
     return fetch(url, {
+      credentials: 'same-origin',
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
