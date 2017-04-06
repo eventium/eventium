@@ -8,6 +8,8 @@ import {
   RECEIVE_INDIVIDUAL_EVENT,
   CREATE_EVENT_REQUEST,
   CREATE_EVENT_RESPONSE,
+  UPDATE_EVENT_REQUEST,
+  UPDATE_EVENT_RESPONSE,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
@@ -32,11 +34,15 @@ function receiveEvents(json) {
 
 export function loadEvents() {
   const url = `${HOST}/api/events/`;
+  let options = {};
 
   return dispatch => {
     dispatch(requestEvents());
 
-    return fetch(url, { credentials: 'same-origin' })
+    options.method = 'GET';
+    options.credentials = 'same-origin';
+
+    return fetch(url, options)
       .then(response => response.json())
       .then(json => dispatch(receiveEvents(json)))
       .catch((err) => {
@@ -54,34 +60,38 @@ export function loadEvents() {
 function requestEvent(id) {
   return {
     type: REQUEST_INDIVIDUAL_EVENT,
-    id: parseInt(id, 10),
-    title: '',
-    location: '',
-    address: '',
-    city: '',
-    province: '',
-    postal_code: '',
-    description: '',
-    image: '',
-    start_time: '',
-    end_time: '',
+    event: {
+      id: parseInt(id, 10),
+      title: '',
+      location: '',
+      address: '',
+      city: '',
+      province: '',
+      postal_code: '',
+      description: '',
+      image: '',
+      start_time: '',
+      end_time: '',
+    },
   };
 }
 
 function receiveEvent(id, json) {
   return {
     type: RECEIVE_INDIVIDUAL_EVENT,
-    id: parseInt(id, 10),
-    title: json.title,
-    location: json.location,
-    address: json.address,
-    city: json.city,
-    province: json.province,
-    postal_code: json.postal_code,
-    description: json.description,
-    image: json.image,
-    start_time: json.start_time,
-    end_time: json.end_time,
+    event: {
+      id: parseInt(id, 10),
+      title: json.title,
+      location: json.location,
+      address: json.address,
+      city: json.city,
+      province: json.province,
+      postal_code: json.postal_code,
+      description: json.description,
+      image: json.image,
+      start_time: json.start_time,
+      end_time: json.end_time,
+    },
   };
 }
 
@@ -160,5 +170,71 @@ export function createEvent(formData) {
     return fetch(url, options)
     .then(response => response.json())
     .then(json => dispatch(createEventResponse(json)));
+  };
+}
+
+// -------------------------------------------------------------------------------------------------
+// PUT /api/events/
+// -------------------------------------------------------------------------------------------------
+
+function updateEventRequest(event) {
+  return {
+    type: UPDATE_EVENT_REQUEST,
+    event: event,
+  };
+}
+
+function updateEventResponse(json) {
+  return {
+    type: UPDATE_EVENT_RESPONSE,
+    event: {
+      id: json.id,
+      title: json.title,
+      location: json.location,
+      address: json.address,
+      city: json.city,
+      province: json.province,
+      postal_code: json.postal_code,
+      description: json.description,
+      image: json.image,
+      start_time: json.start_time,
+      end_time: json.end_time,
+    },
+  };
+}
+
+export function updateEvent(formData) {
+  let form = new FormData();
+  let options = {};
+  let event = {};
+  let id;
+
+  for (let i = 0; i < formData.length; i += 1) {
+    const name = formData[i].getAttribute('name');
+    const value = formData[i].value;
+
+    if(name === 'image') {
+      const file = formData[i].files[0];
+
+      form.append(name, file)
+    }
+    else {
+      form.append(name, value);
+    }
+  }
+
+  id = form.get('id');
+
+  const url = `${HOST}/api/events/${id}`;
+
+  options.method = 'PUT';
+  options.body = form;
+
+  return dispatch => {
+    dispatch(updateEventRequest(event));
+
+    return fetch(url, options)
+    .then(response => response.json())
+    .then(json => dispatch(updateEventResponse(json)));
   };
 }

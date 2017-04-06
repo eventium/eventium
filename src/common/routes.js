@@ -11,6 +11,7 @@ import ChatPage from './containers/ChatPage';
 import LoginPage from './containers/LoginPage';
 import SignupPage from './containers/SignupPage';
 import CreateEventPage from './containers/CreateEventPage';
+import UpdateEventPage from './containers/UpdateEventPage';
 
 const routes = (
   <Route path="/" component={Layout}>
@@ -22,6 +23,7 @@ const routes = (
       <Route path=":id/chat" component={ChatPage} />
     	<Route path="create" component={CreateEventPage} />
     	<Route path=":id" component={EventPage} />
+    	<Route path="update/:id" component={UpdateEventPage} />
     </Route>
     <Route path="*" component={NotFoundPage} />
   </Route>
