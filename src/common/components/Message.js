@@ -8,7 +8,7 @@ export default class Message extends React.Component {
       <div>
         <div className="message-data text-right">
           <span className="message-data-time">10:10 AM, Today</span>&nbsp;
-          <span className="message-data-name">Joe</span>
+          <span className="message-data-name">Me</span>
         </div>
         <div className="message my-message">{message.content}</div>
       </div>
@@ -20,7 +20,7 @@ export default class Message extends React.Component {
     return (
       <div>
         <div className="message-data text-left">
-          <span className="message-data-name">Bob</span>
+          <span className="message-data-name">{message.User.first_name}</span>
           <span className="message-data-time">11:10 AM, Today</span>&nbsp;
         </div>
         <div className="message other-message">{message.content}</div>
@@ -30,10 +30,8 @@ export default class Message extends React.Component {
 
 
   render() {
-    // Remove me once we have real accounts
-    const rng = Math.floor(Math.random() * 2);
     let message = null;
-    if (rng === 0) {
+    if (this.props.session.user.id === this.props.message.user_id) {
       message = this.renderMyMessage();
     } else {
       message = this.renderOtherMessage();
@@ -47,8 +45,13 @@ export default class Message extends React.Component {
 }
 
 Message.propTypes = {
+  session: PropTypes.object.isRequired,
   message: PropTypes.shape({
     uuid: PropTypes.string.isRequired,
+    user_id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
+    User: PropTypes.shape({
+      first_name: PropTypes.string.isRequired,
+    }),
   }).isRequired,
 };

@@ -30,6 +30,9 @@ module.exports = (sequelize, DataType) => {
         fields: ['event_id'],
       },
     ],
+    classMethods: {
+      associate: (models) => { Message.belongsTo(models.User, { foreignKey: 'user_id' }); },
+    },
   });
 
   return Message;

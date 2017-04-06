@@ -19,9 +19,15 @@ export default class MessageComposer extends React.Component {
     const text = event.target.value.trim();
     if (event.which === 13) {
       event.preventDefault();
+      const session = this.props.session;
       const newMessage = {
         uuid: uuid.v4(),
         content: text,
+        user_id: session.user.id,
+        created_on: Date.now(),
+        User: {
+          first_name: session.user.first_name,
+        },
       };
       socket.emit('new message', newMessage);
 
@@ -53,6 +59,7 @@ export default class MessageComposer extends React.Component {
 }
 
 MessageComposer.propTypes = {
+  session: PropTypes.object.isRequired,
   socket: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired, // Is used in Chat.js to trigger local messagelist update
 };

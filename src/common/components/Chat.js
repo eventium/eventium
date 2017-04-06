@@ -17,6 +17,15 @@ export default class Chat extends Component {
     socket.on('new message', msg =>
       dispatch(actions.receiveRawMessage(msg)),
     );
+
+    // Used to scroll the window to the end of the messages
+    this.messagesEnd.scrollIntoView();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.messages.length !== this.props.messages.length) {
+      this.messagesEnd.scrollIntoView();
+    }
   }
 
   handleSave(newMessage) {
@@ -28,16 +37,17 @@ export default class Chat extends Component {
   }
 
   render() {
-    const { messages, socket } = this.props;
+    const { messages, socket, session } = this.props;
 
     return (
       <div className="chat">
         <div className="messages">
           <ul className="list-unstyled">
             {messages.map(message =>
-              <Message message={message} key={message.uuid} />,
+              <Message message={message} key={message.uuid} session={session} />,
             )}
           </ul>
+          <div ref={node => this.messagesEnd = node} />
         </div>
         <MessageComposer {...this.props} socket={socket} onSave={this.handleSave} />
       </div>
@@ -46,6 +56,7 @@ export default class Chat extends Component {
 }
 
 Chat.propTypes = {
+  session: PropTypes.object.isRequired,
   messages: PropTypes.array.isRequired,
   socket: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
