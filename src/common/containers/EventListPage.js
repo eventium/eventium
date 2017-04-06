@@ -44,6 +44,7 @@ EventListPage.propTypes = {
   events: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
+
 EventListPage.contextTypes = {
   router: PropTypes.object.isRequired,
 };
