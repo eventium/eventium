@@ -5,6 +5,14 @@ export const events = (state = [], action) => {
     case constants.RECEIVE_EVENTS: {
       return action.events;
     }
+    case constants.CREATE_EVENT_RESPONSE: {
+      return Object.assign({}, state, {
+        events: [
+          ...state.events,
+          action.event,
+        ],
+      });
+    }
     default:
       return state;
   }
