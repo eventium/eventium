@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { loadEvent } from '../actions/events';
+import NavBar from '../components/NavBar';
 
 class EventPage extends Component {
   constructor(props) {
@@ -26,23 +27,7 @@ class EventPage extends Component {
     const id = this.props.params.id;
     return (
       <div>
-        <span className="page-header">
-          <Link to="/" role="button">
-            <span className="glyphicon glyphicon-chevron-left back-button" />
-          </Link>
-          <h1>Event</h1>
-        </span>
-        <ul className="nav nav-pills">
-          <li role="presentation" className="active">
-            <Link to="#">Details</Link>
-          </li>
-          <li role="presentation">
-            <Link to="#">People</Link>
-          </li>
-          <li role="presentation">
-            <Link to={`events/${id}/chat`}>Chat</Link>
-          </li>
-        </ul>
+        <NavBar eventId={id} />
         <div className="container">
           <h2>Title</h2>
           <div>{title}</div>

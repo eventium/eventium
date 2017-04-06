@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import io from 'socket.io-client';
 import { fetchMessages } from '../actions/messages';
-import { fetchSession } from '../actions/session';
 import Chat from '../components/Chat';
+import NavBar from '../components/NavBar';
 
 const socket = io('', { path: '/api/chat' });
 
@@ -23,8 +23,12 @@ class ChatPage extends Component {
 
 
   render() {
+    const eventId = this.props.params.id;
     return (
-      <Chat {...this.props} socket={socket} />
+      <div>
+        <NavBar eventId={eventId} />
+        <Chat {...this.props} socket={socket} />
+      </div>
     );
   }
 }

@@ -21,9 +21,48 @@
   margin-right: 10px;
 }
 
+/* -------------------------------------------------------------------------------------------------
+/* 
+/* ---------------------------------------------------------------------------------------------- */
+
+.navbar-wrapper {
+  z-index: 99;
+  position: fixed;
+  background: #444753;
+  height: 55px;
+  width: 100%;
+}
+
+.navbar-wrapper ul {
+  list-style-type: none;
+  height: 100%;
+  padding-left: 0;
+  background: #444753;
+}
+
+.navbar-wrapper li {
+  float: left !important;
+  width: 25%;
+  height: 100%;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.navbar-wrapper button {
+  float: left !important;
+  width: 25%;
+  height: 100%;
+  text-align: center;
+}
+
+.navbar-wrapper .glyphicon {
+  color: white;
+  font-size: 20px;
+}
+
 
 /* -------------------------------------------------------------------------------------------------
-/* Chat Related CSS Credits: http://codepen.io/drehimself/pen/KdXwxR;
+/* Chat Related (Some styling borrowed from: http://codepen.io/drehimself/pen/KdXwxR)
 /* ---------------------------------------------------------------------------------------------- */
 
 .chat {
@@ -32,7 +71,7 @@
 
 .messages {
   height: 80vh;
-  padding-top: 5%;
+  padding-top: 70px;
   overflow-y: scroll;
   padding-left: 5%;
   padding-right: 5%;
