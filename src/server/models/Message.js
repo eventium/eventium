@@ -1,28 +1,39 @@
-module.exports = function(sequelize, DataType) {
-	var Message = sequelize.define('Message', {
-		id: {
-			type: DataType.INTEGER,
-			field: 'id',
-			primaryKey: true,
-			autoIncrement: true,
-		},
-		event_id: {
-			type: DataType.INTEGER,
-			field: 'event_id',
-		},
-		user_id: {
-			type: DataType.INTEGER,
-			field: 'user_id',
-		},
-		created_on: {
-			type: DataType.DATE,
-			field: 'created_on',
-		},
-		content: {
-			type: DataType.TEXT,
-			field: 'content',
-		},
-	});
+const uuid = require('node-uuid');
 
-	return Message;
-}
+module.exports = (sequelize, DataType) => {
+  const Message = sequelize.define('Message', {
+    uuid: {
+      type: DataType.UUID,
+      defaultValue: () => (uuid.v4()),
+      primaryKey: true,
+    },
+    event_id: {
+      type: DataType.INTEGER,
+      field: 'event_id',
+    },
+    user_id: {
+      type: DataType.INTEGER,
+      field: 'user_id',
+    },
+    created_on: {
+      type: DataType.DATE,
+      field: 'created_on',
+    },
+    content: {
+      type: DataType.TEXT,
+      field: 'content',
+      defaultValue: DataType.NOW,
+    },
+  }, {
+    indexes: [
+      {
+        fields: ['event_id'],
+      },
+    ],
+    classMethods: {
+      associate: (models) => { Message.belongsTo(models.User, { foreignKey: 'user_id' }); },
+    },
+  });
+
+  return Message;
+};

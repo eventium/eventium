@@ -6,14 +6,16 @@ import Layout from './components/Layout';
 import NotFoundPage from './components/NotFoundPage';
 import EventListPage from './containers/EventListPage';
 import EventPage from './containers/EventPage';
+import ChatPage from './containers/ChatPage';
 import LoginPage from './containers/LoginPage';
 
 const routes = (
   <Route path="/" component={Layout}>
-    <IndexRoute component={EventListPage} />
+    <IndexRoute component={EventListPage}/>
+    <Route path="/events/:id" component={EventPage}/>
+      <Route path="/events/:id/chat" component={ChatPage}/>
     <Route path="login" component={LoginPage} />
-    <Route path="/events/:id" component={EventPage} />
-    <Route path="*" component={NotFoundPage} />
+    <Route path="*" component={NotFoundPage}/>
   </Route>
 );
 
