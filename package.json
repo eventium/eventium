@@ -32,6 +32,7 @@
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.18.1",
     "node-uuid": "^1.4.8",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

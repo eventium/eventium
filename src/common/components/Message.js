@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import moment from 'moment';
 
 export default class Message extends React.Component {
 
@@ -7,7 +8,7 @@ export default class Message extends React.Component {
     return (
       <div>
         <div className="message-data text-right">
-          <span className="message-data-time">10:10 AM, Today</span>&nbsp;
+          <span className="message-data-time">{`${moment(message.created_on).calendar()}`}</span>&nbsp;
           <span className="message-data-name">Me</span>
         </div>
         <div className="message my-message">{message.content}</div>
@@ -21,7 +22,7 @@ export default class Message extends React.Component {
       <div>
         <div className="message-data text-left">
           <span className="message-data-name">{message.User.first_name}</span>
-          <span className="message-data-time">11:10 AM, Today</span>&nbsp;
+          <span className="message-data-time">{`${moment(message.created_on).calendar()}`}</span>&nbsp;
         </div>
         <div className="message other-message">{message.content}</div>
       </div>
