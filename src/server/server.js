@@ -46,7 +46,7 @@ app.use(expressSession({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: 10 * 60 * 1000,
+    maxAge: null,
     path: '/',
   },
   store: new SequelizeStore({
