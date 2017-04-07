@@ -15,7 +15,12 @@ export default class Chat extends Component {
     socket.emit('join channel', this.props.params.id);
 
     socket.on('new message', msg => {
-      dispatch(actions.receiveRawMessage(msg));
+      // used to make sure that we do not dispatch receive message twice. For what ever reason socket.io
+      // does not remove connection properly for react and dispatches the message twice on the page refresh.
+      const alreadyExists = this.props.messages.some(msgObj => (msgObj.uuid === msg.uuid));
+      if (!alreadyExists) {
+        dispatch(actions.receiveRawMessage(msg));
+      }
     });
 
     // Used to scroll the window to the end of the messages
