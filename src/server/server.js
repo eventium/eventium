@@ -27,14 +27,7 @@ const SequelizeStore = require('connect-session-sequelize')(expressSession.Store
 
 configPassport(passport);
 
-// initialize the server and configure support for ejs templates
 const app = new Express();
-
-
-// define the folder that will be used for static assets
-app.use(Express.static(path.join(__dirname, '..', 'common', 'static')));
-
-// auth related middleware
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -53,7 +46,6 @@ app.use(expressSession({
     db: db.sequelize,
     table: 'Session',
     extendDefaultFields: (defaults, session) => {
-      console.log(session);
       return {
         data: defaults.data,
         expires: defaults.expires,
@@ -112,7 +104,7 @@ app.get('*', (req, res) => {
 });
 
 // start the server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const env = process.env.NODE_ENV || 'production';
 const server = app.listen(port, (err) => {
   if (err) {
