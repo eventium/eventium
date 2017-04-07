@@ -25,6 +25,7 @@ export default class MessageComposer extends React.Component {
         content: text,
         user_id: session.user.id,
         created_on: Date.now(),
+        channelId: this.props.params.id,
         User: {
           first_name: session.user.first_name,
         },

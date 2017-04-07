@@ -12,11 +12,11 @@ export default class Chat extends Component {
 
   componentDidMount() {
     const { socket, dispatch } = this.props;
-    socket.emit('joined channel', {});
+    socket.emit('join channel', this.props.params.id);
 
-    socket.on('new message', msg =>
-      dispatch(actions.receiveRawMessage(msg)),
-    );
+    socket.on('new message', msg => {
+      dispatch(actions.receiveRawMessage(msg));
+    });
 
     // Used to scroll the window to the end of the messages
     this.messagesEnd.scrollIntoView();
