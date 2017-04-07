@@ -1,11 +1,11 @@
-import { connect } from 'react-redux'
-import React, { Component, PropTypes } from 'react'
-import { loadEvents } from '../actions/events'
-import EventList from '../components/EventList'
+import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { loadEvents } from '../actions/events';
+import EventList from '../components/EventList';
 
 class EventListPage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentWillMount() {
@@ -14,20 +14,20 @@ class EventListPage extends Component {
       this.context.router.push('/login');
       return;
     }
-    const { dispatch } = this.props
-    dispatch(loadEvents())
+    const { dispatch } = this.props;
+    dispatch(loadEvents());
   }
 
   render() {
     const { events } = this.props;
     return (
       <div>
-        <span className='page-header'>
+        <span className="page-header">
           <h1>Your events</h1>
         </span>
         <EventList events={events} />
       </div>
-    )
+    );
   }
 }
 
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
   return {
     events: state.events,
     session: state.session,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(EventListPage)
+export default connect(mapStateToProps)(EventListPage);
