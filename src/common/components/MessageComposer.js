@@ -17,6 +17,8 @@ export default class MessageComposer extends React.Component {
   handleSubmit(event) {
     const { socket } = this.props;
     const text = event.target.value.trim();
+    const eventId = this.props.params.id;
+
     if (event.which === 13) {
       event.preventDefault();
       const session = this.props.session;
@@ -24,8 +26,9 @@ export default class MessageComposer extends React.Component {
         uuid: uuid.v4(),
         content: text,
         user_id: session.user.id,
+        event_id: parseInt(eventId),
         created_on: Date.now(),
-        channelId: this.props.params.id,
+        channelId: eventId,
         User: {
           first_name: session.user.first_name,
         },

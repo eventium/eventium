@@ -50,6 +50,7 @@ Message.propTypes = {
   message: PropTypes.shape({
     uuid: PropTypes.string.isRequired,
     user_id: PropTypes.number.isRequired,
+    event_id: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
     User: PropTypes.shape({
       first_name: PropTypes.string.isRequired,
