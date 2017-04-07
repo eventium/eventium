@@ -1,43 +1,13 @@
 import passport from 'passport';
-import { isLoggedIn } from './authentication';
+import { isLoggedIn, respondWithSession } from './authentication';
 
 const models = require('./models');
 
 const API = (app) => {
   app.use(['/api/*'], isLoggedIn);
-  app.post('/api/login', passport.authenticate('local-login'), (req, res) => {
-    const id = req.session.passport.user;
-    models.User.findById(id)
-      .then((instance) => {
-        res.status(200);
-        res.json({
-          id: instance.get('id'),
-          email: instance.get('email'),
-          first_name: instance.get('first_name'),
-          last_name: instance.get('last_name'),
-        });
-      }).catch((err) => {
-        console.log(`/api/login error: ${err}`);
-        res.status(500);
-        res.end();
-      });
-  });
-  app.get('/api/session', (req, res) => {
-    const id = req.session.passport.user;
-    models.User.findById(id)
-      .then((instance) => {
-        res.status(200);
-        res.json({
-          id: instance.get('id'),
-          email: instance.get('email'),
-          first_name: instance.get('first_name'),
-          last_name: instance.get('last_name'),
-        });
-      }).catch((err) => {
-        res.status(500);
-        res.end(`/api/session error: ${err}`);
-      });
-  });
+
+  app.post('/api/login', passport.authenticate('local-login'), respondWithSession);
+  app.get('/api/session', respondWithSession);
 
   app.get('/api/events/', (req, res) => {
     models.Event.findAll().then(instances =>
