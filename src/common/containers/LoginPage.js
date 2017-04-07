@@ -20,7 +20,7 @@ class LoginPage extends Component {
     const nowSession = this.props.session;
     if (prevSession.status !== constants.SESSION_STATUS_LOGGED_IN &&
       nowSession.status === constants.SESSION_STATUS_LOGGED_IN) {
-      this.context.router.push('/');
+      this.context.router.goBack();
     }
   }
   handleSubmit(e) {

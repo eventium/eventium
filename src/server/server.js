@@ -3,7 +3,7 @@ import path from 'path';
 import Express from 'express';
 import React from 'react';
 import thunkMiddleware from 'redux-thunk';
-import { Server } from 'http';
+import SocketIO from 'socket.io';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -18,22 +18,16 @@ import NotFoundPage from './../common/components/NotFoundPage';
 import eventiumApp from './../common/reducers';
 import API from './api';
 import db from './models';
+
+import socketEvents from './socketEvents';
+import { messageRouter } from './routes/message_routes';
 import { configPassport } from './authentication';
 
 const SequelizeStore = require('connect-session-sequelize')(expressSession.Store);
 
 configPassport(passport);
 
-// initialize the server and configure support for ejs templates
 const app = new Express();
-const server = new Server(app);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// define the folder that will be used for static assets
-app.use(Express.static(path.join(__dirname, '..', 'common', 'static')));
-
-// auth related middleware
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -45,14 +39,13 @@ app.use(expressSession({
   cookie: {
     httpOnly: false,
     secure: false,
-    maxAge: 10 * 60 * 1000,
+    maxAge: null,
     path: '/',
   },
   store: new SequelizeStore({
     db: db.sequelize,
     table: 'Session',
     extendDefaultFields: (defaults, session) => {
-      console.log(session);
       return {
         data: defaults.data,
         expires: defaults.expires,
@@ -68,6 +61,7 @@ app.use(passport.session());
 
 // Registrated API routes
 API(app);
+app.use('/api', messageRouter);
 
 // universal routing and rendering
 app.get('*', (req, res) => {
@@ -110,15 +104,17 @@ app.get('*', (req, res) => {
 });
 
 // start the server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const env = process.env.NODE_ENV || 'production';
-server.listen(port, err => {
+const server = app.listen(port, (err) => {
   if (err) {
     return console.error(err);
   }
   console.info(`Server running on http://localhost:${port} [${env}]`);
 });
 
+const io = new SocketIO(server, { path: '/api/chat' });
+socketEvents(io);
 
 function renderFullPage(markup, initialState) {
   return `

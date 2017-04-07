@@ -32,6 +32,8 @@
     "express": "^4.15.2",
     "express-session": "^1.15.2",
     "isomorphic-fetch": "^2.2.1",
+    "moment": "^2.18.1",
+    "node-uuid": "^1.4.8",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "pg": "^6.1.5",
@@ -41,7 +43,9 @@
     "react-router": "^2.6.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "sequelize": "^3.30.3"
+    "sequelize": "^3.30.3",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3"
   },
   "devDependencies": {
     "babel-loader": "^6.4.1",
