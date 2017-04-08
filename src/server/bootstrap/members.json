@@ -55,11 +55,6 @@
     "role": "host"
   },
   {
-    "event_id": 4,
-    "user_id": 2,
-    "role": "host"
-  },
-  {
     "event_id": 3,
     "user_id": 18,
     "role": "guest"
@@ -68,16 +63,6 @@
     "event_id": 4,
     "user_id": 17,
     "role": "guest"
-  },
-  {
-    "event_id": 3,
-    "user_id": 2,
-    "role": "guest"
-  },
-  {
-    "event_id": 5,
-    "user_id": 2,
-    "role": "host"
   },
   {
     "event_id": 5,
