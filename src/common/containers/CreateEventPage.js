@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import CreateEventForm from '../components/CreateEventForm';
 import { createEvent } from '../actions/events';
+import GeneralNavBar from '../components/GeneralNavBar';
 
 class CreateEventPage extends Component {
   constructor(props) {
@@ -32,14 +33,18 @@ class CreateEventPage extends Component {
 
     onSubmit(form.elements);
 
-    this.context.router.push('/events/');
+    this.context.router.push('/');
   }
 
   render() {
+    const { session } = this.props;
     return (
-      <div className="container">
-        <h1>Create Event</h1>
-        <CreateEventForm onSubmit={this.handleSubmit} submitButton="Create Event" method="POST" />
+      <div>
+        <GeneralNavBar session={session} />
+        <div className="container event-page-wrapper">
+          <h1>Create Event</h1>
+          <CreateEventForm onSubmit={this.handleSubmit} submitButton="Create Event" method="POST" />
+        </div>
       </div>
     );
   }

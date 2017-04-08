@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react'
 import { Provider } from 'react-redux';
 import { Route, IndexRoute } from 'react-router'
 import Layout from './components/Layout';
-import Home from './components/Home.js';
 import NotFoundPage from './components/NotFoundPage';
 import EventListPage from './containers/EventListPage';
 import EventPage from './containers/EventPage';
@@ -15,11 +14,10 @@ import UpdateEventPage from './containers/UpdateEventPage';
 
 const routes = (
   <Route path="/" component={Layout}>
-    <IndexRoute component={Home} />
+    <IndexRoute component={EventListPage} />
     <Route path="login" component={LoginPage} />
     <Route path="signup" component={SignupPage} />
     <Route path="events" component={Layout}>
-    	<IndexRoute component={EventListPage} />
       <Route path="create" component={CreateEventPage} />
       <Route path=":id" component={Layout}>
         <IndexRoute component={EventPage} />

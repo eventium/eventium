@@ -1,6 +1,7 @@
 
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { redirectToLogin } from '../actions/session';
 import { loadEvents } from '../actions/events';
 import { loadInvites } from '../actions/invites';
@@ -33,6 +34,11 @@ class EventListPage extends Component {
         <div className="event-list-page-wrapper">
           <InviteList invites={invites} />
           <EventList events={events} />
+        </div>
+        <div className="create-event">
+          <Link to="/events/create/">
+            <span className="glyphicon glyphicon-plus" />
+          </Link>
         </div>
       </div>
     );

@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { isLoggedIn, respondWithSession } from './authentication';
+import { handleEventImageUpload } from './utils/image.js';
 
 const models = require('./models');
 var multer  = require('multer');
@@ -63,16 +64,20 @@ const API = (app) => {
       end_time: end_time,
     };
 
-    if(req.file) {
-      event.image = req.file.path;
-    }
+    const promise = handleEventImageUpload(req.file);
 
-    models.Event.create(event).then(
-      event => {
-        res.json(event)
+    Promise.all([promise]).then((imgPath) => {
+      if(imgPath[0]) {
+        event.image = imgPath[0];
       }
-    ).catch(error => {
-      console.log(error);
+
+      models.Event.create(event).then(
+        event => {
+          res.json(event)
+        }
+      ).catch(error => {
+        console.log(error);
+      });
     });
   })
 
@@ -94,18 +99,22 @@ const API = (app) => {
       title: req.body.title,
     };
 
-    if(req.file) {
-      event.image = req.file.path;
-    }
+    const promise = handleEventImageUpload(req.file);
 
-    models.Event.upsert(event).then(
-      created => {
-        models.Event.findById(id).then(instance => {
-          res.json(instance.get());
-        });
+    Promise.all([promise]).then((imgPath) => {
+      if(imgPath[0]) {
+        event.image = imgPath[0];
       }
-    ).catch(error => {
-      console.log(error);
+
+      models.Event.upsert(event).then(
+        created => {
+          models.Event.findById(id).then(instance => {
+            res.json(instance.get());
+          });
+        }
+      ).catch(error => {
+        console.log(error);
+      });
     });
   })
 };

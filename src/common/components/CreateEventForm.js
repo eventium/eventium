@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 class CreateEventForm extends Component {
   constructor(props) {
@@ -236,6 +237,12 @@ class CreateEventForm extends Component {
               onChange={this.handleChange}
             />
           </div>
+          <Link
+            to={`/events/${event.id}/`}
+            className="btn btn-default btn-lg pull-left"
+          >
+            <span>Cancel</span>
+          </Link>
           <button
             type="submit"
             className="btn btn-primary btn-lg pull-right"

@@ -29,15 +29,21 @@ class EventPage extends Component {
   }
 
   render() {
-    const { title, description, location, address, city, province, postal_code } = this.props.event;
+    const { image, title, description, location, address, city, province, postal_code } = this.props.event;
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
     const id = this.props.params.id;
     return (
       <div>
         <NavBar eventId={id} />
-        <div className="container">
+        <div className="container event-page-wrapper">
           <h1>{title}</h1>
+          {image &&
+            <img
+              src={`/${image}`}
+              alt=""
+            />
+          }
           <h2>Description</h2>
           <p>{description}</p>
           <h2>Time</h2>
@@ -55,8 +61,11 @@ class EventPage extends Component {
               <div>{postal_code}</div>
             </div>
           </div>
-
-
+        </div>
+        <div className="update-event">
+          <Link to={`/events/${id}/update/`}>
+            <span className="glyphicon glyphicon-pencil" />
+          </Link>
         </div>
       </div>
     );

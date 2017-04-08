@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import CreateEventForm from '../components/CreateEventForm';
 import { updateEvent, loadEvent } from '../actions/events';
+import NavBar from '../components/NavBar';
 
 class UpdateEventPage extends Component {
   constructor(props) {
@@ -41,15 +42,19 @@ class UpdateEventPage extends Component {
   }
 
   render() {
+    const id = this.props.params.id;
     return (
-      <div className="container">
-        <h1>Update Event</h1>
-        <CreateEventForm
-          onSubmit={this.handleSubmit}
-          event={this.props.event}
-          submitButton="Update Event"
-          method="PUT"
-        />
+      <div>
+        <NavBar eventId={id} />
+        <div className="container event-page-wrapper">
+          <h1>Update Event</h1>
+          <CreateEventForm
+            onSubmit={this.handleSubmit}
+            event={this.props.event}
+            submitButton="Update Event"
+            method="PUT"
+          />
+        </div>
       </div>
     );
   }
