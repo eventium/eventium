@@ -8,6 +8,7 @@ import EventListPage from './containers/EventListPage';
 import EventPage from './containers/EventPage';
 import ChatPage from './containers/ChatPage';
 import LoginPage from './containers/LoginPage';
+import SignupPage from './containers/SignupPage';
 
 const routes = (
   <Route path="/" component={Layout}>
@@ -15,6 +16,7 @@ const routes = (
     <Route path="/events/:id" component={EventPage}/>
       <Route path="/events/:id/chat" component={ChatPage}/>
     <Route path="login" component={LoginPage} />
+    <Route path="signup" component={SignupPage} />
     <Route path="*" component={NotFoundPage}/>
   </Route>
 );
