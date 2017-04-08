@@ -34,9 +34,13 @@ export function configPassport(passport) {
       });
   });
 }
-
+const authenticationWhiteList = [
+  '/login',
+  '/api/login',
+  '/api/user',
+];
 export function isLoggedIn(req, res, next) {
-  if (req.originalUrl === '/login' || req.originalUrl === '/api/login') {
+  if (authenticationWhiteList.find(path => path === req.originalUrl)) {
     next();
   } else if (req.isAuthenticated()) {
     next();

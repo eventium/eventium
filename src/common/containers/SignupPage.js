@@ -32,6 +32,7 @@ class SignupPage extends Component {
   render() {
     const { signupState } = this.props;
     const disabled = (signupState.status === constants.SIGNUP_PENDING);
+    const infoMessage = (signupState.message || '');
     const errorMessage = (signupState.error || '');
     return (
       <div>
@@ -62,8 +63,9 @@ class SignupPage extends Component {
           </fieldset>
         </form>
 
-        <div>{errorMessage}</div>
+        <div>{infoMessage}</div>
 
+        <div>{errorMessage}</div>
       </div>
     );
   }
