@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component, PropTypes } from 'react'
+import { redirectToLogin } from '../actions/session';
 import { loadEvents } from '../actions/events'
 import EventList from '../components/EventList'
 
@@ -9,12 +10,12 @@ class EventListPage extends Component {
   }
 
   componentWillMount() {
+    const { dispatch } = this.props
     const session = this.props.session;
     if (!session.user) {
-      this.context.router.push('/login');
+      dispatch(redirectToLogin(this.context.router));
       return;
     }
-    const { dispatch } = this.props
     dispatch(loadEvents())
   }
 

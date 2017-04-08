@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { redirectToLogin } from '../actions/session';
 import { loadEvent } from '../actions/events';
 import NavBar from '../components/NavBar';
 
@@ -10,13 +11,13 @@ class EventPage extends Component {
   }
 
   componentWillMount() {
+    const { dispatch } = this.props;
     const session = this.props.session;
     if (!session.user) {
-      this.context.router.push('/login');
+      dispatch(redirectToLogin(this.context.router));
       return;
     }
     const id = this.props.params.id;
-    const { dispatch } = this.props;
     dispatch(loadEvent(id));
   }
 

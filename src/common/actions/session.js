@@ -3,6 +3,7 @@ import {
   REQUEST_SESSION,
   RECEIVE_SESSION,
   FAILED_TO_LOGIN,
+  REDIRECT_TO_LOGIN,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
@@ -85,5 +86,20 @@ export function fetchSession() {
         return dispatch(failedToLogin());
       })
       .catch(err => dispatch(failedToLogin(`fetchSession error: ${err}`)));
+  };
+}
+
+// Other
+function loginRedirect() {
+  return {
+    type: REDIRECT_TO_LOGIN,
+  };
+}
+export function redirectToLogin(browserHistory) {
+  return (dispatch) => {
+    dispatch(loginRedirect());
+    return Promise.resolve().then(function() {
+      browserHistory.push('/login');
+    });
   };
 }

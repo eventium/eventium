@@ -31,9 +31,16 @@ class SignupPage extends Component {
   }
   render() {
     const { signupState } = this.props;
-    const disabled = (signupState.status === constants.SIGNUP_PENDING);
+    const pending = (signupState.status === constants.SIGNUP_PENDING);
     const infoMessage = (signupState.message || '');
     const errorMessage = (signupState.error || '');
+
+    if (pending) {
+      return (
+        <div className="loader absolute-center" />
+      );
+    }
+
     return (
       <div>
         <span className="page-header">
@@ -41,7 +48,7 @@ class SignupPage extends Component {
         </span>
 
         <form onSubmit={e => this.handleSubmit(e)}>
-          <fieldset disabled={disabled}>
+          <fieldset disabled={pending}>
             <div>
               <label htmlFor="username">Email:</label>
               <input type="text" id="username" name="username" value={this.state.username} onChange={e => this.handleInputChange(e)} />

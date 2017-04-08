@@ -4,7 +4,7 @@ export default function signupState(state = { status: constants.SIGNUP_IDLE }, a
   switch (action.type) {
     case constants.SIGNUP_REQUEST: {
       return {
-        status: constants.SESSION_STATUS_PENDING,
+        status: constants.SIGNUP_PENDING,
       };
     }
     case constants.SIGNUP_SUCCESS: {
