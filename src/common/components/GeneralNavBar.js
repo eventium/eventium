@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap';
+import { logout } from '../actions/session';
 
 export default class GeneralNavBar extends Component {
 
-
+  handleLogOut() {
+    this.props.dispatch(logout(this.context.router));
+  }
   render() {
     const { session } = this.props;
     let firstName = 'Unknown';
@@ -21,7 +24,7 @@ export default class GeneralNavBar extends Component {
           <NavDropdown eventKey={3} title={firstName} id="basic-nav-dropdown">
             <MenuItem eventKey={3.1}><Glyphicon glyph="cog" />Account</MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey={3.2}><Glyphicon glyph="log-out" />Logout</MenuItem>
+            <MenuItem eventKey={3.2} onSelect={() => this.handleLogOut()}><Glyphicon glyph="log-out" />Logout</MenuItem>
           </NavDropdown>
         </ul>
       </div>
@@ -31,4 +34,8 @@ export default class GeneralNavBar extends Component {
 
 GeneralNavBar.propTypes = {
   session: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+GeneralNavBar.contextTypes = {
+  router: PropTypes.object.isRequired,
 };

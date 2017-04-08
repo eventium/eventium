@@ -13,6 +13,12 @@ const API = (app) => {
 
   app.get('/api/session', respondWithSession);
 
+  app.delete('/api/session', (req, res) => {
+    req.logout();
+    res.status(200);
+    res.end();
+  });
+
   app.post('/api/user', (req, res) => {
     console.log(req.body);
     models.User.create({

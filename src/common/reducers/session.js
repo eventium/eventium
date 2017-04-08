@@ -27,6 +27,22 @@ function session(state = { status: constants.SESSION_STATUS_LOGGED_OUT }, action
         redirect: true,
       };
     }
+    case constants.REQUEST_LOGOUT: {
+      return Object.assign(state, {
+        status: constants.SESSION_STATUS_PENDING,
+      });
+    }
+    case constants.DELETE_SESSION: {
+      return {
+        status: constants.SESSION_STATUS_LOGGED_OUT,
+      };
+    }
+    case constants.FAILED_TO_LOGOUT: {
+      return Object.assign(state, {
+        status: constants.SESSION_STATUS_LOGGED_IN,
+        error: action.error,
+      });
+    }
     default: {
       return state;
     }

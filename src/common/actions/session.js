@@ -4,6 +4,10 @@ import {
   RECEIVE_SESSION,
   FAILED_TO_LOGIN,
   REDIRECT_TO_LOGIN,
+
+  REQUEST_LOGOUT,
+  DELETE_SESSION,
+  FAILED_TO_LOGOUT,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
@@ -86,6 +90,51 @@ export function fetchSession() {
         return dispatch(failedToLogin());
       })
       .catch(err => dispatch(failedToLogin(`fetchSession error: ${err}`)));
+  };
+}
+
+// -------------------------------------------------------------------------------------------------
+// DELETE /api/session
+// -------------------------------------------------------------------------------------------------
+
+function requestLogout() {
+  return {
+    type: REQUEST_LOGOUT,
+  };
+}
+function deleteSession() {
+  return {
+    type: DELETE_SESSION,
+  };
+}
+function failedToLogout(error) {
+  return {
+    type: FAILED_TO_LOGOUT,
+    error,
+  };
+}
+export function logout(browserHistory) {
+  const url = `${HOST}/api/session`;
+  const message = {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+  };
+  return (dispatch) => {
+    dispatch(requestLogout());
+    return fetch(url, message)
+      .then((response) => {
+        if (response.ok) {
+          dispatch(deleteSession());
+          browserHistory.push('/login');
+        } else {
+          return dispatch(failedToLogout('Server error'));
+        }
+      })
+      .catch(err => dispatch(failedToLogout(err)));
   };
 }
 
