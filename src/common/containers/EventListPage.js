@@ -1,11 +1,14 @@
-import { connect } from 'react-redux'
-import React, { Component, PropTypes } from 'react'
-import { loadEvents } from '../actions/events'
-import EventList from '../components/EventList'
+import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react';
+import { loadEvents } from '../actions/events';
+import { loadInvites } from '../actions/invites';
+import EventList from '../components/EventList';
+import InviteList from '../components/InviteList';
+import GeneralNavBar from '../components/GeneralNavBar';
 
 class EventListPage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   componentWillMount() {
@@ -14,24 +17,27 @@ class EventListPage extends Component {
       this.context.router.push('/login');
       return;
     }
-    const { dispatch } = this.props
-    dispatch(loadEvents())
+    const { dispatch } = this.props;
+    dispatch(loadEvents());
+    dispatch(loadInvites());
   }
 
   render() {
-    const { events } = this.props;
+    const { events, invites, session } = this.props;
     return (
       <div>
-        <span className='page-header'>
-          <h1>Your events</h1>
-        </span>
-        <EventList events={events} />
+        <GeneralNavBar session={session} />
+        <div className="event-list-page-wrapper">
+          <InviteList invites={invites} />
+          <EventList events={events} />
+        </div>
       </div>
-    )
+    );
   }
 }
 
 EventListPage.propTypes = {
+  invites: PropTypes.array.isRequired,
   events: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
@@ -41,9 +47,10 @@ EventListPage.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    invites: state.invites.data,
     events: state.events,
     session: state.session,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(EventListPage)
+export default connect(mapStateToProps)(EventListPage);

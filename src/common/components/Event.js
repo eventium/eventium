@@ -1,33 +1,31 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import moment from 'moment';
 
 export default class Event extends Component {
   render() {
-    const { id, title, location } = this.props
-    const start_time = new Date(this.props.start_time);
+    const { id, title, start_time, location } = this.props;
     return (
-      <li className='list-group-item'>
+      <li className="list-group-item">
         <Link key={id} to={`/events/${id}`} >
-          <div className='list-item-title'>
+          <div className="list-item-title">
             {title}
           </div>
-          <div>
-            <div className='list-item-subtitle'>
-              {'Starts: ' +
-               start_time.toLocaleDateString() + ' ' +
-               start_time.toLocaleTimeString()}
-            </div>
-            <div className='list-item-subtitle'>
-              {location}
-            </div>
-          </div>
         </Link>
+        <div className="list-item-subtitle">
+          {`On ${moment(start_time).format('LLL')}`}
+        </div>
+        <div className="list-item-subtitle">
+          @{location}
+        </div>
       </li>
-    )
+    );
   }
 }
 
 Event.PropTypes = {
   id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired
-}
+  title: PropTypes.string.isRequired,
+  start_time: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+};

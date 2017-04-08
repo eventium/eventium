@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react'
-import Event from './Event'
+import React, { Component, PropTypes } from 'react';
+import Event from './Event';
 
 export default class EventList extends Component {
   render() {
-    const { events } = this.props
+    const { events } = this.props;
 
     return (
       <ul className={'list-group'}>
@@ -11,16 +11,16 @@ export default class EventList extends Component {
           <Event
             key={event.id}
             {...event}
-          />
+          />,
         )}
       </ul>
-    )
+    );
   }
 }
 
 EventList.propTypes = {
   events: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired
-  }).isRequired).isRequired
-}
+    title: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
+};
