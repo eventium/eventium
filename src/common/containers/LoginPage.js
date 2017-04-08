@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { login, fetchSession } from '../actions/session';
 import * as constants from '../constants';
 
@@ -40,7 +41,7 @@ class LoginPage extends Component {
     return (
       <div>
         <span className="page-header">
-          <h1>Eventium</h1>
+          <h1>Log in</h1>
         </span>
 
         <form onSubmit={e => this.handleSubmit(e)}>
@@ -62,6 +63,10 @@ class LoginPage extends Component {
         </form>
 
         <div>{errorMessage}</div>
+
+        <Link to={'/signup'} >
+          Sign up
+        </Link>
 
       </div>
     );

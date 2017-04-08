@@ -34,9 +34,13 @@ export function configPassport(passport) {
       });
   });
 }
-
+const authenticationWhiteList = [
+  '/login',
+  '/api/login',
+  '/api/user',
+];
 export function isLoggedIn(req, res, next) {
-  if (req.originalUrl === '/login' || req.originalUrl === '/api/login') {
+  if (authenticationWhiteList.find(path => path === req.originalUrl)) {
     next();
   } else if (req.isAuthenticated()) {
     next();
@@ -50,4 +54,22 @@ export function debugMiddleware(req, res, next) {
   console.log(req.session);
   console.log(req.user);
   next();
+}
+
+export function respondWithSession (req, res) {
+  const id = req.session.passport.user;
+  models.User.findById(id)
+    .then((instance) => {
+      res.status(200);
+      res.json({
+        id: instance.get('id'),
+        email: instance.get('email'),
+        first_name: instance.get('first_name'),
+        last_name: instance.get('last_name'),
+      });
+    }).catch((err) => {
+      console.log(`${req.originalUrl} error: ${err}`);
+      res.status(500);
+      res.end();
+    });
 }
