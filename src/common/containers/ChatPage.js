@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import io from 'socket.io-client';
 import { fetchMessages } from '../actions/messages';
+import { redirectToLogin } from '../actions/session';
 import Chat from '../components/Chat';
 import NavBar from '../components/NavBar';
 
@@ -15,7 +16,7 @@ class ChatPage extends Component {
     const eventId = this.props.params.id;
     const session = this.props.session;
     if (!session.user) {
-      this.context.router.push('/login');
+      dispatch(redirectToLogin(this.context.router));
       return;
     }
     dispatch(fetchMessages(eventId));

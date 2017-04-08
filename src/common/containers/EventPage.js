@@ -1,36 +1,49 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { redirectToLogin } from '../actions/session';
 import { loadEvent } from '../actions/events';
 import NavBar from '../components/NavBar';
 
 class EventPage extends Component {
   constructor(props) {
     super(props);
+
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
 
   componentWillMount() {
+    const { dispatch } = this.props;
     const session = this.props.session;
     if (!session.user) {
-      this.context.router.push('/login');
+      dispatch(redirectToLogin(this.context.router));
       return;
     }
     const id = this.props.params.id;
-    const { dispatch } = this.props;
     dispatch(loadEvent(id));
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log(newProps);
+    this.props.event = newProps.event;
+  }
+
   render() {
-    const { title, description, location, address, city, province, postal_code } = this.props.event;
+    const { image, title, description, location, address, city, province, postal_code } = this.props.event;
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
     const id = this.props.params.id;
     return (
       <div>
         <NavBar eventId={id} />
-        <div className="container">
-          <h2>Title</h2>
-          <div>{title}</div>
+        <div className="container event-page-wrapper">
+          <h1>{title}</h1>
+          {image &&
+            <img
+              src={`/${image}`}
+              alt=""
+            />
+          }
           <h2>Description</h2>
           <p>{description}</p>
           <h2>Time</h2>
@@ -48,8 +61,11 @@ class EventPage extends Component {
               <div>{postal_code}</div>
             </div>
           </div>
-
-
+        </div>
+        <div className="update-event">
+          <Link to={`/events/${id}/update/`}>
+            <span className="glyphicon glyphicon-pencil" />
+          </Link>
         </div>
       </div>
     );
@@ -77,7 +93,7 @@ EventPage.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    event: state.event,
+    event: state.event.event,
     session: state.session,
   };
 };

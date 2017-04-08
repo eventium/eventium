@@ -36,16 +36,24 @@ class LoginPage extends Component {
   }
   render() {
     const session = this.props.session;
-    const disabled = (session.status === constants.SESSION_STATUS_PENDING);
+    const pending = (session.status === constants.SESSION_STATUS_PENDING);
+    const redirect = session.redirect;
     const errorMessage = (session.error || '');
+
+    if (pending || redirect) {
+      return (
+        <div className="loader absolute-center" />
+      );
+    }
+
     return (
-      <div>
+      <div className={redirect ? 'hidden' : ''} >
         <span className="page-header">
           <h1>Log in</h1>
         </span>
 
         <form onSubmit={e => this.handleSubmit(e)}>
-          <fieldset disabled={disabled}>
+          <fieldset disabled={pending}>
             <div>
               <label htmlFor="username-input">Email:</label>
               <input type="text" id="username-input" name="username" value={this.state.username} onChange={e => this.handleInputChange(e)} />

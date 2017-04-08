@@ -1,37 +1,55 @@
 import * as constants from '../constants';
 
-const initialState = {
+const initialEventsState = {
   data: [],
 };
 
-export const events = (state = initialState, action) => {
+const initialEventState = {
+  event: {
+    address: '',
+    city: '',
+    description: '',
+    end_time: '',
+    id: 0,
+    image: '',
+    location: '',
+    postal_code: '',
+    province: '',
+    start_time: '',
+    title: '',
+  },
+};
+
+export const events = (state = initialEventsState, action) => {
   switch (action.type) {
     case constants.RECEIVE_USER_EVENTS: {
       return { data: action.json };
+    }
+    case constants.CREATE_EVENT_RESPONSE: {
+      return [
+        ...state,
+        action.event,
+      ];
     }
     default:
       return state;
   }
 };
 
-export const event = (state = {}, action) => {
+export const event = (state = initialEventState, action) => {
   switch (action.type) {
     case constants.RECEIVE_INDIVIDUAL_EVENT: {
-      return Object.assign({}, {
-        id: action.id,
-        title: action.title,
-        location: action.location,
-        address: action.address,
-        city: action.city,
-        province: action.province,
-        postal_code: action.postal_code,
-        description: action.description,
-        image: action.image,
-        start_time: action.start_time,
-        end_time: action.end_time,
-      });
+      return {
+        event: Object.assign({}, action.event),
+      };
     }
-    default:
-      return state;
+    case constants.UPDATE_EVENT_RESPONSE: {
+      return {
+        event: Object.assign({}, action.event),
+      };
+    }
+    default: {
+      return initialEventState;
+    }
   }
 };

@@ -5,18 +5,26 @@ function session(state = { status: constants.SESSION_STATUS_LOGGED_OUT }, action
     case constants.REQUEST_SESSION: {
       return {
         status: constants.SESSION_STATUS_PENDING,
+        redirect: state.redirect,
       };
     }
     case constants.RECEIVE_SESSION: {
       return {
         status: constants.SESSION_STATUS_LOGGED_IN,
         user: action.user,
+        redirect: state.redirect,
       };
     }
     case constants.FAILED_TO_LOGIN: {
       return {
         status: constants.SESSION_STATUS_LOGGED_OUT,
         error: action.error,
+      };
+    }
+    case constants.REDIRECT_TO_LOGIN: {
+      return {
+        status: constants.SESSION_STATUS_LOGGED_OUT,
+        redirect: true,
       };
     }
     default: {

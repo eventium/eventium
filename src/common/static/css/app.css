@@ -20,6 +20,35 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+.hidden {
+  display: hidden;
+}
+
+/* https://www.w3schools.com/howto/howto_css_loader.asp */
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+
+
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* http://stackoverflow.com/a/13356401 */
+.absolute-center {
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 
 
 /* -------------------------------------------------------------------------------------------------
@@ -28,10 +57,55 @@
 
 .event-list-page-wrapper {
   padding-top: 70px;
+  padding-bottom: 50px;
   height: 100%;
   overflow-y: scroll;
 }
 
+.event-page-wrapper {
+  padding-top: 70px;
+  padding-bottom: 50px;
+  height: 100%;
+}
+
+.update-event,
+.create-event {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.update-event a,
+.create-event a {
+  display: block;
+  text-align: center;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 30px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background-color: #444753;
+  -webkit-box-shadow: 0px 5px 13px -3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 5 13px -3px rgba(0,0,0,0.5);
+  box-shadow: 0px 5 13px -3px rgba(0,0,0,0.5);
+  opacity: 0.7;
+}
+
+.update-event a:active,
+.update-event a:hover,
+.create-event a:active,
+.create-event a:hover {
+  opacity: 1.0;
+}
+
+.update-event .glyphicon,
+.create-event .glyphicon {
+  font-size: 28px;
+  color: #ffffff;
+  vertical-align: middle;
+}
 
 /* -------------------------------------------------------------------------------------------------
 /* Navigation
