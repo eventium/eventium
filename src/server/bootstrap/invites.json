@@ -1,0 +1,8 @@
+[
+  {
+    "event_id": 1,
+    "guest_id": 2,
+    "host_id": 1,
+    "message": "Check out this event!"
+  }
+]
