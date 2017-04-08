@@ -85,7 +85,7 @@ class CreateEventForm extends Component {
     let cancelLink;
 
     if (event.id) {
-      cancelLink = `/events/${event.id}/update`;
+      cancelLink = `/events/${event.id}/`;
     } else {
       cancelLink = '';
     }
