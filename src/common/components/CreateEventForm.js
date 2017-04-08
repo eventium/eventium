@@ -13,7 +13,7 @@ class CreateEventForm extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { event } = newProps.event;
+    const { event } = newProps;
 
     if (event.start_time) {
       const sdate = new Date(event.start_time);

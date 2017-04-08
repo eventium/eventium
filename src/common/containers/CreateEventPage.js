@@ -6,24 +6,59 @@ import { createEvent } from '../actions/events';
 class CreateEventPage extends Component {
   constructor(props) {
     super(props);
+
+    this.componentWillMount = this.componentWillMount.bind(this);
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillMount() {
+    const session = this.props.session;
+    if (!session.user) {
+      this.context.router.push('/login');
+      return;
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.props.event = newProps.event.event;
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const { onSubmit } = this.props;
+    const form = event.currentTarget;
+
+    onSubmit(form.elements);
+
+    this.context.router.push('/events/');
   }
 
   render() {
-    const { onSubmit } = this.props;
-
     return (
       <div className="container">
         <h1>Create Event</h1>
-        <CreateEventForm onSubmit={onSubmit} submitButton="Create Event" method="POST" />
+        <CreateEventForm onSubmit={this.handleSubmit} submitButton="Create Event" method="POST" />
       </div>
     );
   }
 }
 
 CreateEventPage.propTypes = {
+  session: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
+CreateEventPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    session: state.session,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -33,4 +68,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(CreateEventPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEventPage);

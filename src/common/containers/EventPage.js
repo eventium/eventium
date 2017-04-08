@@ -8,6 +8,8 @@ import NavBar from '../components/NavBar';
 class EventPage extends Component {
   constructor(props) {
     super(props);
+
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
 
   componentWillMount() {
@@ -21,6 +23,11 @@ class EventPage extends Component {
     dispatch(loadEvent(id));
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log(newProps);
+    this.props.event = newProps.event;
+  }
+
   render() {
     const { title, description, location, address, city, province, postal_code } = this.props.event;
     const startTime = new Date(this.props.event.start_time);
@@ -30,8 +37,7 @@ class EventPage extends Component {
       <div>
         <NavBar eventId={id} />
         <div className="container">
-          <h2>Title</h2>
-          <div>{title}</div>
+          <h1>{title}</h1>
           <h2>Description</h2>
           <p>{description}</p>
           <h2>Time</h2>
@@ -78,7 +84,7 @@ EventPage.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    event: state.event,
+    event: state.event.event,
     session: state.session,
   };
 };

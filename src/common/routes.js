@@ -20,10 +20,12 @@ const routes = (
     <Route path="signup" component={SignupPage} />
     <Route path="events" component={Layout}>
     	<IndexRoute component={EventListPage} />
-      <Route path=":id/chat" component={ChatPage} />
-    	<Route path="create" component={CreateEventPage} />
-    	<Route path=":id" component={EventPage} />
-    	<Route path="update/:id" component={UpdateEventPage} />
+      <Route path="create" component={CreateEventPage} />
+      <Route path=":id" component={Layout}>
+        <IndexRoute component={EventPage} />
+        <Route path="chat" component={ChatPage} />
+        <Route path="update" component={UpdateEventPage} />
+      </Route>
     </Route>
     <Route path="*" component={NotFoundPage} />
   </Route>

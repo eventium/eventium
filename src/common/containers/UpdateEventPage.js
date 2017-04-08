@@ -17,6 +17,12 @@ class UpdateEventPage extends Component {
     const id = this.props.params.id;
     const { onLoad } = this.props;
 
+    const session = this.props.session;
+    if (!session.user) {
+      this.context.router.push('/login');
+      return;
+    }
+
     onLoad(id);
   }
 
@@ -30,6 +36,8 @@ class UpdateEventPage extends Component {
     const form = event.currentTarget;
 
     this.props.onSubmit(form.elements);
+
+    this.context.router.push(`/events/${this.props.params.id}`);
   }
 
   render() {
@@ -48,6 +56,7 @@ class UpdateEventPage extends Component {
 }
 
 UpdateEventPage.propTypes = {
+  session: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onLoad: PropTypes.func.isRequired,
   event: PropTypes.shape({
@@ -65,9 +74,14 @@ UpdateEventPage.propTypes = {
   }).isRequired,
 };
 
+UpdateEventPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = (state) => {
   return {
-    event: state.event,
+    event: state.event.event,
+    session: state.session,
   };
 };
 

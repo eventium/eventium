@@ -46,11 +46,12 @@ const API = (app) => {
   })
 
   app.post('/api/events/', upload.single('image'), (req, res) => {
+    console.log(req.file);
+
     const start_time = req.body.start_date + ' ' + req.body.start_time + ':00';
     const end_time = req.body.end_date + ' ' + req.body.end_time + ':00';
     
-    const event = {
-      image: req.file.path,
+    let event = {
       title: req.body.title,
       location: req.body.location,
       address: req.body.address,
@@ -61,6 +62,10 @@ const API = (app) => {
       start_time: start_time,
       end_time: end_time,
     };
+
+    if(req.file) {
+      event.image = req.file.path;
+    }
 
     models.Event.create(event).then(
       event => {
@@ -76,16 +81,17 @@ const API = (app) => {
     const start_time = req.body.start_date + ' ' + req.body.start_time + ':00';
     const end_time = req.body.end_date + ' ' + req.body.end_time + ':00';
 
-    let event = {
-      title: req.body.title,
-      location: req.body.location,
+    const event = {
       address: req.body.address,
       city: req.body.city,
-      province: req.body.province,
-      postal_code: req.body.postal_code,
       description: req.body.description,
-      start_time: start_time,
       end_time: end_time,
+      id: req.body.id,
+      location: req.body.location,
+      postal_code: req.body.postal_code,
+      province: req.body.province,
+      start_time: start_time,
+      title: req.body.title,
     };
 
     if(req.file) {

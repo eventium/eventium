@@ -22,12 +22,10 @@ export const events = (state = [], action) => {
       return action.events;
     }
     case constants.CREATE_EVENT_RESPONSE: {
-      return Object.assign({}, state, {
-        events: [
-          ...state.events,
-          action.event,
-        ],
-      });
+      return [
+        ...state,
+        action.event,
+      ];
     }
     default:
       return state;

@@ -144,18 +144,18 @@ function createEventResponse(json) {
 
 export function createEvent(formData) {
   const url = `${HOST}/api/events`;
-  let form = new FormData();
-  let options = {};
-  let event = {};
+  const form = new FormData();
+  const options = {};
+  const event = {};
 
   for (let i = 0; i < formData.length; i += 1) {
     const name = formData[i].getAttribute('name');
     const value = formData[i].value;
 
-    if(name === 'image') {
+    if (name === 'image') {
       const file = formData[i].files[0];
 
-      form.append(name, file)
+      form.append(name, file);
     }
     else {
       form.append(name, value);
@@ -164,8 +164,9 @@ export function createEvent(formData) {
 
   options.method = 'POST';
   options.body = form;
+  options.credentials = 'same-origin';
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(createEventRequest(event));
 
     return fetch(url, options)
@@ -228,6 +229,7 @@ export function updateEvent(formData) {
 
   options.method = 'PUT';
   options.body = form;
+  options.credentials = 'same-origin';
 
   return (dispatch) => {
     dispatch(updateEventRequest(event));
