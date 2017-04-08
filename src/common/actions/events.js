@@ -34,9 +34,9 @@ function receiveEvents(json) {
 
 export function loadEvents() {
   const url = `${HOST}/api/events/`;
-  let options = {};
+  const options = {};
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestEvents());
 
     options.method = 'GET';
@@ -98,13 +98,14 @@ function receiveEvent(id, json) {
 export function loadEvent(id) {
   const url = `${HOST}/api/events/${id}`;
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestEvent());
 
     return fetch(url, { credentials: 'same-origin' })
       .then(response => response.json())
-      .then(json => dispatch(receiveEvent(id, json)))
-      .catch((err) => {
+      .then((json) => {
+        dispatch(receiveEvent(id, json));
+      }).catch((err) => {
         dispatch(receiveEvents({ event: {} }));
         console.log('failed to retrieve event');
       });
@@ -204,33 +205,31 @@ function updateEventResponse(json) {
 }
 
 export function updateEvent(formData) {
-  let form = new FormData();
-  let options = {};
-  let event = {};
-  let id;
+  const form = new FormData();
+  const options = {};
+  const event = {};
 
   for (let i = 0; i < formData.length; i += 1) {
     const name = formData[i].getAttribute('name');
     const value = formData[i].value;
 
-    if(name === 'image') {
+    if (name === 'image' && formData[i].files.length > 0) {
       const file = formData[i].files[0];
 
-      form.append(name, file)
-    }
-    else {
+      form.append(name, file);
+    } else {
       form.append(name, value);
     }
   }
 
-  id = form.get('id');
+  const id = form.get('id');
 
   const url = `${HOST}/api/events/${id}`;
 
   options.method = 'PUT';
   options.body = form;
 
-  return dispatch => {
+  return (dispatch) => {
     dispatch(updateEventRequest(event));
 
     return fetch(url, options)

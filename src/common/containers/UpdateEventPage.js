@@ -7,21 +7,41 @@ import { updateEvent, loadEvent } from '../actions/events';
 class UpdateEventPage extends Component {
   constructor(props) {
     super(props);
+
+    this.componentWillMount = this.componentWillMount.bind(this);
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
     const id = this.props.params.id;
     const { onLoad } = this.props;
+
     onLoad(id);
   }
 
-  render() {
-    const { onSubmit, event } = this.props;
+  componentWillReceiveProps(newProps) {
+    this.props.event = newProps.event.event;
+  }
 
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    this.props.onSubmit(form.elements);
+  }
+
+  render() {
     return (
       <div className="container">
         <h1>Update Event</h1>
-        <CreateEventForm onSubmit={onSubmit} event={event} submitButton="Update Event" method="PUT" />
+        <CreateEventForm
+          onSubmit={this.handleSubmit}
+          event={this.props.event}
+          submitButton="Update Event"
+          method="PUT"
+        />
       </div>
     );
   }

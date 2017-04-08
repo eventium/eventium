@@ -1,5 +1,21 @@
 import * as constants from '../constants';
 
+const initialEventState = {
+  event: {
+    address: '',
+    city: '',
+    description: '',
+    end_time: '',
+    id: 0,
+    image: '',
+    location: '',
+    postal_code: '',
+    province: '',
+    start_time: '',
+    title: '',
+  },
+};
+
 export const events = (state = [], action) => {
   switch (action.type) {
     case constants.RECEIVE_EVENTS: {
@@ -18,15 +34,20 @@ export const events = (state = [], action) => {
   }
 };
 
-export const event = (state = {}, action) => {
+export const event = (state = initialEventState, action) => {
   switch (action.type) {
     case constants.RECEIVE_INDIVIDUAL_EVENT: {
-      return Object.assign({}, action.event);
+      return {
+        event: Object.assign({}, action.event),
+      };
     }
     case constants.UPDATE_EVENT_RESPONSE: {
-      return Object.assign({}, action.event);
+      return {
+        event: Object.assign({}, action.event),
+      };
     }
-    default:
-      return state;
+    default: {
+      return initialEventState;
+    }
   }
 };
