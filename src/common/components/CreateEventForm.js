@@ -82,6 +82,13 @@ class CreateEventForm extends Component {
 
   render() {
     const { event } = this.state;
+    let cancelLink;
+
+    if (event.id) {
+      cancelLink = `/events/${event.id}/update`;
+    } else {
+      cancelLink = '';
+    }
 
     return (
       <div>
@@ -238,7 +245,7 @@ class CreateEventForm extends Component {
             />
           </div>
           <Link
-            to={`/events/${event.id}/`}
+            to={cancelLink}
             className="btn btn-default btn-lg pull-left"
           >
             <span>Cancel</span>
