@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { loadEvents } from '../actions/events';
+import { loadInvites } from '../actions/invites';
 import EventList from '../components/EventList';
+import InviteList from '../components/InviteList';
 import GeneralNavBar from '../components/GeneralNavBar';
 
 class EventListPage extends Component {
@@ -17,16 +19,18 @@ class EventListPage extends Component {
     }
     const { dispatch } = this.props;
     dispatch(loadEvents());
+    dispatch(loadInvites());
   }
 
   render() {
-    const { events, session } = this.props;
+    const { events, invites, session } = this.props;
     return (
       <div>
         <GeneralNavBar session={session} />
         <span className="page-header">
           <h1>Your events</h1>
         </span>
+        <InviteList invites={invites} />
         <EventList events={events} />
       </div>
     );
@@ -34,6 +38,7 @@ class EventListPage extends Component {
 }
 
 EventListPage.propTypes = {
+  invites: PropTypes.array.isRequired,
   events: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
@@ -43,6 +48,7 @@ EventListPage.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    invites: state.invites.data,
     events: state.events,
     session: state.session,
   };
