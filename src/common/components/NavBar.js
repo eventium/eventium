@@ -8,17 +8,17 @@ export default class NavBar extends Component {
     const eventId = this.props.eventId;
     return (
       <div className="navbar-wrapper">
-        <ul>
-          <li>
+        <ul className="menu">
+          <li className="menu-item">
             <Link to="/"><span className="glyphicon glyphicon-globe" /></Link>
           </li>
-          <li>
+          <li className="menu-item">
             <Link to={`/events/${eventId}/`}><span className="glyphicon glyphicon-th-list" /></Link>
           </li>
-          <li>
+          <li className="menu-item">
             <Link to="#"><span className="glyphicon glyphicon-user" /></Link>
           </li>
-          <li>
+          <li className="menu-item">
             <Link to={`/events/${eventId}/chat/`}><span className="glyphicon glyphicon-comment" /></Link>
           </li>
         </ul>

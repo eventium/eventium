@@ -21,6 +21,7 @@ import db from './models';
 
 import socketEvents from './socketEvents';
 import { messageRouter } from './routes/message_routes';
+import { inviteRouter } from './routes/invite_routes';
 import { configPassport } from './authentication';
 
 const SequelizeStore = require('connect-session-sequelize')(expressSession.Store);
@@ -62,6 +63,7 @@ app.use(passport.session());
 // Registrated API routes
 API(app);
 app.use('/api', messageRouter);
+app.use('/api', inviteRouter);
 
 // universal routing and rendering
 app.get('*', (req, res) => {
@@ -132,7 +134,7 @@ function renderFullPage(markup, initialState) {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
         </script>
-        <script src="/js/bundle.js"></script>
+        <script type="text/javascript" src="/js/bundle.js"></script>
       </body>
     </html>
   `;

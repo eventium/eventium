@@ -50,8 +50,20 @@
   margin: auto;
 }
 
+
 /* -------------------------------------------------------------------------------------------------
-/* 
+/* Event Page
+/* ---------------------------------------------------------------------------------------------- */
+
+.event-list-page-wrapper {
+  padding-top: 70px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+
+/* -------------------------------------------------------------------------------------------------
+/* Navigation
 /* ---------------------------------------------------------------------------------------------- */
 
 .navbar-wrapper {
@@ -62,14 +74,14 @@
   width: 100%;
 }
 
-.navbar-wrapper ul {
+.navbar-wrapper .menu {
   list-style-type: none;
   height: 100%;
   padding-left: 0;
   background: #444753;
 }
 
-.navbar-wrapper li {
+.navbar-wrapper .menu-item {
   float: left !important;
   width: 25%;
   height: 100%;
@@ -84,12 +96,33 @@
   text-align: center;
 }
 
-.navbar-wrapper .glyphicon {
+.navbar-wrapper.menu-item .glyphicon {
   color: white;
   font-size: 20px;
 }
 
+.navbar-wrapper .dropdown {
+  padding-left: 15px;
+  padding-right: 15px;
+  float: right !important;
+  height: 100%;
+  text-align: center;
+  padding-top: 15px;
+}
 
+.navbar-wrapper a {
+  color: white;
+  font-size: 20px;
+}
+
+.navbar-wrapper .dropdown-menu {
+  left: -70px;
+  margin: 0;
+}
+
+.dropdown-menu>li>a> .glyphicon {
+  margin-right: 6px;
+}
 /* -------------------------------------------------------------------------------------------------
 /* Chat Related (Some styling borrowed from: http://codepen.io/drehimself/pen/KdXwxR)
 /* ---------------------------------------------------------------------------------------------- */

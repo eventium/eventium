@@ -8,6 +8,7 @@ models.sequelize.sync({ force: true }).then(() => {
 
   Promise.all([events, users]).then(() => {
     const messages = populateTable('./messages.json', models.Message);
+    populateTable('./invites.json', models.Invite);
     //members = populateTable(fs, './members.json', models.Member);
   },
   () => {
