@@ -6,7 +6,7 @@ const initialState = {
 
 export const invites = (state = initialState, action) => {
   switch (action.type) {
-    case constants.RECEIVE_INVITES: {
+    case constants.RECEIVE_USER_INVITES: {
       return { data: action.json };
     }
     default:

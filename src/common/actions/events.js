@@ -1,48 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
 import {
-  REQUEST_EVENTS,
-  RECEIVE_EVENTS,
   REQUEST_INDIVIDUAL_EVENT,
   RECEIVE_INDIVIDUAL_EVENT,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
-
-
-// -------------------------------------------------------------------------------------------------
-// GET /api/events/
-// -------------------------------------------------------------------------------------------------
-
-function requestEvents() {
-  return {
-    type: REQUEST_EVENTS,
-    events: [],
-  };
-}
-
-function receiveEvents(json) {
-  return {
-    type: RECEIVE_EVENTS,
-    events: json.events,
-  };
-}
-
-export function loadEvents() {
-  const url = `${HOST}/api/events/`;
-
-  return dispatch => {
-    dispatch(requestEvents());
-
-    return fetch(url, { credentials: 'same-origin' })
-      .then(response => response.json())
-      .then(json => dispatch(receiveEvents(json)))
-      .catch((err) => {
-        dispatch(receiveEvents({ events: [] }));
-        console.log('failed to retrieve events');
-      });
-  };
-}
 
 
 // -------------------------------------------------------------------------------------------------

@@ -1,9 +1,13 @@
 import * as constants from '../constants';
 
-export const events = (state = [], action) => {
+const initialState = {
+  data: [],
+};
+
+export const events = (state = initialState, action) => {
   switch (action.type) {
-    case constants.RECEIVE_EVENTS: {
-      return action.events;
+    case constants.RECEIVE_USER_EVENTS: {
+      return { data: action.json };
     }
     default:
       return state;
