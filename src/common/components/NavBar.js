@@ -16,7 +16,7 @@ export default class NavBar extends Component {
             <Link to={`/events/${eventId}/`}><span className="glyphicon glyphicon-th-list" /></Link>
           </li>
           <li className="menu-item">
-            <Link to="#"><span className="glyphicon glyphicon-user" /></Link>
+            <Link to={`/events/${eventId}/members/`}><span className="glyphicon glyphicon-user" /></Link>
           </li>
           <li className="menu-item">
             <Link to={`/events/${eventId}/chat/`}><span className="glyphicon glyphicon-comment" /></Link>
