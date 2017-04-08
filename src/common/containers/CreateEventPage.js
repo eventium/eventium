@@ -17,12 +17,11 @@ class CreateEventPage extends Component {
     const session = this.props.session;
     if (!session.user) {
       this.context.router.push('/login');
-      return;
     }
   }
 
   componentWillReceiveProps(newProps) {
-    this.props.event = newProps.event.event;
+    this.setState({ event: newProps.event });
   }
 
   handleSubmit(event) {

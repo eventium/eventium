@@ -65,7 +65,7 @@ export function loadEvent(id) {
       .then((json) => {
         dispatch(receiveEvent(id, json));
       }).catch((err) => {
-        console.log('failed to retrieve event');
+        console.log('failed to retrieve event', id, 'with err:', err);
       });
   };
 }
