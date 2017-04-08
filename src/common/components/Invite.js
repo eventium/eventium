@@ -22,7 +22,7 @@ export default class Invite extends Component {
 
 Invite.PropTypes = {
   id: PropTypes.number.isRequired,
-  Event: PropTypes.PropTypes.shape({
+  Event: PropTypes.shape({
     title: PropTypes.string.isRequired,
     start_time: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,

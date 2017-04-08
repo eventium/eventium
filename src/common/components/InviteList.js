@@ -21,7 +21,7 @@ export default class InviteList extends Component {
 InviteList.propTypes = {
   invites: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    Event: PropTypes.PropTypes.shape({
+    Event: PropTypes.shape({
       title: PropTypes.string.isRequired,
       start_time: PropTypes.string.isRequired,
       location: PropTypes.string.isRequired,
