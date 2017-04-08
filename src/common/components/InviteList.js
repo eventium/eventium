@@ -3,7 +3,7 @@ import Invite from './Invite';
 
 export default class InviteList extends Component {
   render() {
-    const { invites } = this.props;
+    const { invites, acceptInvite, declineInvite } = this.props;
 
     return (
       <ul className={'list-group'}>
@@ -11,6 +11,8 @@ export default class InviteList extends Component {
           <Invite
             key={invite.id}
             {...invite}
+            acceptInvite={acceptInvite}
+            declineInvite={declineInvite}
           />,
         )}
       </ul>
@@ -27,4 +29,6 @@ InviteList.propTypes = {
       location: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired).isRequired,
+  acceptInvite: PropTypes.func.isRequired,
+  declineInvite: PropTypes.func.isRequired,
 };

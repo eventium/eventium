@@ -5,6 +5,7 @@ import {
   RECEIVE_USER_INVITES,
   REQUEST_USER_EVENTS,
   RECEIVE_USER_EVENTS,
+  RECEIVE_DELETE_USER_INVITE,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
@@ -72,6 +73,70 @@ export function loadUserEvents(userId) {
       .catch((err) => {
         dispatch(receiveUserEvents([]));
         console.log('Failed to retrieve user:', userId, 'events:', err);
+      });
+  };
+}
+
+
+// -------------------------------------------------------------------------------------------------
+// DELETE /api/users/${userId}/invites/${inviteId}
+// -------------------------------------------------------------------------------------------------
+
+function receiveDeleteInvite(inviteId) {
+  return {
+    type: RECEIVE_DELETE_USER_INVITE,
+    inviteId,
+  };
+}
+
+export function deleteUserInvite(userId, inviteId) {
+  const url = `${HOST}/api/users/${userId}/invites/${inviteId}`;
+
+  const message = {
+    method: 'DELETE',
+    credentials: 'same-origin',
+  };
+
+  return dispatch => {
+    return fetch(url, message)
+      .then(response => {
+        if (response.ok) {
+          dispatch(receiveDeleteInvite(inviteId));
+        }
+      })
+      .catch((err) => {
+        console.log('Failed to delete user:', userId, 'invite:', inviteId, err);
+      });
+  };
+}
+
+// -------------------------------------------------------------------------------------------------
+// POST /api/users/${userId}/membership/
+// -------------------------------------------------------------------------------------------------
+
+export function createUserMembership(userId, invite) {
+  const url = `${HOST}/api/users/${userId}/membership/`;
+  const eventId = invite.event_id
+  const message = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify({ eventId }),
+  };
+
+  return dispatch => {
+    return fetch(url, message)
+      .then(response => {
+        if (response.ok) {
+          // let loadUserEvents() handle re-fetching events.
+          dispatch(loadUserEvents(userId));
+          dispatch(deleteUserInvite(userId, invite.id));
+        }
+      })
+      .catch((err) => {
+        console.log('Failed to create membership user:', userId, 'eventId:', eventId, err);
       });
   };
 }
