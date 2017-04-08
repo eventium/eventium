@@ -27,11 +27,10 @@ class EventListPage extends Component {
     return (
       <div>
         <GeneralNavBar session={session} />
-        <span className="page-header">
-          <h1>Your events</h1>
-        </span>
-        <InviteList invites={invites} />
-        <EventList events={events} />
+        <div className="event-list-page-wrapper">
+          <InviteList invites={invites} />
+          <EventList events={events} />
+        </div>
       </div>
     );
   }
