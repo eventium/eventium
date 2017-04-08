@@ -1,5 +1,9 @@
 import * as constants from '../constants';
 
+const initialEventsState = {
+  data: [],
+};
+
 const initialEventState = {
   event: {
     address: '',
@@ -16,10 +20,10 @@ const initialEventState = {
   },
 };
 
-export const events = (state = [], action) => {
+export const events = (state = initialEventsState, action) => {
   switch (action.type) {
-    case constants.RECEIVE_EVENTS: {
-      return action.events;
+    case constants.RECEIVE_USER_EVENTS: {
+      return { data: action.json };
     }
     case constants.CREATE_EVENT_RESPONSE: {
       return [

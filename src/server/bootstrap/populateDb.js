@@ -7,9 +7,9 @@ models.sequelize.sync({ force: true }).then(() => {
   const users = populateTable('./users.json', models.User);
 
   Promise.all([events, users]).then(() => {
-    const messages = populateTable('./messages.json', models.Message);
+    populateTable('./messages.json', models.Message);
     populateTable('./invites.json', models.Invite);
-    //members = populateTable(fs, './members.json', models.Member);
+    populateTable('./members.json', models.Member);
   },
   () => {
     console.log('** Error: could not populate DB with messages and members.');

@@ -28,7 +28,7 @@ class UpdateEventPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.props.event = newProps.event.event;
+    this.setState({ event: newProps.event });
   }
 
   handleSubmit(event) {

@@ -2,8 +2,6 @@ import fetch from 'isomorphic-fetch';
 import FormData from 'form-data';
 
 import {
-  REQUEST_EVENTS,
-  RECEIVE_EVENTS,
   REQUEST_INDIVIDUAL_EVENT,
   RECEIVE_INDIVIDUAL_EVENT,
   CREATE_EVENT_REQUEST,
@@ -13,45 +11,6 @@ import {
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
-
-// -------------------------------------------------------------------------------------------------
-// GET /api/events/
-// -------------------------------------------------------------------------------------------------
-
-function requestEvents() {
-  return {
-    type: REQUEST_EVENTS,
-    events: [],
-  };
-}
-
-function receiveEvents(json) {
-  return {
-    type: RECEIVE_EVENTS,
-    events: json.events,
-  };
-}
-
-export function loadEvents() {
-  const url = `${HOST}/api/events/`;
-  const options = {};
-
-  return (dispatch) => {
-    dispatch(requestEvents());
-
-    options.method = 'GET';
-    options.credentials = 'same-origin';
-
-    return fetch(url, options)
-      .then(response => response.json())
-      .then(json => dispatch(receiveEvents(json)))
-      .catch((err) => {
-        dispatch(receiveEvents({ events: [] }));
-        console.log('failed to retrieve events');
-      });
-  };
-}
-
 
 // -------------------------------------------------------------------------------------------------
 // GET /api/events/:id
@@ -106,8 +65,7 @@ export function loadEvent(id) {
       .then((json) => {
         dispatch(receiveEvent(id, json));
       }).catch((err) => {
-        dispatch(receiveEvents({ event: {} }));
-        console.log('failed to retrieve event');
+        console.log('failed to retrieve event', id, 'with err:', err);
       });
   };
 }

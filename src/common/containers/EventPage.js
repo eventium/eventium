@@ -24,8 +24,7 @@ class EventPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log(newProps);
-    this.props.event = newProps.event;
+    this.setState({ event: newProps.event });
   }
 
   render() {
