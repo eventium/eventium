@@ -132,7 +132,7 @@ function renderFullPage(markup, initialState) {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
         </script>
-        <script src="/js/bundle.js"></script>
+        <script type="text/javascript" src="/js/bundle.js"></script>
       </body>
     </html>
   `;

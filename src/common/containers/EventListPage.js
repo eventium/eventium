@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { loadEvents } from '../actions/events';
 import EventList from '../components/EventList';
+import GeneralNavBar from '../components/GeneralNavBar';
 
 class EventListPage extends Component {
   constructor(props) {
@@ -19,9 +20,10 @@ class EventListPage extends Component {
   }
 
   render() {
-    const { events } = this.props;
+    const { events, session } = this.props;
     return (
       <div>
+        <GeneralNavBar session={session} />
         <span className="page-header">
           <h1>Your events</h1>
         </span>
