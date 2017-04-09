@@ -16,5 +16,17 @@
     "guest_id": 2,
     "host_id": 1,
     "message": "Check out this event!"
+  },
+  {
+    "event_id": 2,
+    "guest_id": 15,
+    "host_id": 1,
+    "message": "Check out this event!"
+  },
+  {
+    "event_id": 2,
+    "guest_id": 16,
+    "host_id": 1,
+    "message": "Check out this event!"
   }
 ]
