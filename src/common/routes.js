@@ -17,9 +17,9 @@ const routes = (
     <IndexRoute component={EventListPage} />
     <Route path="login" component={LoginPage} />
     <Route path="signup" component={SignupPage} />
-    <Route path="events" component={Layout}>
+    <Route path="events">
       <Route path="create" component={CreateEventPage} />
-      <Route path=":id" component={Layout}>
+      <Route path=":id">
         <IndexRoute component={EventPage} />
         <Route path="chat" component={ChatPage} />
         <Route path="members" component={MembersPage} />
