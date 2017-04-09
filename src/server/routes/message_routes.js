@@ -1,27 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import models from './../models';
-
-function authorizeEvent(paramName) {
-  return (req, res, next) => {
-    const eventId = parseInt(req.params[paramName], 10);
-    const userId = req.session.passport.user;
-    models.Member.findAll({
-      where: {
-        event_id: eventId,
-        user_id: userId,
-      },
-      limit: 1,
-    }).then((instances) => {
-      if (instances.length === 1) {
-        next();
-      } else {
-        res.status(401);
-        res.end('Unauthorized');
-      }
-    });
-  };
-}
+import { authorizeEvent } from '../authorization';
 
 const messageRouter = express.Router();
 messageRouter.use(bodyParser.json());
