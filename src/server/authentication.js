@@ -56,7 +56,7 @@ const authenticationWhiteList = [
   '/api/user',
 ];
 export function isLoggedIn(req, res, next) {
-  if (authenticationWhiteList.find(path => path === req.originalUrl)) {
+  if (authenticationWhiteList.find(path => path === req.originalUrl || req.originalUrl.includes('/api/public/'))) {
     next();
   } else if (req.isAuthenticated()) {
     next();
@@ -86,6 +86,9 @@ export function createUser(req, res) {
       models.User.create({
         email: req.body.email,
         password: hash,
+        first_name: req.body.firstName,
+        last_name: req.body.lastName,
+        description: req.body.description,
       }).then(() => {
         res.status(201);
         res.end();

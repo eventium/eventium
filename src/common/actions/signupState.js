@@ -26,7 +26,7 @@ export function signupFailed(error) {
   };
 }
 
-export function signup(email, password) {
+export function signup(email, password, firstName, lastName, description) {
   const url = `${HOST}/api/user`;
   const message = {
     method: 'POST',
@@ -35,7 +35,7 @@ export function signup(email, password) {
       'Content-Type': 'application/json',
     },
     credentials: 'same-origin',
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, firstName, lastName, description }),
   };
 
   return (dispatch) => {

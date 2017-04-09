@@ -172,6 +172,14 @@
   padding-top: 15px;
 }
 
+.navbar-wrapper .menu-item-logo {
+  float: left !important;
+  width: 32%;
+  height: 100%;
+  text-align: center;
+  padding-top: 15px;
+}
+
 .navbar-wrapper button {
   float: left !important;
   width: 25%;
@@ -297,5 +305,14 @@
   background: white;
   padding: 10px 20px;
   font-size: 18px;
+}
+
+
+/* -------------------------------------------------------------------------------------------------
+/* Login/Create Page
+/* ---------------------------------------------------------------------------------------------- */
+
+.login-page-wrapper {
+  padding-top: 70px;
 }
 

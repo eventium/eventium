@@ -132,6 +132,23 @@ userRouter.get('/users/email/:email/', (req, res) => {
   });
 });
 
+// Leave this API public. Used on the signup page
+userRouter.get('/public/users/email/:email/', (req, res) => {
+  const email = req.params.email;
+  models.User.findOne({
+    attributes: ['email'],
+    where: {
+      email: email,
+    },
+  })
+  .then((user) => {
+    if (!user) {
+      return res.status(404).end();
+    }
+    return res.json(user);
+  });
+});
+
 userRouter.get('/users/:userId/profile/', (req, res) => {
   const id = parseInt(req.params.userId);
 
