@@ -47,12 +47,22 @@ eventRouter.post('/events/:id/invites/', (req, res) => {
   if (!eventId || !hostId || !guestId) {
     return res.status(400).end();
   }
-
   models.Member.findOne({
     where: {
       event_id: eventId,
-      user_id: guestId,
+      user_id: hostId,
     },
+  }).then((instance) => {
+    if (!instance) {
+      return res.status(401).end('You are not authorized to invite for this event');
+    }
+
+    return models.Member.findOne({
+      where: {
+        event_id: eventId,
+        user_id: guestId,
+      },
+    });
   })
   .then((member) => {
     if (member) {

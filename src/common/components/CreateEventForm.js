@@ -5,8 +5,22 @@ class CreateEventForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      event: {},
+    this.timeout = null;
+
+    this.state = {};
+    this.state.event = {};
+    this.state.fields = {
+      title: {},
+      start_date: {},
+      start_time: {},
+      end_date: {},
+      end_time: {},
+      location: {},
+      address: {},
+      city: {},
+      province: {},
+      postal_code: {},
+      description: {},
     };
 
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
@@ -59,13 +73,43 @@ class CreateEventForm extends Component {
   handleChange(e) {
     const event = Object.assign({}, this.state.event);
 
-    event[e.currentTarget.name] = e.currentTarget.value;
+    const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
+
+    event[name] = value;
 
     this.setState(
       {
         event: event,
       },
     );
+
+    if (name === 'image') {
+      return;
+    }
+
+    this.setState((prevState) => {
+      const state = Object.assign({}, prevState.fields);
+      state[name].className = '';
+
+      return {
+        fields: state,
+      };
+    });
+
+    const validity = this.validateField(name, value);
+
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.setState((prevState) => {
+        const state = Object.assign({}, prevState.fields);
+        state[name] = validity;
+
+        return {
+          fields: state,
+        };
+      });
+    }, 800);
   }
 
   formatDateNumber(int) {
@@ -78,6 +122,109 @@ class CreateEventForm extends Component {
     }
 
     return output;
+  }
+
+  validateField(name, value) {
+    const validity = {
+      valid: true,
+      message: '',
+      className: ' has-success',
+    };
+
+    switch (name) {
+      case 'title': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'A title is required';
+          validity.className = ' has-error';
+        }
+        break;
+      }
+      case 'start_date': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'A start date is required';
+          validity.className = ' has-error';
+          break;
+        }
+
+        // var date1 = new Date(value);
+        // var date2 = new Date();
+
+        // date2.setHours(0);
+        // date2.setMinutes(0);
+        // date2.setSeconds(0);
+
+        // if (date1.getTime() < date2.getTime()) {
+        //   validity.valid = false;
+        //   validity.message = 'Start date is before current date';
+        //   validity.className = ' has-error';
+        // }
+
+        break;
+      }
+      case 'end_date': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'An end date is required';
+          validity.className = ' has-error';
+          break;
+        }
+
+        // var date1 = new Date(value);
+        // var date2 = new Date();
+
+        // date2.setHours(0);
+        // date2.setMinutes(0);
+        // date2.setSeconds(0);
+
+        // if (date1.getTime() < date2.getTime()) {
+        //   validity.valid = false;
+        //   validity.message = 'End date is before current date';
+        //   validity.className = ' has-error';
+        // }
+
+        break;
+      }
+      case 'start_time': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'A start time is required';
+          validity.className = ' has-error';
+        }
+        break;
+      }
+      case 'end_time': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'An end time is required';
+          validity.className = ' has-error';
+        }
+        break;
+      }
+      case 'location': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'A location is required';
+          validity.className = ' has-error';
+        }
+        break;
+      }
+    }
+
+    return validity;
+  }
+
+  getClass(name) {
+    let className = 'form-group';
+
+    if (!this.state.fields[name] || this.state.fields[name].valid === undefined) {
+      return className;
+    }
+
+    className += this.state.fields[name].className;
+
+    return className;
   }
 
   render() {
@@ -98,12 +245,6 @@ class CreateEventForm extends Component {
           encType="multipart/form-data"
           onSubmit={this.props.onSubmit}
         >
-          <input
-            type="hidden"
-            name="id"
-            {...event ? { value: event.id } : {}}
-            onChange={this.handleChange}
-          />
           <div className="form-group">
             <label htmlFor="image">Image</label>
             <input
@@ -114,7 +255,7 @@ class CreateEventForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('title')}>
             <label htmlFor="title">Title</label>
             <input
               type="text"
@@ -123,9 +264,10 @@ class CreateEventForm extends Component {
               placeholder="Title"
               {...event ? { value: event.title } : {}}
               onChange={this.handleChange}
+              required
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('start_date')}>
             <label htmlFor="start-date">Start Date</label>
             <input
               type="date"
@@ -135,9 +277,10 @@ class CreateEventForm extends Component {
               placeholder="Start Date"
               {...event ? { value: event.start_date } : {}}
               onChange={this.handleChange}
+              required
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('start_time')}>
             <label htmlFor="start-time">Start Time</label>
             <input
               type="time"
@@ -147,9 +290,10 @@ class CreateEventForm extends Component {
               placeholder="Start Time"
               {...event ? { value: event.start_time } : {}}
               onChange={this.handleChange}
+              required
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('end_date')}>
             <label htmlFor="end-date">End Date</label>
             <input
               type="date"
@@ -159,9 +303,10 @@ class CreateEventForm extends Component {
               placeholder="End Date"
               {...event ? { value: event.end_date } : {}}
               onChange={this.handleChange}
+              required
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('end_time')}>
             <label htmlFor="end-time">End Time</label>
             <input
               type="time"
@@ -171,9 +316,10 @@ class CreateEventForm extends Component {
               placeholder="End Time"
               {...event ? { value: event.end_time } : {}}
               onChange={this.handleChange}
+              required
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('location')}>
             <label htmlFor="location">Location</label>
             <input
               type="text"
@@ -183,9 +329,10 @@ class CreateEventForm extends Component {
               placeholder="Location"
               {...event ? { value: event.location } : {}}
               onChange={this.handleChange}
+              required
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('address')}>
             <label htmlFor="address">Address</label>
             <input
               type="text"
@@ -197,7 +344,7 @@ class CreateEventForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('city')}>
             <label htmlFor="city">City</label>
             <input
               type="text"
@@ -209,7 +356,7 @@ class CreateEventForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('province')}>
             <label htmlFor="province">Province</label>
             <input
               type="text"
@@ -221,7 +368,7 @@ class CreateEventForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('postal_code')}>
             <label htmlFor="postal-code">Postal Code</label>
             <input
               type="text"
@@ -233,7 +380,7 @@ class CreateEventForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className={this.getClass('description')}>
             <label htmlFor="description">Description</label>
             <textarea
               className="form-control"
@@ -244,6 +391,7 @@ class CreateEventForm extends Component {
               onChange={this.handleChange}
             />
           </div>
+          <br />
           <Link
             to={cancelLink}
             className="btn btn-default btn-lg pull-left"

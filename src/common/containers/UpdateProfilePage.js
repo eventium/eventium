@@ -94,6 +94,7 @@ class UpdateProfilePage extends Component {
                 placeholder="First Name"
                 value={user.first_name}
                 onChange={this.handleChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -106,6 +107,7 @@ class UpdateProfilePage extends Component {
                 placeholder="Last Name"
                 value={user.last_name}
                 onChange={this.handleChange}
+                required
               />
             </div>
             <div className="form-group">
@@ -118,6 +120,7 @@ class UpdateProfilePage extends Component {
                 placeholder="Email"
                 value={user.email}
                 onChange={this.handleChange}
+                required
               />
             </div>
             <div className="form-group">
