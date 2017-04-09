@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { FormGroup, FormControl, Button, Col, ControlLabel, Alert } from 'react-bootstrap';
 import { login, fetchSession } from '../actions/session';
 import * as constants from '../constants';
+import LoginNavBar from '../components/LoginNavBar';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -11,11 +13,15 @@ class LoginPage extends Component {
       username: '',
       password: '',
     };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   componentWillMount() {
     const { dispatch } = this.props;
     dispatch(fetchSession());
   }
+
   componentDidUpdate(prevProps) {
     const prevSession = prevProps.session;
     const nowSession = this.props.session;
@@ -24,16 +30,30 @@ class LoginPage extends Component {
       this.context.router.goBack();
     }
   }
+
   handleSubmit(e) {
     e.preventDefault();
     const { username, password } = this.state;
     this.props.dispatch(login(username, password));
   }
+
   handleInputChange(e) {
     const state = Object.assign({}, this.state);
     state[e.target.name] = e.target.value;
     this.setState(state);
   }
+
+  showAlert(errorMessage) {
+    if (errorMessage) {
+      return (
+        <Alert bsStyle="danger">
+          {errorMessage}
+        </Alert>
+      );
+    }
+    return null;
+  }
+
   render() {
     const session = this.props.session;
     const pending = (session.status === constants.SESSION_STATUS_PENDING);
@@ -47,35 +67,48 @@ class LoginPage extends Component {
     }
 
     return (
-      <div className={redirect ? 'hidden' : ''} >
-        <span className="page-header">
-          <h1>Log in</h1>
-        </span>
-
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <fieldset disabled={pending}>
-            <div>
-              <label htmlFor="username-input">Email:</label>
-              <input type="text" id="username-input" name="username" value={this.state.username} onChange={e => this.handleInputChange(e)} />
-            </div>
-
-            <div>
-              <label htmlFor="password-input">Password: </label>
-              <input type="password" id="password-input" name="password" value={this.state.password} onChange={e => this.handleInputChange(e)} />
-            </div>
-
-            <div>
-              <input type="submit" value="Submit" />
-            </div>
-          </fieldset>
-        </form>
-
-        <div>{errorMessage}</div>
-
-        <Link to={'/signup'} >
-          Sign up
-        </Link>
-
+      <div>
+        <LoginNavBar />
+        <div className={redirect ? 'hidden' : ''} >
+          <div className="login-page-wrapper">
+            {this.showAlert(errorMessage)}
+            <form className="horizontal" onSubmit={this.handleSubmit}>
+              <fieldset disabled={pending}>
+                <FormGroup controlId="formHorizontalEmail">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Email
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="email" placeholder="Email" name="username" required value={this.state.username} onChange={this.handleInputChange} />
+                  </Col>
+                </FormGroup>
+  
+                <FormGroup controlId="formHorizontalPassword">
+                  <Col componentClass={ControlLabel} sm={2}>
+                    Password
+                  </Col>
+                  <Col sm={10}>
+                    <FormControl type="password" placeholder="Password" name="password" required value={this.state.password} onChange={this.handleInputChange} />
+                  </Col>
+                </FormGroup>
+  
+                <FormGroup>
+                  <Col smOffset={2} sm={10}>
+                    <Button bsStyle="primary" type="submit">
+                      Log In
+                    </Button>
+                  </Col>
+                </FormGroup>
+  
+                <FormGroup>
+                  <Col smOffset={2} sm={10}>
+                    <p>Don{"'"}t have an account? <Link to={'/signup'}>Sign Up</Link></p>
+                  </Col>
+                </FormGroup>
+              </fieldset>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }
