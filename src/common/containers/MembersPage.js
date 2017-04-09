@@ -6,6 +6,7 @@ import { redirectToLogin } from '../actions/session';
 import NavBar from '../components/NavBar';
 import EventInviteList from '../components/EventInviteList';
 import EventMembersList from '../components/EventMembersList';
+import EventInviteMemberForm from '../components/EventInviteMemberForm';
 
 class MembersPage extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class MembersPage extends Component {
       <div>
         <NavBar eventId={eventId} />
         <div className="event-membership-page-wrapper">
+          <EventInviteMemberForm />
           <EventInviteList invites={invites} />
           <EventMembersList members={members} />
         </div>
@@ -50,9 +52,10 @@ MembersPage.contextTypes = {
 };
 
 const mapStateToProps = (state) => {
+
   return {
-    invites: state.invites.data,
-    members: state.members.data,
+    invites: state.members.invites,
+    members: state.members.members,
     session: state.session,
   };
 };

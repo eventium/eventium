@@ -117,6 +117,13 @@
   overflow-y: scroll;
 }
 
+.event-invite-member-form-wrapper {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  min-height: 70px;
+}
 
 /* -------------------------------------------------------------------------------------------------
 /* Navigation

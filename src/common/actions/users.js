@@ -6,10 +6,13 @@ import {
   REQUEST_USER_EVENTS,
   RECEIVE_USER_EVENTS,
   RECEIVE_DELETE_USER_INVITE,
+  REQUEST_USER_FROM_EMAIL,
+  RECEIVE_USER_FROM_EMAIL,
+  RECEIVE_USER_FROM_EMAIL_NOT_FOUND,
+  USER_TYPING_EMAIL,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
-
 
 // -------------------------------------------------------------------------------------------------
 // GET /api/users/${userId}/invites/
@@ -140,3 +143,55 @@ export function createUserMembership(userId, invite) {
       });
   };
 }
+
+// -------------------------------------------------------------------------------------------------
+// GET /users/email/${email}
+// -------------------------------------------------------------------------------------------------
+
+function requestUserFromEmail() {
+  return {
+    type: REQUEST_USER_FROM_EMAIL,
+  };
+}
+
+function receiveUserFromEmail(json) {
+  return {
+    type: RECEIVE_USER_FROM_EMAIL,
+    json,
+  };
+}
+
+function receiveUserFromEmailNotFound() {
+  return {
+    type: RECEIVE_USER_FROM_EMAIL_NOT_FOUND,
+  };
+}
+
+export function loadUserFromEmail(email) {
+  const url = `${HOST}/api/users/email/${email}`;
+
+  return dispatch => {
+    dispatch(requestUserFromEmail());
+
+    return fetch(url, { credentials: 'same-origin' })
+      .then(response => {
+        if (response.ok) {
+          response.json().then((json) => {
+            return dispatch(receiveUserFromEmail(json));
+          });
+        } else {
+          return dispatch(receiveUserFromEmailNotFound());
+        }
+      })
+      .catch((err) => {
+        console.log('Failed to retrieve user by email for email:', email, 'err:', err);
+      });
+  };
+}
+
+export function userTypingEmail() {
+  return {
+    type: USER_TYPING_EMAIL,
+  };
+}
+
