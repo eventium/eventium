@@ -1,12 +1,13 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import models from './../models';
+import { authorizeEvent } from '../authorization';
 
 const messageRouter = express.Router();
 messageRouter.use(bodyParser.json());
 
-messageRouter.get('/events/:id/messages/', (req, res) => {
-  const eventId = parseInt(req.params.id);
+messageRouter.get('/events/:id/messages/', authorizeEvent('id'), (req, res) => {
+  const eventId = parseInt(req.params.id, 10);
 
   models.Message.findAll({
     where: {
@@ -19,8 +20,8 @@ messageRouter.get('/events/:id/messages/', (req, res) => {
 });
 
 
-messageRouter.post('/events/:id/messages/', (req, res) => {
-  const eventId = parseInt(req.params.id);
+messageRouter.post('/events/:id/messages/', authorizeEvent('id'), (req, res) => {
+  const eventId = parseInt(req.params.id, 10);
   const content = req.body.content;
   const userId = req.body.user_id;
   const createdOn = req.body.created_on;

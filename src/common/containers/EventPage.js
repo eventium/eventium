@@ -32,17 +32,25 @@ class EventPage extends Component {
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
     const id = this.props.params.id;
+    if (!title) {
+      return (
+        <div className="loader absolute-center" />
+      );
+    }
     return (
       <div>
         <NavBar eventId={id} />
         <div className="container event-page-wrapper">
           <h1>{title}</h1>
-          {image &&
-            <img
-              src={`/${image}`}
-              alt=""
-            />
-          }
+          <div className="image-container">
+            {image &&
+              <img
+                className="img-responsive event-image"
+                src={`/${image}`}
+                alt=""
+              />
+            }
+          </div>
           <h2>Description</h2>
           <p>{description}</p>
           <h2>Time</h2>

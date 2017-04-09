@@ -50,6 +50,20 @@
   margin: auto;
 }
 
+/* -------------------------------------------------------------------------------------------------
+/* Images
+/* ---------------------------------------------------------------------------------------------- */
+
+.image-container {
+  overflow:hidden;
+  max-height: 300px;
+  width: 100%;
+}
+
+.profile-picture,
+.event-image {
+  width: 100%;
+}
 
 /* -------------------------------------------------------------------------------------------------
 /* Event Page
@@ -62,14 +76,16 @@
   overflow-y: scroll;
 }
 
-.event-page-wrapper {
+.event-page-wrapper,
+.profile-page-wrapper {
   padding-top: 70px;
   padding-bottom: 50px;
   height: 100%;
 }
 
 .update-event,
-.create-event {
+.create-event,
+.update-profile {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -77,15 +93,16 @@
 }
 
 .update-event a,
-.create-event a {
+.create-event a,
+.update-profile a {
   display: block;
   text-align: center;
   width: 60px;
   height: 60px;
   line-height: 60px;
   border-radius: 30px;
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
   background-color: #444753;
   -webkit-box-shadow: 0px 5px 13px -3px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 5 13px -3px rgba(0,0,0,0.5);
@@ -96,12 +113,15 @@
 .update-event a:active,
 .update-event a:hover,
 .create-event a:active,
-.create-event a:hover {
+.create-event a:hover,
+.update-profile a:active,
+.update-profile a:hover {
   opacity: 1.0;
 }
 
 .update-event .glyphicon,
-.create-event .glyphicon {
+.create-event .glyphicon,
+.update-profile .glyphicon {
   font-size: 28px;
   color: #ffffff;
   vertical-align: middle;

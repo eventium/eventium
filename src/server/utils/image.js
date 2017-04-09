@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-export function handleEventImageUpload(fileInfo) {
+export function addUploadedImageExtension(fileInfo) {
   return new Promise((resolve) => {
     if (!fileInfo) {
       resolve(null);

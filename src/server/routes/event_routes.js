@@ -1,12 +1,20 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import models from './../models';
+import { authorizeEvent } from '../authorization';
 
 const eventRouter = express.Router();
 eventRouter.use(bodyParser.json());
 
-eventRouter.get('/events/:id/members/', (req, res) => {
-  const eventId = parseInt(req.params.id);
+eventRouter.get('/events/:id', authorizeEvent('id'), (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  models.Event.findById(id).then((instance) => {
+    res.json(instance.get());
+  });
+});
+
+eventRouter.get('/events/:id/members/', authorizeEvent('id'), (req, res) => {
+  const eventId = parseInt(req.params.id, 10);
 
   models.Member.findAll({
     where: {
@@ -18,9 +26,9 @@ eventRouter.get('/events/:id/members/', (req, res) => {
 });
 
 
-eventRouter.get('/events/:id/invites/', (req, res) => {
-  const eventId = parseInt(req.params.id);
-  const Guest = models.Invite.belongsTo(models.User, { as: 'Guest', foreignKey: 'guest_id'});
+eventRouter.get('/events/:id/invites/', authorizeEvent('id'), (req, res) => {
+  const eventId = parseInt(req.params.id, 10);
+  const Guest = models.Invite.belongsTo(models.User, { as: 'Guest', foreignKey: 'guest_id' });
 
   models.Invite.findAll({
     where: {
