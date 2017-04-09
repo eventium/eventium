@@ -42,7 +42,7 @@ class EventListPage extends Component {
     const { events, invites, session, dispatch } = this.props;
     return (
       <div>
-        <GeneralNavBar session={session} dispatch={dispatch} />
+        <GeneralNavBar session={session} />
         <div className="container event-list-page-wrapper">
           <InviteList invites={invites} acceptInvite={this.acceptInvite} declineInvite={this.declineInvite} />
           <EventList events={events} />
