@@ -1,13 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, browserHistory } from 'react-router';
 import { NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { logout } from '../actions/session';
 
-
-export default class GeneralNavBar extends Component {
+class GeneralNavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogOut = this.handleLogOut.bind(this);
+  }
 
   handleLogOut() {
-    this.props.dispatch(logout(this.context.router));
+    const { dispatch } = this.props;
+    dispatch(logout(this.context.router));
   }
   render() {
     const { session } = this.props;
@@ -54,3 +59,10 @@ GeneralNavBar.propTypes = {
 GeneralNavBar.contextTypes = {
   router: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+export default connect(mapStateToProps)(GeneralNavBar);
