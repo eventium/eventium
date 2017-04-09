@@ -39,24 +39,11 @@ eventRouter.get('/events/:id/invites/', authorizeEvent('id'), (req, res) => {
   .then(invites => res.json(invites));
 });
 
-eventRouter.get('/events/:id/invites/', (req, res) => {
-  const eventId = parseInt(req.params.id);
-  const Guest = models.Invite.belongsTo(models.User, { as: 'Guest', foreignKey: 'guest_id'});
-
-  models.Invite.findAll({
-    where: {
-      event_id: eventId,
-    },
-    include: [{ association: Guest, attributes: ['first_name', 'last_name'] }],
-  })
-  .then(invites => res.json(invites));
-});
-
 eventRouter.post('/events/:id/invites/', (req, res) => {
   const eventId = parseInt(req.params.id, 10);
   const hostId = req.body.hostId;
   const guestId = req.body.guestId;
-  console.log("body", req.body);
+
   if (!eventId || !hostId || !guestId) {
     return res.status(400).end();
   }
