@@ -127,7 +127,7 @@ userRouter.get('/users/:userId/profile/', (req, res) => {
         first_name: instance.first_name,
         last_name: instance.last_name,
         description: instance.description,
-        picture: instance.picture,
+        avatar: instance.avatar,
       });
     }).catch((err) => {
       console.log(err);

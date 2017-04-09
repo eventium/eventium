@@ -36,12 +36,15 @@ class ProfilePage extends Component {
       <div>
         <GeneralNavBar session={session} />
         <div className="container profile-page-wrapper">
-          {user.image &&
-            <img
-              src={`/${user.picture}`}
-              alt=""
-            />
-          }
+          <div className="image-container">
+            {user.avatar &&
+              <img
+                className="img-responsive profile-picture"
+                src={`/${user.avatar}`}
+                alt=""
+              />
+            }
+          </div>
           <h1>{`${user.first_name} ${user.last_name}`}</h1>
           <hr />
           <h2>Email</h2>
@@ -68,7 +71,7 @@ ProfilePage.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
   }).isRequired,
 };
 
