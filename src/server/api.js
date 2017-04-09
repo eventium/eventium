@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { isLoggedIn, respondWithSession } from './authentication';
+import { isLoggedIn, respondWithSession, createUser } from './authentication';
 import { handleEventImageUpload } from './utils/image.js';
 
 const models = require('./models');
@@ -19,19 +19,7 @@ const API = (app) => {
     res.end();
   });
 
-  app.post('/api/user', (req, res) => {
-    console.log(req.body);
-    models.User.create({
-      email: req.body.email,
-      password: req.body.password,
-    }).then((instance) => {
-      res.status(201);
-      res.end();
-    }).catch((err) => {
-      res.status(409);
-      res.end();
-    });
-  });
+  app.post('/api/user', createUser);
 
   app.get('/api/events/', (req, res) => {
     models.Event.findAll().then(instances =>

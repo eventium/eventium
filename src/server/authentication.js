@@ -1,13 +1,29 @@
+const bcrypt = require('bcryptjs');
 const LocalStrategy = require('passport-local').Strategy;
 const models = require('./models');
+
+function comparePassword(password, instance) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, instance.get('password'), (err, match) => {
+      if (err) {
+        reject(err);
+      } else if (!match) {
+        resolve(null);
+      } else {
+        resolve(instance);
+      }
+    });
+  });
+}
 
 export function configPassport(passport) {
   console.log('@config passport');
   passport.use('local-login', new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, (email, password, done) => {
     console.log('@local-login');
     models.User.findOne({ where: { email } })
+      .then(instance => comparePassword(password, instance))
       .then((instance) => {
-        if (instance.get('password') === password) {
+        if (instance) {
           return done(null, instance);
         } else {
           return done(null, false, { message: 'Failed to authenticate' });
@@ -50,13 +66,7 @@ export function isLoggedIn(req, res, next) {
   }
 }
 
-export function debugMiddleware(req, res, next) {
-  console.log(req.session);
-  console.log(req.user);
-  next();
-}
-
-export function respondWithSession (req, res) {
+export function respondWithSession(req, res) {
   const id = req.session.passport.user;
   models.User.findById(id)
     .then((instance) => {
@@ -72,4 +82,24 @@ export function respondWithSession (req, res) {
       res.status(500);
       res.end();
     });
+}
+
+export function createUser(req, res) {
+  bcrypt.hash(req.body.password, 10, (err, hash) => {
+    if (err) {
+      res.status(500);
+      res.end(err);
+    } else {
+      models.User.create({
+        email: req.body.email,
+        password: hash,
+      }).then(() => {
+        res.status(201);
+        res.end();
+      }).catch((err2) => {
+        res.status(409);
+        res.end(err2);
+      });
+    }
+  });
 }
