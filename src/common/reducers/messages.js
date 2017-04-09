@@ -23,7 +23,7 @@ export const messages = (state = initialState, action) => {
       return Object.assign({}, state, {
         loading: false,
         loaded: true,
-        data: [...state.data, ...action.json],
+        data: action.json,
       });
     default:
       return state;
