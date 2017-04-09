@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { NavDropdown, MenuItem, Glyphicon } from 'react-bootstrap';
 import { logout } from '../actions/session';
+
 
 export default class GeneralNavBar extends Component {
 
@@ -22,9 +23,23 @@ export default class GeneralNavBar extends Component {
             <Link to="/"><Glyphicon glyph="globe" /></Link>
           </li>
           <NavDropdown eventKey={3} title={firstName} id="basic-nav-dropdown">
-            <MenuItem eventKey={3.1}><Glyphicon glyph="cog" />Account</MenuItem>
+            <MenuItem
+              eventKey={3.1}
+              onClick={() => {
+                if (session.user) {
+                  browserHistory.push(`/profile/${session.user.id}/`);
+                }
+              }}
+            >
+              <Glyphicon glyph="cog" />Account
+            </MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey={3.2} onSelect={() => this.handleLogOut()}><Glyphicon glyph="log-out" />Logout</MenuItem>
+            <MenuItem
+              eventKey={3.2}
+              onSelect={() => this.handleLogOut()}
+            >
+              <Glyphicon glyph="log-out" />Logout
+            </MenuItem>
           </NavDropdown>
         </ul>
       </div>
