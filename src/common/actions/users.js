@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import FormData from 'form-data';
 
 import {
   REQUEST_USER_INVITES,
@@ -6,10 +7,118 @@ import {
   REQUEST_USER_EVENTS,
   RECEIVE_USER_EVENTS,
   RECEIVE_DELETE_USER_INVITE,
+  REQUEST_USER_PROFILE,
+  RECEIVE_USER_PROFILE,
+  UPDATE_USER_PROFILE_REQUEST,
+  UPDATE_USER_PROFILE_RESPONSE,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
 
+// -------------------------------------------------------------------------------------------------
+// GET /api/users/${userId}/profile
+// -------------------------------------------------------------------------------------------------
+
+function requestUserProfile(userId) {
+  return {
+    type: REQUEST_USER_PROFILE,
+    user: {
+      id: userId,
+      email: '',
+      first_name: '',
+      last_name: '',
+      description: '',
+      picture: '',
+    },
+  };
+}
+
+function receiveUserProfile(json) {
+  return {
+    type: RECEIVE_USER_PROFILE,
+    user: {
+      id: json.id,
+      email: json.email,
+      first_name: json.first_name,
+      last_name: json.last_name,
+      description: json.description,
+      picture: json.picture,
+    },
+  };
+}
+
+export function loadUserProfile(userId) {
+  const url = `${HOST}/api/users/${userId}/profile/`;
+  const options = {};
+
+  options.method = 'GET';
+  options.credentials = 'same-origin';
+
+  return (dispatch) => {
+    dispatch(requestUserProfile(userId));
+
+    return fetch(url, options)
+      .then(response => response.json())
+      .then(json => dispatch(receiveUserProfile(json)));
+  };
+}
+
+// -------------------------------------------------------------------------------------------------
+// POST /api/users/${userId}/profile
+// -------------------------------------------------------------------------------------------------
+
+function updateUserProfileRequest(profile) {
+  return {
+    type: UPDATE_USER_PROFILE_REQUEST,
+    user: profile,
+  };
+}
+
+function updateUserProfileResponse(json) {
+  return {
+    type: UPDATE_USER_PROFILE_RESPONSE,
+    user: {
+      id: json.id,
+      email: json.email,
+      first_name: json.first_name,
+      last_name: json.last_name,
+      description: json.description,
+      picture: json.picture,
+    },
+  };
+}
+
+export function updateUserProfile(userId, formData) {
+  const form = new FormData();
+  const url = `${HOST}/api/users/${userId}/profile/`;
+  const options = {};
+  const profile = {};
+
+  for (let i = 0; i < formData.length; i += 1) {
+    const name = formData[i].getAttribute('name');
+    const value = formData[i].value;
+
+    if (name === 'picture' && formData[i].files.length > 0) {
+      const file = formData[i].files[0];
+
+      form.append(name, file);
+    } else {
+      form.append(name, value);
+    }
+  }
+
+  options.method = 'POST';
+  options.body = form;
+  options.credentials = 'same-origin';
+
+  return (dispatch) => {
+    dispatch(updateUserProfileRequest(profile));
+
+    return fetch(url, options)
+      .then(response => response.json())
+      .then(json => dispatch(updateUserProfileResponse(json)));
+  };
+}
 
 // -------------------------------------------------------------------------------------------------
 // GET /api/users/${userId}/invites/

@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import models from './../models';
+import { addUploadedImageExtension } from '../utils/image';
 
 function authorizeUser(paramName) {
   return (req, res, next) => {
@@ -111,5 +112,64 @@ userRouter.post('/users/:userId/membership/', (req, res) => {
   });
 });
 
+userRouter.get('/users/:userId/profile/', (req, res) => {
+  const id = parseInt(req.params.userId);
+
+  models.User.findById(id)
+    .then((instance) => {
+      res.json({
+        id: instance.id,
+        email: instance.email,
+        first_name: instance.first_name,
+        last_name: instance.last_name,
+        description: instance.description,
+        picture: instance.picture,
+      });
+    }).catch((err) => {
+      console.log(err);
+      res.status(500);
+      res.end();
+    });
+});
+
+userRouter.post('/users/:userId/profile/', (req, res) => {
+  const id = parseInt(req.params.userId);
+
+  console.log(req.body);
+
+  const user = {
+    id: id,
+    email: req.body.email,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    description: req.body.description,
+  };
+
+  const promise = addUploadedImageExtension(req.file);
+
+  Promise.all([promise])
+    .then((imgPath) => {
+      if (imgPath[0]) {
+        user.picture = imgPath[0];
+      }
+
+      models.User.upsert(user)
+      .then(() => {
+        models.User.findById(id).then((instance) => {
+          res.json(instance.get());
+        });
+      }).catch((err) => {
+        console.log(err);
+        res.status(500);
+        res.end();
+      });
+    }).catch((err) => {
+      console.log(err);
+      res.status(500);
+      res.end();
+    });
+});
 
 export { userRouter };
+
+

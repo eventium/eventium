@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { isLoggedIn, respondWithSession, createUser } from './authentication';
-import { handleEventImageUpload } from './utils/image.js';
+import { addUploadedImageExtension } from './utils/image.js';
 
 const models = require('./models');
 var multer  = require('multer');
@@ -58,7 +58,7 @@ const API = (app) => {
       end_time: end_time,
     };
 
-    const promise = handleEventImageUpload(req.file);
+    const promise = addUploadedImageExtension(req.file);
 
     Promise.all([promise]).then((imgPath) => {
       if(imgPath[0]) {
@@ -93,7 +93,7 @@ const API = (app) => {
       title: req.body.title,
     };
 
-    const promise = handleEventImageUpload(req.file);
+    const promise = addUploadedImageExtension(req.file);
 
     Promise.all([promise]).then((imgPath) => {
       if(imgPath[0]) {

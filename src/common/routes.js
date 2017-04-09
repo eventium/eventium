@@ -10,7 +10,12 @@ import LoginPage from './containers/LoginPage';
 import SignupPage from './containers/SignupPage';
 import CreateEventPage from './containers/CreateEventPage';
 import UpdateEventPage from './containers/UpdateEventPage';
+<<<<<<< HEAD
 import MembersPage from './containers/MembersPage';
+=======
+import ProfilePage from './containers/ProfilePage';
+import UpdateProfilePage from './containers/UpdateProfilePage';
+>>>>>>> profile pages
 
 const routes = (
   <Route path="/" component={Layout}>
@@ -25,6 +30,10 @@ const routes = (
         <Route path="members" component={MembersPage} />
         <Route path="update" component={UpdateEventPage} />
       </Route>
+    </Route>
+    <Route path="profile/:id" component={Layout}>
+      <IndexRoute component={ProfilePage} />
+      <Route path="update" component={UpdateProfilePage} />
     </Route>
     <Route path="*" component={NotFoundPage} />
   </Route>
