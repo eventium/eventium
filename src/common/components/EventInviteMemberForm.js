@@ -39,7 +39,7 @@ class EventInviteMemberForm extends Component {
   validateEmail(email) {
     const { dispatch } = this.props;
     // Do validation
-    if (email.includes('@')) {
+    if (/.+@.+/.test(email)) {
       dispatch(loadUserFromEmail(email));
     }
   }
@@ -47,7 +47,7 @@ class EventInviteMemberForm extends Component {
   handleChange(event) {
     const email = event.target.value;
     const { dispatch } = this.props;
-    dispatch(userTypingEmail(email));
+    dispatch(userTypingEmail());
     this.validateEmail(email);
   }
 
