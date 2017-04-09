@@ -1,10 +1,11 @@
 import passport from 'passport';
 import { isLoggedIn, respondWithSession, createUser } from './authentication';
-import { addUploadedImageExtension } from './utils/image.js';
+import { addUploadedImageExtension } from './utils/image';
 
+const multer = require('multer');
 const models = require('./models');
-var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
+
+const upload = multer({ dest: 'uploads/' });
 
 const API = (app) => {
   app.use(['/api/*'], isLoggedIn);
@@ -20,25 +21,6 @@ const API = (app) => {
   });
 
   app.post('/api/user', createUser);
-
-  app.get('/api/events/', (req, res) => {
-    models.Event.findAll().then(instances =>
-      instances.map(instance =>
-        instance.get()
-      )
-    ).then(events => {
-      res.json({
-        'events': events
-      });
-    })
-  })
-
-  app.get('/api/events/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    models.Event.findById(id).then(instance => {
-      res.json(instance.get());
-    })
-  })
 
   app.post('/api/events/', upload.single('image'), (req, res) => {
     console.log(req.file);

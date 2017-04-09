@@ -6,6 +6,13 @@ import { authorizeEvent } from '../authorization';
 const eventRouter = express.Router();
 eventRouter.use(bodyParser.json());
 
+eventRouter.get('/events/:id', authorizeEvent('id'), (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  models.Event.findById(id).then((instance) => {
+    res.json(instance.get());
+  });
+});
+
 eventRouter.get('/events/:id/members/', authorizeEvent('id'), (req, res) => {
   const eventId = parseInt(req.params.id, 10);
 
