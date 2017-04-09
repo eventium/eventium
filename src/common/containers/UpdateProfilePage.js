@@ -8,8 +8,14 @@ class UpdateProfilePage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      user: {},
+    this.state = {};
+    this.state.user = {};
+    this.state.fields = {
+      avatar: {},
+      first_name: {},
+      last_name: {},
+      email: {},
+      description: {},
     };
 
     this.componentWillMount = this.componentWillMount.bind(this);
@@ -38,13 +44,39 @@ class UpdateProfilePage extends Component {
   handleChange(e) {
     const user = Object.assign({}, this.state.userProfile);
 
-    user[e.currentTarget.name] = e.currentTarget.value;
+    const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
+
+    user[name] = value;
 
     this.setState(
       {
         user: user,
       },
     );
+
+    this.setState((prevState) => {
+      const state = Object.assign({}, prevState.fields);
+      state[name].className = '';
+
+      return {
+        fields: state,
+      };
+    });
+
+    const validity = this.validateField(name, value);
+
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.setState((prevState) => {
+        const state = Object.assign({}, prevState.fields);
+        state[name] = validity;
+
+        return {
+          fields: state,
+        };
+      });
+    }, 800);
   }
 
   handleSubmit(event) {
@@ -57,6 +89,55 @@ class UpdateProfilePage extends Component {
     this.props.updateProfile(userId, form.elements);
 
     this.context.router.push(`/profile/${userId}/`);
+  }
+
+  validateField(name, value) {
+    const validity = {
+      valid: true,
+      message: '',
+      className: ' has-success',
+    };
+
+    switch (name) {
+      case 'first_name': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'A first name is required';
+          validity.className = ' has-error';
+        }
+        break;
+      }
+      case 'last_name': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'A last name is required';
+          validity.className = ' has-error';
+        }
+        break;
+      }
+      case 'email': {
+        if (value.length === 0) {
+          validity.valid = false;
+          validity.message = 'An email is required';
+          validity.className = ' has-error';
+        }
+        break;
+      }
+    }
+
+    return validity;
+  }
+
+  getClass(name) {
+    let className = 'form-group';
+
+    if (!this.state.fields[name] || this.state.fields[name].valid === undefined) {
+      return className;
+    }
+
+    className += this.state.fields[name].className;
+
+    return className;
   }
 
   render() {
@@ -74,7 +155,7 @@ class UpdateProfilePage extends Component {
             encType="multipart/form-data"
             onSubmit={this.handleSubmit}
           >
-            <div className="form-group">
+            <div className={this.getClass('avatar')}>
               <label htmlFor="avatar">Profile Image</label>
               <input
                 type="file"
@@ -84,7 +165,7 @@ class UpdateProfilePage extends Component {
                 onChange={this.handleChange}
               />
             </div>
-            <div className="form-group">
+            <div className={this.getClass('first_name')}>
               <label htmlFor="first-name">First Name</label>
               <input
                 type="text"
@@ -97,7 +178,7 @@ class UpdateProfilePage extends Component {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className={this.getClass('last_name')}>
               <label htmlFor="last-name">Last Name</label>
               <input
                 type="text"
@@ -110,7 +191,7 @@ class UpdateProfilePage extends Component {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className={this.getClass('email')}>
               <label htmlFor="email">Email</label>
               <input
                 type="text"
@@ -123,7 +204,7 @@ class UpdateProfilePage extends Component {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className={this.getClass('description')}>
               <label htmlFor="description">Description</label>
               <textarea
                 className="form-control"
