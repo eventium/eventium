@@ -43,7 +43,7 @@ class EventListPage extends Component {
     return (
       <div>
         <GeneralNavBar session={session} dispatch={dispatch} />
-        <div className="event-list-page-wrapper">
+        <div className="container event-list-page-wrapper">
           <InviteList invites={invites} acceptInvite={this.acceptInvite} declineInvite={this.declineInvite} />
           <EventList events={events} />
         </div>
