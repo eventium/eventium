@@ -48,6 +48,12 @@ export const event = (state = initialEventState, action) => {
         event: Object.assign({}, action.event),
       };
     }
+    case constants.RECEIVE_INDIVIDUAL_EVENT_FAILURE: {
+      return {
+        event: {},
+        error: action.error,
+      };
+    }
     default: {
       return initialEventState;
     }

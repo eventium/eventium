@@ -4,6 +4,7 @@ import FormData from 'form-data';
 import {
   REQUEST_INDIVIDUAL_EVENT,
   RECEIVE_INDIVIDUAL_EVENT,
+  RECEIVE_INDIVIDUAL_EVENT_FAILURE,
   CREATE_EVENT_REQUEST,
   CREATE_EVENT_RESPONSE,
   UPDATE_EVENT_REQUEST,
@@ -59,6 +60,13 @@ function receiveEvent(id, json) {
   };
 }
 
+function failedToReceiveEvent(error) {
+  return {
+    type: RECEIVE_INDIVIDUAL_EVENT_FAILURE,
+    error,
+  };
+}
+
 export function loadEvent(id) {
   const url = `${HOST}/api/events/${id}`;
 
@@ -66,11 +74,19 @@ export function loadEvent(id) {
     dispatch(requestEvent());
 
     return fetch(url, { credentials: 'same-origin' })
-      .then(response => response.json())
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else if (response.status === 401) {
+          throw 'Unauthorized';
+        } else {
+          throw JSON.stringify(response.body);
+        }
+      })
       .then((json) => {
         dispatch(receiveEvent(id, json));
       }).catch((err) => {
-        console.log('failed to retrieve event', id, 'with err:', err);
+        dispatch(failedToReceiveEvent(`Failed to retrieve event ${id}:\n${err}`));
       });
   };
 }

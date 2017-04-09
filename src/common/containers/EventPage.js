@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { Alert } from 'react-bootstrap';
 import { redirectToLogin } from '../actions/session';
 import { loadEvent } from '../actions/events';
 import NavBar from '../components/NavBar';
@@ -24,19 +25,27 @@ class EventPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState({ event: newProps.event });
+    this.setState({ event: newProps.event.event });
   }
 
   render() {
-    const { image, title, description, location, address, city, province, postal_code } = this.props.event;
+    const { image, title, description, location, address, city, province, postal_code } = this.props.event.event;
+    const error = this.props.event.error;
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
     const id = this.props.params.id;
-    if (!title) {
+    if (error) {
+      return (
+        <Alert bsStyle="danger">{error}</Alert>
+      );
+    }
+
+    if (!title && !error) {
       return (
         <div className="loader absolute-center" />
       );
     }
+
     return (
       <div>
         <NavBar eventId={id} />
@@ -100,7 +109,7 @@ EventPage.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    event: state.event.event,
+    event: state.event,
     session: state.session,
   };
 };
