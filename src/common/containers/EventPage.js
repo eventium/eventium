@@ -32,6 +32,11 @@ class EventPage extends Component {
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
     const id = this.props.params.id;
+    if (!title) {
+      return (
+        <div className="loader absolute-center" />
+      );
+    }
     return (
       <div>
         <NavBar eventId={id} />
