@@ -19,6 +19,11 @@ module.exports = (sequelize, DataType) => {
       field: 'role',
     },
   }, {
+    indexes: [
+      {
+        fields: ['event_id'],
+      },
+    ],
     classMethods: {
       associate: (models) => {
         Member.belongsTo(models.Event, { foreignKey: 'event_id' });

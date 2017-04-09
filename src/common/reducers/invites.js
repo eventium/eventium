@@ -11,7 +11,12 @@ export const invites = (state = initialState, action) => {
     }
     case constants.RECEIVE_DELETE_USER_INVITE: {
       return Object.assign({}, {
-        data: state.data.filter(invite => (invite.id !== action.inviteId)) 
+        data: state.data.filter(invite => (invite.id !== action.inviteId))
+      });
+    }
+    case constants.RECEIVE_EVENT_INVITES: {
+      return Object.assign({}, state, {
+        data: [...state.data, ...action.json],
       });
     }
     default:

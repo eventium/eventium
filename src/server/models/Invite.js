@@ -23,11 +23,16 @@ module.exports = (sequelize, DataType) => {
       field: 'message',
     },
   }, {
+    indexes: [
+      {
+        fields: ['event_id'],
+      },
+    ],
     classMethods: {
       associate: (models) => {
         Invite.belongsTo(models.Event, { foreignKey: 'event_id' });
-        Invite.belongsTo(models.User, { foreignKey: 'guest_id' });
-        Invite.belongsTo(models.User, { foreignKey: 'host_id' });
+        Invite.belongsTo(models.User, { as: 'Guest', foreignKey: 'guest_id' });
+        Invite.belongsTo(models.User, { as: 'Host', foreignKey: 'host_id' });
       },
     },
   });
