@@ -87,10 +87,21 @@ userRouter.post('/users/:userId/membership/', (req, res) => {
     res.status(409).end();
   }
 
-  models.Member.create({
-    event_id: req.body.eventId,
-    user_id: userId,
-    role: 'guest',
+  models.Invite.findAll({
+    where: {
+      guest_id: userId,
+      event_id: eventId,
+    },
+  }).then((instances) => {
+    if (instances.length > 0) {
+      return models.Member.create({
+        event_id: req.body.eventId,
+        user_id: userId,
+        role: 'guest',
+      });
+    } else {
+      return Promise.reject();
+    }
   })
   .then(() => {
     res.status(201).end();
