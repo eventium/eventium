@@ -21,12 +21,18 @@ export default class MessageComposer extends React.Component {
 
     if (event.which === 13) {
       event.preventDefault();
+
+      // no empty messages
+      if (text === '') {
+        return;
+      }
+
       const session = this.props.session;
       const newMessage = {
         uuid: uuid.v4(),
         content: text,
         user_id: session.user.id,
-        event_id: parseInt(eventId),
+        event_id: parseInt(eventId, 10),
         created_on: Date.now(),
         channelId: eventId,
         User: {
