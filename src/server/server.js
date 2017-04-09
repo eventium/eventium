@@ -1,5 +1,4 @@
 // Credits: https://scotch.io/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app
-import path from 'path';
 import Express from 'express';
 import React from 'react';
 import thunkMiddleware from 'redux-thunk';
@@ -22,6 +21,7 @@ import db from './models';
 import socketEvents from './socketEvents';
 import { messageRouter } from './routes/message_routes';
 import { userRouter } from './routes/user_routes';
+import { eventRouter } from './routes/event_routes';
 import { configPassport } from './authentication';
 
 const SequelizeStore = require('connect-session-sequelize')(expressSession.Store);
@@ -64,6 +64,7 @@ app.use(passport.session());
 API(app);
 app.use('/api', messageRouter);
 app.use('/api', userRouter);
+app.use('/api', eventRouter);
 
 // universal routing and rendering
 app.get('*', (req, res) => {
