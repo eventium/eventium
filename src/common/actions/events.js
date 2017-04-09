@@ -8,6 +8,10 @@ import {
   CREATE_EVENT_RESPONSE,
   UPDATE_EVENT_REQUEST,
   UPDATE_EVENT_RESPONSE,
+  REQUEST_EVENT_MEMBERS,
+  RECEIVE_EVENT_MEMBERS,
+  REQUEST_EVENT_INVITES,
+  RECEIVE_EVENT_INVITES,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
@@ -195,5 +199,74 @@ export function updateEvent(formData) {
     return fetch(url, options)
     .then(response => response.json())
     .then(json => dispatch(updateEventResponse(json)));
+  };
+}
+
+
+// -------------------------------------------------------------------------------------------------
+// GET /api/events/{id}/members
+// -------------------------------------------------------------------------------------------------
+
+function requestEventMembers() {
+  return {
+    type: REQUEST_EVENT_MEMBERS,
+  };
+}
+
+function receiveEventMembers(json) {
+  return {
+    type: RECEIVE_EVENT_MEMBERS,
+    json,
+  };
+}
+
+export function loadEventMembers(eventId) {
+  const url = `${HOST}/api/events/${eventId}/members/`;
+
+  return (dispatch) => {
+    dispatch(requestEventMembers());
+
+    return fetch(url, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then((json) => {
+        dispatch(receiveEventMembers(json));
+      }).catch((err) => {
+        console.log('failed to retrieve event members', eventId, 'with err:', err);
+      });
+  };
+}
+
+
+// -------------------------------------------------------------------------------------------------
+// GET /api/events/{id}/invites
+// -------------------------------------------------------------------------------------------------
+
+
+function requestEventInvites() {
+  return {
+    type: REQUEST_EVENT_INVITES,
+  };
+}
+
+function receiveEventInvites(json) {
+  return {
+    type: RECEIVE_EVENT_INVITES,
+    json,
+  };
+}
+
+export function loadEventInvites(eventId) {
+  const url = `${HOST}/api/events/${eventId}/invites/`;
+
+  return (dispatch) => {
+    dispatch(requestEventInvites());
+
+    return fetch(url, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then((json) => {
+        dispatch(receiveEventInvites(json));
+      }).catch((err) => {
+        console.log('failed to retrieve event invites', eventId, 'with err:', err);
+      });
   };
 }

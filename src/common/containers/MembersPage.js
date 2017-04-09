@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { loadEventMembers, loadEventInvites } from '../actions/users';
+import { loadEventMembers, loadEventInvites } from '../actions/events';
 import { redirectToLogin } from '../actions/session';
 import NavBar from '../components/NavBar';
+import EventInviteList from '../components/EventInviteList';
+import EventMembersList from '../components/EventMembersList';
 
 class MembersPage extends Component {
   constructor(props) {
@@ -18,16 +20,20 @@ class MembersPage extends Component {
       return;
     }
     const eventId = this.props.params.id;
-    //dispatch(loadEventMembers(session.id));
-    //dispatch(loadEventInvites(session.user.id));
+    dispatch(loadEventMembers(eventId));
+    dispatch(loadEventInvites(eventId));
   }
 
   render() {
-    const { session, dispatch } = this.props;
+    const { session, dispatch, invites, members } = this.props;
     const eventId = this.props.params.id;
     return (
       <div>
         <NavBar eventId={eventId} />
+        <div className="event-membership-page-wrapper">
+          <EventInviteList invites={invites} />
+          <EventMembersList members={members} />
+        </div>
       </div>
     );
   }
@@ -46,7 +52,7 @@ MembersPage.contextTypes = {
 const mapStateToProps = (state) => {
   return {
     invites: state.invites.data,
-    members: state.events.data,
+    members: state.members.data,
     session: state.session,
   };
 };
