@@ -25,7 +25,7 @@ class ProfilePage extends Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       session: newProps.session,
-      user: newProps.user,
+      user: newProps.userProfile,
     });
   }
 
@@ -82,7 +82,7 @@ ProfilePage.contextTypes = {
 const mapStateToProps = (state) => {
   return {
     session: state.session,
-    user: state.user,
+    user: state.userProfile,
   };
 };
 

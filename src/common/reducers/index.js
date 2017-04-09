@@ -3,7 +3,7 @@ import { event, events } from './events';
 import { messages } from './messages';
 import { invites } from './invites';
 import { members } from './members';
-import { user } from './user';
+import { user, userProfile } from './user';
 import session from './session';
 import signupState from './signupState';
 
@@ -16,6 +16,7 @@ const rootReducers = combineReducers({
   invites,
   members,
   user,
+  userProfile,
 });
 
 export default rootReducers;

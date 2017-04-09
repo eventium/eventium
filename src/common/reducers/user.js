@@ -1,9 +1,42 @@
-import {
-  RECEIVE_USER_PROFILE,
-  UPDATE_USER_PROFILE_RESPONSE,
-} from '../constants';
+import * as constants from '../constants';
 
-const initialUserState = {
+const initialState = {
+  data: {},
+  userExists: false,
+};
+
+export const user = (state = initialState, action) => {
+  switch (action.type) {
+    case constants.RECEIVE_USER_FROM_EMAIL: {
+      return Object.assign({}, {
+        data: action.json,
+        found: true,
+        userExists: false,
+      });
+    }
+    case constants.RECEIVE_USER_FROM_EMAIL_NOT_FOUND: {
+      return Object.assign({}, {
+        data: {},
+        notFound: true,
+        userExists: false,
+      });
+    }
+    case constants.USER_TYPING_EMAIL: {
+      return Object.assign({}, initialState);
+    }
+    case constants.USER_ALREADY_PART_OF_THE_EVENT: {
+      return Object.assign({}, {
+        data: {},
+        notFound: true,
+        userExists: true,
+      });
+    }
+    default:
+      return state;
+  }
+};
+
+const initialUserProfileState = {
   id: 0,
   email: '',
   first_name: '',
@@ -12,12 +45,12 @@ const initialUserState = {
   avatar: '',
 };
 
-export const user = (state = initialUserState, action) => {
+export const userProfile = (state = initialUserProfileState, action) => {
   switch (action.type) {
-    case RECEIVE_USER_PROFILE: {
+    case constants.RECEIVE_USER_PROFILE: {
       return Object.assign({}, action.user);
     }
-    case UPDATE_USER_PROFILE_RESPONSE: {
+    case constants.UPDATE_USER_PROFILE_RESPONSE: {
       return Object.assign({}, action.user);
     }
     default: {

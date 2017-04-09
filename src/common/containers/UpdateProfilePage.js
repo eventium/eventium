@@ -36,7 +36,7 @@ class UpdateProfilePage extends Component {
   }
 
   handleChange(e) {
-    const user = Object.assign({}, this.state.user);
+    const user = Object.assign({}, this.state.userProfile);
 
     user[e.currentTarget.name] = e.currentTarget.value;
 
@@ -171,7 +171,7 @@ UpdateProfilePage.contextTypes = {
 const mapStateToProps = (state) => {
   return {
     session: state.session,
-    user: state.user,
+    user: state.userProfile,
   };
 };
 
