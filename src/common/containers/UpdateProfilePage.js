@@ -8,8 +8,13 @@ class UpdateProfilePage extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      user: {},
+    };
+
     this.componentWillMount = this.componentWillMount.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -30,6 +35,18 @@ class UpdateProfilePage extends Component {
     });
   }
 
+  handleChange(e) {
+    const user = Object.assign({}, this.state.user);
+
+    user[e.currentTarget.name] = e.currentTarget.value;
+
+    this.setState(
+      {
+        user: user,
+      },
+    );
+  }
+
   handleSubmit(event) {
     event.preventDefault();
 
@@ -39,11 +56,12 @@ class UpdateProfilePage extends Component {
 
     this.props.updateProfile(userId, form.elements);
 
-    this.context.router.push(`/profile/${userId}`);
+    this.context.router.push(`/profile/${userId}/`);
   }
 
   render() {
-    const { session, user } = this.props;
+    const { session } = this.props;
+    const { user } = this.state;
 
     return (
       <div>
@@ -57,13 +75,13 @@ class UpdateProfilePage extends Component {
             onSubmit={this.handleSubmit}
           >
             <div className="form-group">
-              <label htmlFor="picture">Profile Picture</label>
+              <label htmlFor="avatar">Profile Image</label>
               <input
                 type="file"
                 className="form-control"
-                name="picture"
-                id="picture"
-                onChange={this.handleSubmit}
+                name="avatar"
+                id="avatar"
+                onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
@@ -73,9 +91,9 @@ class UpdateProfilePage extends Component {
                 className="form-control"
                 name="first_name"
                 id="first-name"
-                placeHolder="First Name"
+                placeholder="First Name"
                 value={user.first_name}
-                onChange={this.handleSubmit}
+                onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
@@ -85,9 +103,9 @@ class UpdateProfilePage extends Component {
                 className="form-control"
                 name="last_name"
                 id="last-name"
-                placeHolder="Last Name"
+                placeholder="Last Name"
                 value={user.last_name}
-                onChange={this.handleSubmit}
+                onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
@@ -97,9 +115,9 @@ class UpdateProfilePage extends Component {
                 className="form-control"
                 name="email"
                 id="email"
-                placeHolder="Email"
+                placeholder="Email"
                 value={user.email}
-                onChange={this.handleSubmit}
+                onChange={this.handleChange}
               />
             </div>
             <div className="form-group">
@@ -108,9 +126,9 @@ class UpdateProfilePage extends Component {
                 className="form-control"
                 name="description"
                 id="description"
-                placeHolder="Description"
+                placeholder="Description"
                 value={user.description}
-                onChange={this.handleSubmit}
+                onChange={this.handleChange}
               />
             </div>
             <Link
@@ -142,7 +160,7 @@ UpdateProfilePage.propTypes = {
     first_name: PropTypes.string.isRequired,
     last_name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
   }).isRequired,
 };
 

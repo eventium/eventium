@@ -9,7 +9,7 @@ const initialUserState = {
   first_name: '',
   last_name: '',
   description: '',
-  picture: '',
+  avatar: '',
 };
 
 export const user = (state = initialUserState, action) => {

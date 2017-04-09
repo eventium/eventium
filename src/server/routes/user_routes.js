@@ -3,6 +3,10 @@ import express from 'express';
 import models from './../models';
 import { addUploadedImageExtension } from '../utils/image';
 
+const multer = require('multer');
+
+const upload = multer({ dest: 'uploads/' });
+
 function authorizeUser(paramName) {
   return (req, res, next) => {
     const requestUser = parseInt(req.params[paramName], 10);
@@ -132,10 +136,8 @@ userRouter.get('/users/:userId/profile/', (req, res) => {
     });
 });
 
-userRouter.post('/users/:userId/profile/', (req, res) => {
+userRouter.post('/users/:userId/profile/', upload.single('avatar'), (req, res) => {
   const id = parseInt(req.params.userId);
-
-  console.log(req.body);
 
   const user = {
     id: id,
@@ -150,7 +152,7 @@ userRouter.post('/users/:userId/profile/', (req, res) => {
   Promise.all([promise])
     .then((imgPath) => {
       if (imgPath[0]) {
-        user.picture = imgPath[0];
+        user.avatar = imgPath[0];
       }
 
       models.User.upsert(user)
@@ -171,5 +173,3 @@ userRouter.post('/users/:userId/profile/', (req, res) => {
 });
 
 export { userRouter };
-
-

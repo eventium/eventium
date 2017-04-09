@@ -28,7 +28,7 @@ function requestUserProfile(userId) {
       first_name: '',
       last_name: '',
       description: '',
-      picture: '',
+      avatar: '',
     },
   };
 }
@@ -42,7 +42,7 @@ function receiveUserProfile(json) {
       first_name: json.first_name,
       last_name: json.last_name,
       description: json.description,
-      picture: json.picture,
+      avatar: json.avatar,
     },
   };
 }
@@ -83,7 +83,7 @@ function updateUserProfileResponse(json) {
       first_name: json.first_name,
       last_name: json.last_name,
       description: json.description,
-      picture: json.picture,
+      avatar: json.avatar,
     },
   };
 }
@@ -98,7 +98,7 @@ export function updateUserProfile(userId, formData) {
     const name = formData[i].getAttribute('name');
     const value = formData[i].value;
 
-    if (name === 'picture' && formData[i].files.length > 0) {
+    if (name === 'avatar' && formData[i].files.length > 0) {
       const file = formData[i].files[0];
 
       form.append(name, file);
