@@ -19,15 +19,14 @@ class EventInviteMemberForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    const { user } = this.props;
-    console.log("Pressed Submit", event);
+    const { user, inviteUserToEvent } = this.props;
     if (user) {
-      console.log("user", user);
+      inviteUserToEvent(user);
     }
   }
 
   getValidationState() {
-    const { user, found, notFound } = this.props;
+    const { found, notFound } = this.props;
     if (found) {
       return 'success';
     }
@@ -58,6 +57,7 @@ class EventInviteMemberForm extends Component {
     if (found) {
       validState = false;
     }
+
     return (
       <div className="event-invite-member-form-wrapper">
         <form onSubmit={this.onSubmit}>
@@ -81,6 +81,7 @@ class EventInviteMemberForm extends Component {
 
 EventInviteMemberForm.propTypes = {
   user: PropTypes.object.isRequired,
+  inviteUserToEvent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

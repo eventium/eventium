@@ -12,6 +12,7 @@ import {
   RECEIVE_EVENT_MEMBERS,
   REQUEST_EVENT_INVITES,
   RECEIVE_EVENT_INVITES,
+  USER_ALREADY_PART_OF_THE_EVENT,
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
@@ -270,3 +271,38 @@ export function loadEventInvites(eventId) {
       });
   };
 }
+
+// -------------------------------------------------------------------------------------------------
+// POST /event/:id/invites/
+// -------------------------------------------------------------------------------------------------
+
+function userAlreadyPartOfTheEvent() {
+  return {
+    type: USER_ALREADY_PART_OF_THE_EVENT,
+  };
+}
+export function createEventInvite(eventId, guestId, hostId) {
+  const url = `${HOST}/api/events/${eventId}/invites/`;
+
+  const message = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify({ eventId, guestId, hostId }),
+  };
+
+  return (dispatch) => {
+    return fetch(url, message)
+      .then((response) => {
+        if (response.ok) {
+          return dispatch(loadEventInvites(eventId));
+        } else if (response.status === 403) {
+          return dispatch(userAlreadyPartOfTheEvent());
+        }
+      })
+      .catch(err => dispatch(signupFailed(err)));
+  };
+}
+

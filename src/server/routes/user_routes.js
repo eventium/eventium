@@ -70,6 +70,7 @@ userRouter.post('/users/:userId/membership/', (req, res) => {
 userRouter.get('/users/email/:email/', (req, res) => {
   const email = req.params.email;
   models.User.findOne({
+    attributes: ['id', 'email'],
     where: {
       email: email,
     },
