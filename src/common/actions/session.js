@@ -8,6 +8,8 @@ import {
   REQUEST_LOGOUT,
   DELETE_SESSION,
   FAILED_TO_LOGOUT,
+
+  SIGNUP_SUCCESS_SEEN
 } from '../constants';
 
 const HOST = 'http://localhost:3000';
@@ -35,6 +37,12 @@ function failedToLogin(error) {
   };
 }
 
+function hideSignupMessage() {
+  return {
+    type: SIGNUP_SUCCESS_SEEN,
+  };
+}
+
 export function login(email, password) {
   const url = `${HOST}/api/login`;
   const message = {
@@ -53,7 +61,10 @@ export function login(email, password) {
       .then((response) => {
         if (response.ok) {
           return response.json()
-            .then(json => dispatch(receiveSession(json)));
+            .then(json => {
+              dispatch(receiveSession(json));
+              dispatch(hideSignupMessage());
+            });
         } else if (response.status === 401) {
           return dispatch(failedToLogin('Email is not registered or password is incorrect.'));
         } else if (response.status >= 500) {

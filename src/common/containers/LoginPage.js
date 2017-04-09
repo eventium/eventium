@@ -54,15 +54,30 @@ class LoginPage extends Component {
     return null;
   }
 
+  showSuccess(infoMessage) {
+    if (infoMessage) {
+      return (
+        <Alert bsStyle="success">
+          {infoMessage}
+        </Alert>
+      );
+    }
+    return null;
+  }
+
   render() {
-    const session = this.props.session;
+    const { session, signupState } = this.props;
     const pending = (session.status === constants.SESSION_STATUS_PENDING);
     const redirect = session.redirect;
     const errorMessage = (session.error || '');
+    const infoMessage = (signupState.message || '');
 
     if (pending || redirect) {
       return (
-        <div className="loader absolute-center" />
+        <div>
+          <LoginNavBar />
+          <div className="loader absolute-center" />
+        </div>
       );
     }
 
@@ -72,6 +87,7 @@ class LoginPage extends Component {
         <div className={redirect ? 'hidden' : ''} >
           <div className="login-page-wrapper">
             {this.showAlert(errorMessage)}
+            {this.showSuccess(infoMessage)}
             <form className="horizontal" onSubmit={this.handleSubmit}>
               <fieldset disabled={pending}>
                 <FormGroup controlId="formHorizontalEmail">
@@ -126,6 +142,7 @@ LoginPage.contextTypes = {
 function mapStateToProps(state) {
   return {
     session: state.session,
+    signupState: state.signupState,
   };
 }
 

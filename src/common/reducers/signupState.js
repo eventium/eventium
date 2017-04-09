@@ -13,6 +13,11 @@ export default function signupState(state = { status: constants.SIGNUP_IDLE }, a
         message: 'Sign up is successful',
       };
     }
+    case constants.SIGNUP_SUCCESS_SEEN: {
+      return {
+        status: constants.SIGNUP_IDLE,
+      };
+    }
     case constants.SIGNUP_FAILURE: {
       return {
         status: constants.SIGNUP_IDLE,

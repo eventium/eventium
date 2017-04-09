@@ -299,6 +299,28 @@ export function loadUserFromEmail(email) {
   };
 }
 
+export function loadUserFromEmailPublic(email) {
+  const url = `${HOST}/api/public/users/email/${email}`;
+
+  return dispatch => {
+    dispatch(requestUserFromEmail());
+
+    return fetch(url, { credentials: 'same-origin' })
+      .then(response => {
+        if (response.ok) {
+          response.json().then((json) => {
+            return dispatch(receiveUserFromEmail(json));
+          });
+        } else {
+          return dispatch(receiveUserFromEmailNotFound());
+        }
+      })
+      .catch((err) => {
+        console.log('Failed to retrieve public user by email for email:', email, 'err:', err);
+      });
+  };
+}
+
 export function userTypingEmail() {
   return {
     type: USER_TYPING_EMAIL,
