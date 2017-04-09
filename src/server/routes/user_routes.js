@@ -152,7 +152,7 @@ userRouter.get('/users/:userId/profile/', (req, res) => {
     });
 });
 
-userRouter.post('/users/:userId/profile/', upload.single('avatar'), (req, res) => {
+userRouter.post('/users/:userId/profile/', authorizeUser('userId'), upload.single('avatar'), (req, res) => {
   const id = parseInt(req.params.userId);
 
   const user = {
