@@ -11,7 +11,7 @@ export default class GeneralNavBar extends Component {
   }
   render() {
     const { session } = this.props;
-    let firstName = 'Unknown';
+    let firstName = 'Loading...';
     if (session.user) {
       firstName = session.user.first_name;
     }
