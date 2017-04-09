@@ -10,12 +10,9 @@ import LoginPage from './containers/LoginPage';
 import SignupPage from './containers/SignupPage';
 import CreateEventPage from './containers/CreateEventPage';
 import UpdateEventPage from './containers/UpdateEventPage';
-<<<<<<< HEAD
 import MembersPage from './containers/MembersPage';
-=======
 import ProfilePage from './containers/ProfilePage';
 import UpdateProfilePage from './containers/UpdateProfilePage';
->>>>>>> profile pages
 
 const routes = (
   <Route path="/" component={Layout}>
