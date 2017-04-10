@@ -26,7 +26,7 @@ Usage:
 
 Access the website at: `http://locahost:3000/`
 
-## Comments
+Comments
 ======
 #### Overview:
 For the most part we have achieved most of our original goals with core features being production ready. Having said that, we do have some bugs and additional features that we would have liked to fix or implement, but were unable due to the time constraint.
