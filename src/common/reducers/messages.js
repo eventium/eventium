@@ -16,7 +16,7 @@ export const messages = (state = initialState, action) => {
         data: [...state.data, action.message],
       });
     case constants.LOAD_MESSAGES:
-      return Object.assign({}, state, {
+      return Object.assign({}, initialState, {
         loading: true,
       });
     case constants.LOAD_MESSAGES_SUCCESS:

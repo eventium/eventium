@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import io from 'socket.io-client';
-import { fetchMessages } from '../actions/messages';
+import { fetchMessages, receiveRawMessage } from '../actions/messages';
 import { redirectToLogin } from '../actions/session';
 import Chat from '../components/Chat';
 import NavBar from '../components/NavBar';
@@ -20,8 +20,17 @@ class ChatPage extends Component {
       return;
     }
     dispatch(fetchMessages(eventId));
+
+    socket.emit('join room', this.props.params.id);
+
+    socket.on('new message', msg => {
+      dispatch(receiveRawMessage(msg));
+    });
   }
 
+  componentWillUnmount() {
+    socket.emit('leave room', this.props.params.id);
+  }
 
   render() {
     const eventId = this.props.params.id;
