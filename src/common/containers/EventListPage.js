@@ -39,12 +39,26 @@ class EventListPage extends Component {
   }
 
   render() {
-    const { events, invites, session, dispatch } = this.props;
+    const { events, invites, session } = this.props;
     return (
       <div>
         <GeneralNavBar session={session} />
         <div className="container event-list-page-wrapper">
-          <InviteList invites={invites} acceptInvite={this.acceptInvite} declineInvite={this.declineInvite} />
+          <h1>Your Events</h1>
+          {this.props.events.length === 0 &&
+            <span>Looks like you don&#39;t have any events. Why not </span>
+          }
+          {this.props.events.length === 0 &&
+            <Link to="/events/create/">create one</Link>
+          }
+          {this.props.events.length === 0 &&
+            <span>?</span>
+          }
+          <InviteList
+            invites={invites}
+            acceptInvite={this.acceptInvite}
+            declineInvite={this.declineInvite}
+          />
           <EventList events={events} />
         </div>
         <div className="create-event">
