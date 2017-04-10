@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { signup, signupFailed } from '../actions/signupState';
 import * as constants from '../constants';
 import LoginNavBar from '../components/LoginNavBar';
-import { loadUserFromEmailPublic, userTypingEmail } from '../actions/users';
+import { loadUserFromEmailPublic, resetUserAction } from '../actions/users';
 
 class SignupPage extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class SignupPage extends Component {
     }
 
     if (e.target.name.includes('username')) {
-      dispatch(userTypingEmail());
+      dispatch(resetUserAction());
       this.validateEmailField();
     }
     this.setState(state);

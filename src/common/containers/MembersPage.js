@@ -33,7 +33,7 @@ class MembersPage extends Component {
   }
 
   render() {
-    const { session, dispatch, invites, members, userExists } = this.props;
+    const { invites, members, userExists } = this.props;
     const eventId = this.props.params.id;
     return (
       <div>
@@ -41,7 +41,9 @@ class MembersPage extends Component {
         <div className="container event-membership-page-wrapper">
           <EventAlert userExists={userExists} />
           <EventInviteMemberForm inviteUserToEvent={this.inviteUserToEvent} />
+          <h2>{invites.length > 0 ? 'Invitees' : ''}</h2>
           <EventInviteList invites={invites} />
+          <h2>{members.length > 0 ? 'Attendees' : ''}</h2>
           <EventMembersList members={members} />
         </div>
       </div>
