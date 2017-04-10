@@ -1,162 +1,47 @@
 [
   {
-    "email": "sampsoncrawford@endipine.com",
+    "id": 1,
+    "email": "riley@gmail.com",
     "first_name": "Elise",
     "last_name": "Riley",
     "password": "ut",
-    "description": "Ad sit in id nostrud tempor elit ad tempor nostrud dolor ex pariatur culpa. Laboris minim qui nostrud ex occaecat. Sunt fugiat officia ut elit. Reprehenderit amet quis occaecat aliquip sunt aute incididunt ex deserunt. Occaecat exercitation minim minim non exercitation laborum non veniam incididunt ea dolore veniam.",
-    "picture": ""
+    "description": "Traveling is my passion and I just returned from a trip to Sri Lanka, Maldives, India, Nepal and Costa Rica. I volunteered for Habit for Humanity in Sri Lanka helping build homes for families in need. I love giving back in anyway I can and feel very fortunate to have the life I do.",
+    "avatar": "assets/images/avatar1.jpg"
   },
   {
-    "email": "eliseriley@endipine.com",
+    "id": 2,
+    "email": "pfinch@imail.com",
     "first_name": "Paul",
     "last_name": "Finch",
     "password": "aute",
-    "description": "Voluptate occaecat sit ex nisi. Lorem nisi laborum id minim consectetur nulla eiusmod in. Nulla ullamco adipisicing sunt laboris incididunt. Eiusmod laborum qui ipsum cupidatat magna aute voluptate voluptate ad. Cillum fugiat occaecat nulla cupidatat enim.",
-    "picture": ""
+    "description": "I'm just here to find something fun to do.",
+    "avatar": "assets/images/avatar2.jpg"
   },
   {
-    "email": "paulfinch@endipine.com",
+    "id": 3,
+    "email": "lwells@hotmail.com",
     "first_name": "Lina",
     "last_name": "Wells",
     "password": "magna",
-    "description": "Ea nulla cillum voluptate velit magna deserunt elit ullamco. Id cupidatat voluptate anim veniam occaecat commodo deserunt occaecat laborum. Amet amet aliqua ea exercitation id sint Lorem voluptate Lorem. Velit sint est ullamco dolor quis est. Culpa mollit est labore sunt fugiat proident excepteur voluptate adipisicing eiusmod est eiusmod aliqua minim.",
-    "picture": ""
+    "description": "I dream in color, I have a penchant for the absurd, and as a New Yawka I keep it real. I’m part mermaid and happiest in water, whether I’m swimming, scuba diving, soaking in hot springs or taking a long shower. My nature is generous, sensitive, sometimes sassy but always sweet.",
+    "avatar": "assets/images/avatar3.jpeg"
   },
   {
-    "email": "linawells@endipine.com",
-    "first_name": "Luna",
-    "last_name": "Langley",
-    "password": "exercitation",
-    "description": "Irure qui cupidatat nostrud deserunt consectetur ut eiusmod ut reprehenderit eu sunt pariatur incididunt nostrud. Dolor id nisi est sint dolore aliquip exercitation sit duis. Mollit et occaecat esse consectetur occaecat et sit nostrud quis mollit sit nulla laboris. Incididunt aute ad excepteur consequat elit reprehenderit amet Lorem officia magna sunt ad qui. Amet incididunt exercitation excepteur ex occaecat.",
-    "picture": ""
-  },
-  {
-    "email": "lunalangley@endipine.com",
+    "id": 4,
+    "email": "bdelaney@gmail.com",
     "first_name": "Baker",
     "last_name": "Delaney",
     "password": "velit",
-    "description": "Ea labore enim culpa ex. Consectetur ea mollit ex dolor. Magna ea eiusmod eiusmod Lorem voluptate qui anim magna consectetur sint eiusmod. Nulla aute dolore dolor adipisicing amet elit et qui ex excepteur. Consequat mollit minim veniam pariatur aliqua reprehenderit.",
-    "picture": ""
+    "description": "I do stunt work. Have you ever seen it in a movie when a actor has to jump off of a building? That’s my job. Oh, and I’m in the fitness biz, as well as back in school finishing up my pre-med reqs.",
+    "avatar": "assets/images/avatar5.jpg"
   },
   {
-    "email": "bakerdelaney@endipine.com",
-    "first_name": "Savannah",
-    "last_name": "Good",
-    "password": "duis",
-    "description": "Quis excepteur sit eiusmod esse officia. Est cillum veniam reprehenderit culpa mollit. Velit deserunt id consequat officia nulla amet sint amet consectetur culpa pariatur. Minim Lorem ad sint consectetur tempor aliqua ea voluptate ad sint ad. Qui exercitation sint minim laboris occaecat elit minim anim fugiat quis nulla non irure.",
-    "picture": ""
-  },
-  {
-    "email": "savannahgood@endipine.com",
-    "first_name": "Dee",
+    "id": 5,
+    "email": "dcraft@hotmail.com",
+    "first_name": "Don",
     "last_name": "Craft",
     "password": "non",
-    "description": "Veniam eu ipsum dolor est id eiusmod magna incididunt nisi ad aute fugiat aliqua velit. Nulla aliquip ullamco duis culpa. Eu aliqua officia non aliqua quis ex. Eu quis nulla ex officia aliquip Lorem laborum. Nostrud dolore exercitation adipisicing adipisicing mollit commodo.",
-    "picture": ""
-  },
-  {
-    "email": "deecraft@endipine.com",
-    "first_name": "Peggy",
-    "last_name": "Riddle",
-    "password": "sit",
-    "description": "Sint irure ex do occaecat excepteur et excepteur. Sit excepteur officia officia sunt reprehenderit velit occaecat aliquip nulla proident non nostrud aute occaecat. Est ipsum irure consectetur sunt id. Nostrud culpa veniam voluptate consectetur dolor nulla ex aliquip ipsum ex non non reprehenderit. Sunt eu sunt Lorem dolore commodo officia voluptate.",
-    "picture": ""
-  },
-  {
-    "email": "peggyriddle@endipine.com",
-    "first_name": "Snider",
-    "last_name": "Waller",
-    "password": "culpa",
-    "description": "Sunt non nulla laborum qui. Commodo excepteur exercitation ipsum voluptate pariatur dolore in velit nostrud sunt dolor anim voluptate sit. Ut tempor aute nostrud nisi cillum velit nostrud proident nostrud. Nisi irure duis veniam fugiat nulla sint officia nulla nostrud ea. Duis ullamco cupidatat do ad non aliquip adipisicing ea enim sint ullamco Lorem commodo ullamco.",
-    "picture": ""
-  },
-  {
-    "email": "sniderwaller@endipine.com",
-    "first_name": "Kristi",
-    "last_name": "Noble",
-    "password": "enim",
-    "description": "Tempor nisi culpa quis enim. Esse consequat et cupidatat adipisicing Lorem id. Aute voluptate ex aliquip proident sint qui culpa consequat. Mollit ut anim quis cupidatat velit consequat eiusmod eiusmod minim dolor veniam occaecat qui aliquip. Elit amet do laborum excepteur quis est consequat aliqua sint.",
-    "picture": ""
-  },
-  {
-    "email": "kristinoble@endipine.com",
-    "first_name": "Freda",
-    "last_name": "Mcguire",
-    "password": "sunt",
-    "description": "Id commodo nisi pariatur non ex quis eiusmod esse aliquip consequat tempor officia. Dolor irure est aliquip culpa enim irure consectetur veniam dolor anim. Eiusmod consectetur amet duis quis magna labore minim voluptate ullamco ut deserunt proident voluptate magna. Excepteur dolor ut ullamco laborum non est adipisicing aliqua nulla pariatur amet velit aliquip. Proident nulla eu proident id reprehenderit occaecat exercitation proident veniam pariatur.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "fredamcguire@endipine.com",
-    "first_name": "Monique",
-    "last_name": "Porter",
-    "password": "ut",
-    "description": "Proident nisi occaecat adipisicing nulla pariatur pariatur mollit anim. Anim incididunt laboris labore esse nulla sunt pariatur elit nisi exercitation Lorem ipsum tempor. Ut voluptate laborum et aute minim irure sint. Cupidatat voluptate ad est minim duis et enim ullamco. Est fugiat mollit enim ullamco in.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "moniqueporter@endipine.com",
-    "first_name": "Pace",
-    "last_name": "Johnston",
-    "password": "enim",
-    "description": "Tempor adipisicing aliquip cupidatat aliquip amet mollit. Deserunt esse nulla ullamco sint. Officia elit duis in culpa tempor consequat laboris nulla quis ad ipsum sunt aute. Excepteur do proident aliquip fugiat voluptate ipsum deserunt ex amet nostrud mollit do. Cillum eu amet labore nisi esse eiusmod.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "pacejohnston@endipine.com",
-    "first_name": "Glenn",
-    "last_name": "Russell",
-    "password": "dolore",
-    "description": "Anim magna reprehenderit nisi laborum ex veniam. Ea laboris ullamco sint incididunt voluptate et dolor. Commodo Lorem excepteur magna nisi incididunt laborum ullamco amet culpa commodo do elit dolore esse. Non aute veniam exercitation incididunt officia esse anim ut id est enim irure exercitation elit. Consequat et quis mollit et cupidatat.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "glennrussell@endipine.com",
-    "first_name": "Rosetta",
-    "last_name": "Singleton",
-    "password": "dolore",
-    "description": "Cillum sint cupidatat cillum duis cupidatat ex. Velit et consectetur aliqua veniam ad ullamco eiusmod ullamco eiusmod elit. Do anim cupidatat dolor et. Duis qui sunt dolore anim. Minim fugiat occaecat aliquip aliquip aliqua magna mollit non voluptate cillum excepteur deserunt sint est.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "rosettasingleton@endipine.com",
-    "first_name": "Francis",
-    "last_name": "Mendoza",
-    "password": "tempor",
-    "description": "Laborum aliquip dolore minim do exercitation in. Do sint eu ut exercitation qui. Mollit dolor anim mollit officia ut adipisicing voluptate sint in aute laborum nisi consectetur et. Laborum amet adipisicing laboris non officia. Anim irure labore dolore proident mollit.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "francismendoza@endipine.com",
-    "first_name": "Marquez",
-    "last_name": "Hartman",
-    "password": "dolor",
-    "description": "Excepteur consequat consectetur duis et. Nostrud enim enim ex duis consectetur proident. Nisi velit adipisicing minim quis nisi do sunt. Do dolore fugiat do ad do ullamco velit esse et Lorem. Est fugiat ut fugiat aute excepteur id nulla excepteur pariatur reprehenderit cupidatat laboris excepteur.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "marquezhartman@endipine.com",
-    "first_name": "Hester",
-    "last_name": "Gonzalez",
-    "password": "deserunt",
-    "description": "Nisi mollit fugiat ea Lorem. Exercitation Lorem irure aliquip non fugiat ea officia aute veniam. Proident deserunt laboris duis reprehenderit laborum. Ex consectetur dolore laboris nostrud sint. Nostrud tempor elit exercitation elit consequat nulla velit sint consectetur consectetur incididunt commodo aliqua qui.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "hestergonzalez@endipine.com",
-    "first_name": "Clemons",
-    "last_name": "Fowler",
-    "password": "exercitation",
-    "description": "Cupidatat consequat excepteur nisi eiusmod ea cillum quis laboris aliqua nisi. Non amet labore culpa tempor. Officia in cillum deserunt duis Lorem deserunt ut aute est Lorem nisi dolore. Irure aute et aliqua do minim eu labore ut. Exercitation proident consequat sunt qui id sunt velit quis ipsum dolore deserunt mollit dolor ullamco.",
-    "picture": "http://placehold.it/32x32"
-  },
-  {
-    "email": "clemonsfowler@endipine.com",
-    "first_name": "Mason",
-    "last_name": "Weiss",
-    "password": "ex",
-    "description": "Ullamco commodo qui et minim in. Deserunt eu sint laborum laboris. Pariatur nulla aliquip ea velit eiusmod id incididunt magna. Irure aute duis occaecat minim fugiat tempor id esse sit. Duis adipisicing sint adipisicing aute dolor dolor cillum adipisicing.",
-    "picture": "http://placehold.it/32x32"
+    "description": "Originally from Australia, I’ve been living in the U.S. for a long time. I travel a lot–for my job as a journalist, and also just because I love the surprise of the unknown. I love to learn about new places, people and cultures.",
+    "avatar": "assets/images/avatar7.jpg"
   }
 ]
