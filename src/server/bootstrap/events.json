@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "title":"Urban Dance Party",
     "location":"AMS Student Nest",
     "address":"6133 University Boulevard",
@@ -13,7 +12,6 @@
     "end_time":"2017-05-01 01:00:00 "
   },
   {
-    "id": 2,
     "title":"The World Famous Motown Party",
     "location":"Fox Cabaret",
     "address":"2321 Main Street",
@@ -26,7 +24,6 @@
     "end_time":"2017-05-01 02:00:00 "
   },
   {
-    "id": 3,
     "title":"Vancouver Retro Gaming Expo",
     "location":"Anvil Centre",
     "address":"777 Columbia Street",
@@ -39,7 +36,6 @@
     "end_time":"2017-05-27 21:00:00"
   },
   {
-    "id": 4,
     "title":"Vanocouver Flip-Out Tournaments",
     "location":"Holiday Inn Vancouver Downtown",
     "address":"1110 Howe Street",
@@ -52,7 +48,6 @@
     "end_time":"2017-09-24 19:00:00"
   },
   {
-    "id": 5,
     "title":"Art! Vancouver 2017",
     "location":"Canada Place",
     "address":"",

@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "email": "riley@gmail.com",
     "first_name": "Elise",
     "last_name": "Riley",
@@ -9,7 +8,6 @@
     "avatar": "assets/images/avatar1.jpg"
   },
   {
-    "id": 2,
     "email": "pfinch@imail.com",
     "first_name": "Paul",
     "last_name": "Finch",
@@ -18,7 +16,6 @@
     "avatar": "assets/images/avatar2.jpg"
   },
   {
-    "id": 3,
     "email": "lwells@hotmail.com",
     "first_name": "Lina",
     "last_name": "Wells",
@@ -27,7 +24,6 @@
     "avatar": "assets/images/avatar3.jpeg"
   },
   {
-    "id": 4,
     "email": "bdelaney@gmail.com",
     "first_name": "Baker",
     "last_name": "Delaney",
@@ -36,7 +32,6 @@
     "avatar": "assets/images/avatar5.jpg"
   },
   {
-    "id": 5,
     "email": "dcraft@hotmail.com",
     "first_name": "Don",
     "last_name": "Craft",
