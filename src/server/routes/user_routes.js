@@ -190,8 +190,17 @@ userRouter.post('/users/:userId/profile/', authorizeUser('userId'), upload.singl
 
       models.User.upsert(user)
       .then(() => {
-        models.User.findById(id).then((instance) => {
-          res.json(instance.get());
+        models.User.findOne({
+          where: { id },
+          attributes: {
+            exclude: ['password'],
+          },
+        }).then((instance) => {
+          if (instance) {
+            res.json(instance.get());
+          } else {
+            return Promise.reject();
+          }
         });
       }).catch((err) => {
         console.log(err);
