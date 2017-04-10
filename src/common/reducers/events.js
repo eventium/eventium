@@ -26,10 +26,9 @@ export const events = (state = initialEventsState, action) => {
       return { data: action.json };
     }
     case constants.CREATE_EVENT_RESPONSE: {
-      return [
-        ...state,
-        action.event,
-      ];
+      return Object.assign(state, {
+        data: [...state.data, action.event],
+      });
     }
     default:
       return state;
