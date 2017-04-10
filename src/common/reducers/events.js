@@ -47,6 +47,11 @@ export const event = (state = initialEventState, action) => {
         event: Object.assign({}, action.event),
       };
     }
+    case constants.UPDATE_EVENT_REQUEST: {
+      return {
+        event: Object.assign({}, action.event),
+      };
+    }
     case constants.UPDATE_EVENT_RESPONSE: {
       return {
         event: Object.assign({}, action.event),
