@@ -2,16 +2,16 @@
 
 
 ## Team:
----
+======
 **Team Name**: 
 Callback Hell
 **Team Members**:
-- Oleg Matvejev
-- Eric Nummela
-- Tian Lin Tan (ultramailman)
+- Oleg Matvejev (omatveje@sfu.ca && omatveje@gmail.com)
+- Eric Nummela (enummela@sfu.ca && enummela@gmail.com)
+- Tian Lin Tan (tianlint@sfu.ca && cyrus9212@gmail.com)
 
 ## Usage:
----
+======
 #### Windows
 1. Install Git Bash (https://git-scm.com/download/win)
 2. **IMPORTANT**: Run Git Bash in Administrative mode!
@@ -26,8 +26,56 @@ Callback Hell
 
 Access the website at: `http://locahost:3000/`
 
+## Comments
+======
+#### Overview:
+For the most part we have achieved most of our original goals with core features being production ready. Having said that, we do have some bugs and additional features that we would have liked to fix or implement, but were unable due to the time constraint.
+
+For more information on some of the outstanding issues please see our issue tracker located here: https://csil-git1.cs.surrey.sfu.ca/callback-hell/eventium/issues
+
+#### Testing:
+For complete testing guidelines (including test accounts) see README.MD inside /test/ folder.
+
+#### Features:
+* Server side rendering
+* Stateful application through the use of Redux
+* Real Time chat is achieved using Socket.IO
+* Using debounce() function to provide a fluent real time UI feel when user invites a new member to an event
+* The bundle.js is minified and compiled using Webpack
+* Universal ES6 using babel
+* Custom express middlewares to authenticate API calls
+* Passwords are encrypted using Bcrypt
+* Automatic Event and Profile image uploads which are then served using Nginx
+* Persistent sessions with expiry set to 10 minutes
+* Custom database provision tool that sets up data
+* Code linting using ESlint
+
+## Architecture Overview:
+======
+### Backend
+* Node/Express
+* React/Redux/React-Router - Server Side Rendering
+* socket.io
+
+### Frontend
+* React/Redux/React-Router
+* Bootstrap
+
+### Minification
+* Webpack
+* Babel - To Provide Universal ES6 support
+
+### ORM
+* Sequalize
+
+### Database
+* PostgreSQL
+
+### Static Content Server
+* Nginx
+
 ## Development
----
+======
 1. `git clone git@csil-git1.cs.surrey.sfu.ca:callback-hell/eventium.git`
 2. `vagrant plugin install vagrant-notify-forwarder` - Used to notify vagrant when file changes
 3. `vagrant up`
@@ -47,7 +95,7 @@ Doing this will ensure that your node server gets restarted on file save and a n
 
 You might also want to install React browser dev tools which can be found here: http://bit.ly/1dGLkxb
 
-## Linting
+#### Linting
 We're using airbnb eslint style. The guide bellow will outline on how to install eslint in your Sublime Text
 
 1. Install Package Control `https://packagecontrol.io/installation`
@@ -63,28 +111,5 @@ To install eslint globally (works on windows), run npm install -g eslint eslint-
 If installing eslint in local project, make sure that your sublime eslint path points to node_modules/.bin/eslint
 
 
-## What we have done
----
-Our application requires many services on the back end, so that's where the majority of our progress has been made. One big features that we want to pursue with this project is server side rendering to have the “universal javascript”. This ended up being a lot more challenging to set up as many individual components must be linked together to get the app running on both the frontend and backend. Finally, our group spent a lot of time learning React and Redux to understand this new convention of building web apps.
-
-
-## App Structure & Dependencies
----
-#### App:
-* Redux - To store states
-* React Routes - To make routing easier and have history
-* React-Redux - To connect react with redux
-* React-dom - To render react components on the server
-* Webpack - To bundle everything together in a bundle.js
-* Babel - To have both react and ES6 on the frontend
-* Express - For server side rendering and API
-* Sequalize - ORM
-* Bootstrap - For the frontend css
-
-#### Database:
-* PostgreSQL
-
-#### HTTP Server:
-* Nginx - We’re not actually using this yet.
 
 
