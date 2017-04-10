@@ -31,19 +31,22 @@ class ProfilePage extends Component {
 
   render() {
     const { session, user } = this.props;
+    let { avatar } = user;
+
+    if (!avatar) {
+      avatar = 'uploads/default_avatar.png';
+    }
 
     return (
       <div>
         <GeneralNavBar session={session} />
         <div className="container profile-page-wrapper">
           <div className="image-container">
-            {user.avatar &&
-              <img
-                className="img-responsive profile-picture"
-                src={`/${user.avatar}`}
-                alt=""
-              />
-            }
+            <img
+              className="img-responsive profile-picture"
+              src={`/${avatar}`}
+              alt=""
+            />
           </div>
           <h1>{`${user.first_name} ${user.last_name}`}</h1>
           <hr />

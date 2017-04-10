@@ -29,10 +29,15 @@ class EventPage extends Component {
   }
 
   render() {
-    const { image, title, description, location, address, city, province, postal_code } = this.props.event;
+    const { title, description, location, address, city, province, postal_code } = this.props.event;
+    let { image } = this.props.event;
     const error = this.props.event.error;
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
+
+    if (!image) {
+      image = 'uploads/default_event.png';
+    }
 
     const id = this.props.params.id;
     if (error) {

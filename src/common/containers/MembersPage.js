@@ -38,7 +38,7 @@ class MembersPage extends Component {
     return (
       <div>
         <NavBar eventId={eventId} />
-        <div className="event-membership-page-wrapper">
+        <div className="container event-membership-page-wrapper">
           <EventAlert userExists={userExists} />
           <EventInviteMemberForm inviteUserToEvent={this.inviteUserToEvent} />
           <EventInviteList invites={invites} />
