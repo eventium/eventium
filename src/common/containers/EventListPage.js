@@ -39,12 +39,33 @@ class EventListPage extends Component {
   }
 
   render() {
-    const { events, invites, session, dispatch } = this.props;
+    const { events, invites, session } = this.props;
+
+    let noEventsMessage;
+
+    if (this.props.events.length === 0) {
+      noEventsMessage = (
+        <div className="alert alert-info">
+          <p>Looks like you don&#39;t have any events. Why not create one?</p>
+          <br />
+          <Link to="/events/create/" className="btn btn-primary">Create Event</Link>
+        </div>
+      );
+    } else {
+      noEventsMessage = '';
+    }
+
     return (
       <div>
         <GeneralNavBar session={session} />
         <div className="container event-list-page-wrapper">
-          <InviteList invites={invites} acceptInvite={this.acceptInvite} declineInvite={this.declineInvite} />
+          <h1>Your Events</h1>
+          { noEventsMessage }
+          <InviteList
+            invites={invites}
+            acceptInvite={this.acceptInvite}
+            declineInvite={this.declineInvite}
+          />
           <EventList events={events} />
         </div>
         <div className="create-event">
