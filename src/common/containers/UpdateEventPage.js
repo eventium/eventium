@@ -35,10 +35,11 @@ class UpdateEventPage extends Component {
     event.preventDefault();
 
     const form = event.currentTarget;
+    const id = this.props.params.id;
 
-    this.props.onSubmit(form.elements);
+    this.props.onSubmit(form.elements, id);
 
-    this.context.router.push(`/events/${this.props.params.id}`);
+    this.context.router.push(`/events/${id}`);
   }
 
   render() {
@@ -92,8 +93,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (formData) => {
-      dispatch(updateEvent(formData));
+    onSubmit: (formData, eventId) => {
+      dispatch(updateEvent(formData, eventId));
     },
     onLoad: (id) => {
       dispatch(loadEvent(id));

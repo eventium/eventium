@@ -188,7 +188,7 @@ function updateEventResponse(json) {
   };
 }
 
-export function updateEvent(formData) {
+export function updateEvent(formData, eventId) {
   const form = new FormData();
   const options = {};
   const event = {};
@@ -206,9 +206,7 @@ export function updateEvent(formData) {
     }
   }
 
-  const id = form.get('id');
-
-  const url = `${HOST}/api/events/${id}`;
+  const url = `${HOST}/api/events/${eventId}`;
 
   options.method = 'PUT';
   options.body = form;

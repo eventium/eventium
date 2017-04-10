@@ -72,7 +72,7 @@ const API = (app) => {
       city: req.body.city,
       description: req.body.description,
       end_time: end_time,
-      id: req.body.id,
+      id: id,
       location: req.body.location,
       postal_code: req.body.postal_code,
       province: req.body.province,
