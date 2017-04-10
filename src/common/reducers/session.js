@@ -19,12 +19,13 @@ function session(state = { status: constants.SESSION_STATUS_LOGGED_OUT }, action
       return {
         status: constants.SESSION_STATUS_LOGGED_OUT,
         error: action.error,
+        redirect: state.redirect,
       };
     }
     case constants.REDIRECT_TO_LOGIN: {
       return {
         status: constants.SESSION_STATUS_LOGGED_OUT,
-        redirect: true,
+        redirect: action.fromPath,
       };
     }
     case constants.REQUEST_LOGOUT: {

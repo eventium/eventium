@@ -16,7 +16,7 @@ class ChatPage extends Component {
     const eventId = this.props.params.id;
     const session = this.props.session;
     if (!session.user) {
-      dispatch(redirectToLogin(this.context.router));
+      dispatch(redirectToLogin(this.context.router, this.props.location.pathname));
       return;
     }
     dispatch(fetchMessages(eventId));
