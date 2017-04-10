@@ -150,15 +150,19 @@ export function logout(browserHistory) {
 }
 
 // Other
-function loginRedirect() {
+function loginRedirect(fromPath) {
+  if (typeof fromPath !== 'string') {
+    throw `fromPath must be defined: ${typeof fromPath}`;
+  }
   return {
     type: REDIRECT_TO_LOGIN,
+    fromPath,
   };
 }
-export function redirectToLogin(browserHistory) {
+export function redirectToLogin(browserHistory, fromPath) {
   return (dispatch) => {
-    dispatch(loginRedirect());
-    return Promise.resolve().then(function() {
+    dispatch(loginRedirect(fromPath));
+    return Promise.resolve().then(() => {
       browserHistory.push('/login');
     });
   };

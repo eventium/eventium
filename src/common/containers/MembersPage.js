@@ -17,7 +17,7 @@ class MembersPage extends Component {
   componentWillMount() {
     const { dispatch, session } = this.props;
     if (!session.user) {
-      dispatch(redirectToLogin(this.context.router));
+      dispatch(redirectToLogin(this.context.router, this.props.location.pathname));
       return;
     }
     const eventId = this.props.params.id;
