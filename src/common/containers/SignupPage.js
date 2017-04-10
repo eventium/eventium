@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { debounce } from 'throttle-debounce';
 import { FormGroup, FormControl, Button, Col, ControlLabel, Alert } from 'react-bootstrap';
+import { Link } from 'react-router';
 import { signup, signupFailed } from '../actions/signupState';
 import * as constants from '../constants';
 import LoginNavBar from '../components/LoginNavBar';
@@ -196,6 +197,12 @@ class SignupPage extends Component {
                   <Button bsStyle="primary" type="submit">
                     Sign Up
                   </Button>
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col smOffset={2} sm={10}>
+                  <p><Link to={'/login'}>Already have an account?</Link></p>
                 </Col>
               </FormGroup>
             </fieldset>
