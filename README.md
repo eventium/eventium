@@ -34,7 +34,7 @@ For the most part we have achieved most of our original goals with core features
 For more information on some of the outstanding issues please see our issue tracker located here: https://csil-git1.cs.surrey.sfu.ca/callback-hell/eventium/issues
 
 #### Testing:
-For complete testing guidelines (including test accounts) see README.MD inside [/test/ folder](./test/)
+For complete testing guidelines (including test accounts) see README.MD inside [/test/](./test/) folder
 
 #### Features:
 * Server side rendering
