@@ -21,7 +21,7 @@ export const user = (state = initialState, action) => {
         userExists: false,
       });
     }
-    case constants.USER_TYPING_EMAIL: {
+    case constants.RESET_USER_ACTION: {
       return Object.assign({}, initialState);
     }
     case constants.USER_ALREADY_PART_OF_THE_EVENT: {

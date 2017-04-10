@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { form, FormGroup, InputGroup, FormControl, Button, Glyphicon } from 'react-bootstrap';
 import { debounce } from 'throttle-debounce';
-import { loadUserFromEmail, userTypingEmail } from '../actions/users';
+import { loadUserFromEmail, resetUserAction } from '../actions/users';
 
 
 class EventInviteMemberForm extends Component {
@@ -15,6 +15,11 @@ class EventInviteMemberForm extends Component {
 
     // This is done to wait until user stops typing before executing validation
     this.validateEmail = debounce(600, this.validateEmail);
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch(resetUserAction());
   }
 
   onSubmit(event) {
@@ -47,7 +52,7 @@ class EventInviteMemberForm extends Component {
   handleChange(event) {
     const email = event.target.value;
     const { dispatch } = this.props;
-    dispatch(userTypingEmail());
+    dispatch(resetUserAction());
     this.validateEmail(email);
   }
 

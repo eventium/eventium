@@ -11,7 +11,7 @@ import {
   REQUEST_USER_FROM_EMAIL,
   RECEIVE_USER_FROM_EMAIL,
   RECEIVE_USER_FROM_EMAIL_NOT_FOUND,
-  USER_TYPING_EMAIL,
+  RESET_USER_ACTION,
   REQUEST_USER_PROFILE,
   RECEIVE_USER_PROFILE,
   UPDATE_USER_PROFILE_REQUEST,
@@ -355,9 +355,8 @@ export function loadUserFromEmailPublic(email) {
   };
 }
 
-export function userTypingEmail() {
+export function resetUserAction() {
   return {
-    type: USER_TYPING_EMAIL,
+    type: RESET_USER_ACTION,
   };
 }
-
