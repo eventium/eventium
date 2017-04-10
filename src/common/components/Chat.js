@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import * as actions from '../actions/messages';
+import { createMessage } from '../actions/messages';
 import Message from './Message';
 import MessageComposer from './MessageComposer';
 
@@ -11,18 +11,6 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
-    const { socket, dispatch } = this.props;
-    socket.emit('join channel', this.props.params.id);
-
-    socket.on('new message', msg => {
-      // used to make sure that we do not dispatch receive message twice. For what ever reason socket.io
-      // does not remove connection properly for react and dispatches the message twice on the page refresh.
-      const alreadyExists = this.props.messages.some(msgObj => (msgObj.uuid === msg.uuid));
-      if (!alreadyExists) {
-        dispatch(actions.receiveRawMessage(msg));
-      }
-    });
-
     // Used to scroll the window to the end of the messages
     this.messagesEnd.scrollIntoView();
   }
@@ -37,7 +25,7 @@ export default class Chat extends Component {
     const { dispatch } = this.props;
     const eventId = this.props.params.id;
     if (newMessage.content.length !== 0) {
-      dispatch(actions.createMessage(eventId, newMessage));
+      dispatch(createMessage(eventId, newMessage));
     }
   }
 
