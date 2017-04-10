@@ -145,6 +145,21 @@
   min-height: 70px;
 }
 
+.event-membership-leave-button-wrapper {
+  padding-top: 20px;
+}
+
+.individual-event-wrapper .col-xs-9 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.individual-event-wrapper .col-xs-3 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
 /* -------------------------------------------------------------------------------------------------
 /* Navigation
 /* ---------------------------------------------------------------------------------------------- */

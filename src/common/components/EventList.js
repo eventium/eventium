@@ -3,7 +3,7 @@ import Event from './Event';
 
 export default class EventList extends Component {
   render() {
-    const { events } = this.props;
+    const { events, leaveEvent } = this.props;
 
     return (
       <ul className={'list-group'}>
@@ -11,6 +11,7 @@ export default class EventList extends Component {
           <Event
             key={event.id}
             {...event}
+            leaveEvent={leaveEvent}
           />,
         )}
       </ul>
@@ -23,4 +24,5 @@ EventList.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  leaveEvent: PropTypes.func.isRequired,
 };

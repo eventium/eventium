@@ -85,6 +85,24 @@ userRouter.delete('/users/:userId/invites/:inviteId/', authorizeInvite('inviteId
   });
 });
 
+userRouter.delete('/users/:userId/membership/:eventId/', (req, res) => {
+  const eventId = parseInt(req.params.eventId, 10);
+  const userId = parseInt(req.params.userId, 10);
+
+  models.Member.destroy({
+    where: {
+      event_id: eventId,
+      user_id: userId,
+    },
+  })
+  .then((rowsDeleted) => {
+    if (rowsDeleted === 1) {
+      return res.status(200).send();
+    }
+    return res.status(404).send('No Membership Found');
+  });
+});
+
 userRouter.post('/users/:userId/membership/', (req, res) => {
   const userId = parseInt(req.params.userId, 10);
   const eventId = parseInt(req.body.eventId, 10);

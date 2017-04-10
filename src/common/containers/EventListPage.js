@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { loadUserEvents, loadUserInvites, deleteUserInvite, createUserMembership } from '../actions/users';
+import { loadUserEvents, loadUserInvites, deleteUserInvite, createUserMembership, deleteUserMembership } from '../actions/users';
 import { redirectToLogin } from '../actions/session';
 import EventList from '../components/EventList';
 import InviteList from '../components/InviteList';
@@ -21,6 +21,7 @@ class EventListPage extends Component {
     }
     this.acceptInvite = this.acceptInvite.bind(this);
     this.declineInvite = this.declineInvite.bind(this);
+    this.leaveEvent = this.leaveEvent.bind(this);
     dispatch(loadUserEvents(session.user.id));
     dispatch(loadUserInvites(session.user.id));
   }
@@ -36,6 +37,11 @@ class EventListPage extends Component {
   declineInvite(inviteId) {
     const { dispatch, session } = this.props;
     dispatch(deleteUserInvite(session.user.id, inviteId));
+  }
+
+  leaveEvent(eventId) {
+    const { dispatch, session } = this.props;
+    dispatch(deleteUserMembership(session.user.id, eventId));
   }
 
   render() {
@@ -66,7 +72,7 @@ class EventListPage extends Component {
             acceptInvite={this.acceptInvite}
             declineInvite={this.declineInvite}
           />
-          <EventList events={events} />
+          <EventList events={events} leaveEvent={this.leaveEvent} />
         </div>
         <div className="create-event">
           <Link to="/events/create/">

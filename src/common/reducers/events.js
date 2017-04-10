@@ -30,6 +30,11 @@ export const events = (state = initialEventsState, action) => {
         data: [...state.data, action.event],
       });
     }
+    case constants.RECEIVE_DELETE_USER_MEMBERSHIP: {
+      return Object.assign({}, state, {
+        data: state.data.filter(event => (event.id !== action.eventId)),
+      });
+    }
     default:
       return state;
   }
