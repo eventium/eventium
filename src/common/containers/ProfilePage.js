@@ -34,7 +34,7 @@ class ProfilePage extends Component {
     let { avatar } = user;
 
     if (!avatar) {
-      avatar = 'uploads/default_avatar.png';
+      avatar = 'assets/images/default_avatar.png';
     }
 
     return (

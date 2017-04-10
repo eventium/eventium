@@ -36,7 +36,7 @@ class EventPage extends Component {
     const endTime = new Date(this.props.event.end_time);
 
     if (!image) {
-      image = 'uploads/default_event.png';
+      image = 'assets/images/default_event.png';
     }
 
     const id = this.props.params.id;
