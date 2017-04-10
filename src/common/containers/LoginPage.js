@@ -27,7 +27,11 @@ class LoginPage extends Component {
     const nowSession = this.props.session;
     if (prevSession.status !== constants.SESSION_STATUS_LOGGED_IN &&
       nowSession.status === constants.SESSION_STATUS_LOGGED_IN) {
-      this.context.router.goBack();
+      if (nowSession.redirect) {
+        this.context.router.push(nowSession.redirect);
+      } else {
+        this.context.router.push('/');
+      }
     }
   }
 
@@ -72,7 +76,7 @@ class LoginPage extends Component {
     const errorMessage = (session.error || '');
     const infoMessage = (signupState.message || '');
 
-    if (pending || redirect) {
+    if (pending) {
       return (
         <div>
           <LoginNavBar />
@@ -84,7 +88,7 @@ class LoginPage extends Component {
     return (
       <div>
         <LoginNavBar />
-        <div className={redirect ? 'hidden' : ''} >
+        <div >
           <div className="login-page-wrapper">
             {this.showAlert(errorMessage)}
             {this.showSuccess(infoMessage)}

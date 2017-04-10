@@ -17,7 +17,7 @@ class EventPage extends Component {
     const { dispatch } = this.props;
     const session = this.props.session;
     if (!session.user) {
-      dispatch(redirectToLogin(this.context.router));
+      dispatch(redirectToLogin(this.context.router, this.props.location.pathname));
       return;
     }
     const id = this.props.params.id;
