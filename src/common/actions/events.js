@@ -121,7 +121,7 @@ function createEventResponse(json) {
   };
 }
 
-export function createEvent(formData) {
+export function createEvent(formData, userId, resolve) {
   const url = `${HOST}/api/events`;
   const form = new FormData();
   const options = {};
@@ -135,22 +135,26 @@ export function createEvent(formData) {
       const file = formData[i].files[0];
 
       form.append(name, file);
-    }
-    else {
+    } else {
       form.append(name, value);
     }
   }
 
+  form.append('userId', userId);
+
   options.method = 'POST';
-  options.body = form;
   options.credentials = 'same-origin';
+  options.body = form;
 
   return (dispatch) => {
     dispatch(createEventRequest(event));
 
     return fetch(url, options)
     .then(response => response.json())
-    .then(json => dispatch(createEventResponse(json)));
+    .then((json) => {
+      dispatch(createEventResponse(json));
+      resolve(json.id);
+    });
   };
 }
 

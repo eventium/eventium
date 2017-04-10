@@ -25,10 +25,11 @@ const API = (app) => {
   app.post('/api/events/', upload.single('image'), (req, res) => {
     console.log(req.file);
 
+    const userId = req.body.userId;
     const start_time = req.body.start_date + ' ' + req.body.start_time + ':00';
     const end_time = req.body.end_date + ' ' + req.body.end_time + ':00';
-    
-    let event = {
+
+    const event = {
       title: req.body.title,
       location: req.body.location,
       address: req.body.address,
@@ -43,19 +44,23 @@ const API = (app) => {
     const promise = addUploadedImageExtension(req.file);
 
     Promise.all([promise]).then((imgPath) => {
-      if(imgPath[0]) {
+      if (imgPath[0]) {
         event.image = imgPath[0];
       }
 
       models.Event.create(event).then(
-        event => {
-          res.json(event)
-        }
-      ).catch(error => {
-        console.log(error);
-      });
+        (instance) => {
+          models.Member.create({
+            event_id: instance.id,
+            user_id: userId,
+            role: 'host',
+          });
+          res.json(instance);
+        }).catch((err) => {
+          console.log(err);
+        });
     });
-  })
+  });
 
   app.put('/api/events/:id', upload.single('image'), (req, res) => {
     const id = parseInt(req.params.id);

@@ -27,12 +27,17 @@ class CreateEventPage extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const { onSubmit } = this.props;
+    const { onSubmit, session } = this.props;
     const form = event.currentTarget;
 
-    onSubmit(form.elements);
+    const promise = new Promise((resolve, reject) => {
+      onSubmit(form.elements, session.user.id, resolve, reject);
+    });
 
-    this.context.router.push('/');
+    Promise.all([promise]).then((result) => {
+      const id = result[0];
+      this.context.router.push(`/events/${id}`);
+    });
   }
 
   render() {
@@ -66,8 +71,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (formData) => {
-      dispatch(createEvent(formData));
+    onSubmit: (formData, userId, resolve, reject) => {
+      dispatch(createEvent(formData, userId, resolve, reject));
     },
   };
 };
