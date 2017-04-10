@@ -188,7 +188,7 @@ class SignupPage extends Component {
                   Description (Optional)
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" placeholder="Tell Us About You!" name="description" value={this.state.description} onChange={this.handleInputChange} />
+                  <FormControl componentClass="textarea" rows="3" placeholder="Tell Us About You!" name="description" value={this.state.description} onChange={this.handleInputChange} />
                 </Col>
               </FormGroup>
 
