@@ -1,7 +1,7 @@
 # Eventium
 
 
-## Team:
+Team:
 ======
 **Team Name**: 
 Callback Hell
@@ -10,7 +10,7 @@ Callback Hell
 - Eric Nummela (enummela@sfu.ca && enummela@gmail.com)
 - Tian Lin Tan (tianlint@sfu.ca && cyrus9212@gmail.com)
 
-## Usage:
+Usage:
 ======
 #### Windows
 1. Install Git Bash (https://git-scm.com/download/win)
@@ -50,7 +50,7 @@ For complete testing guidelines (including test accounts) see README.MD inside /
 * Custom database provision tool that sets up data
 * Code linting using ESlint
 
-## Architecture Overview:
+Architecture Overview:
 ======
 ### Backend
 * Node/Express
@@ -74,7 +74,7 @@ For complete testing guidelines (including test accounts) see README.MD inside /
 ### Static Content Server
 * Nginx
 
-## Development
+Development
 ======
 1. `git clone git@csil-git1.cs.surrey.sfu.ca:callback-hell/eventium.git`
 2. `vagrant plugin install vagrant-notify-forwarder` - Used to notify vagrant when file changes
