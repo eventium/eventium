@@ -7,6 +7,7 @@ import {
   REQUEST_USER_EVENTS,
   RECEIVE_USER_EVENTS,
   RECEIVE_DELETE_USER_INVITE,
+  RECEIVE_DELETE_USER_MEMBERSHIP,
   REQUEST_USER_FROM_EMAIL,
   RECEIVE_USER_FROM_EMAIL,
   RECEIVE_USER_FROM_EMAIL_NOT_FOUND,
@@ -222,6 +223,39 @@ export function deleteUserInvite(userId, inviteId) {
       });
   };
 }
+
+// -------------------------------------------------------------------------------------------------
+// DELETE /api/users/${userId}/membership/${eventId}
+// -------------------------------------------------------------------------------------------------
+
+function receiveDeleteMembership(eventId) {
+  return {
+    type: RECEIVE_DELETE_USER_MEMBERSHIP,
+    eventId,
+  };
+}
+
+export function deleteUserMembership(userId, eventId) {
+  const url = `${HOST}/api/users/${userId}/membership/${eventId}`;
+
+  const message = {
+    method: 'DELETE',
+    credentials: 'same-origin',
+  };
+
+  return dispatch => {
+    return fetch(url, message)
+      .then(response => {
+        if (response.ok) {
+          dispatch(receiveDeleteMembership(eventId));
+        }
+      })
+      .catch((err) => {
+        console.log('Failed to delete user membership for user:', userId, 'from:', eventId, err);
+      });
+  };
+}
+
 
 // -------------------------------------------------------------------------------------------------
 // POST /api/users/${userId}/membership/
