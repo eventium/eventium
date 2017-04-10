@@ -29,10 +29,11 @@ class EventPage extends Component {
   }
 
   render() {
-    const { image, title, description, location, address, city, province, postal_code } = this.props.event.event;
+    const { image, title, description, location, address, city, province, postal_code } = this.props.event;
     const error = this.props.event.error;
     const startTime = new Date(this.props.event.start_time);
     const endTime = new Date(this.props.event.end_time);
+
     const id = this.props.params.id;
     if (error) {
       return (
@@ -109,7 +110,7 @@ EventPage.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    event: state.event,
+    event: state.event.event,
     session: state.session,
   };
 };
