@@ -185,7 +185,7 @@ class SignupPage extends Component {
 
               <FormGroup controlId="formHorizontalLasttName">
                 <Col componentClass={ControlLabel} sm={2}>
-                  Description (Optinal)
+                  Description (Optional)
                 </Col>
                 <Col sm={10}>
                   <FormControl type="text" placeholder="Tell Us About You!" name="description" value={this.state.description} onChange={this.handleInputChange} />
