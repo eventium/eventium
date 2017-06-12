@@ -6,9 +6,9 @@ Team:
 **Team Name**: 
 Callback Hell
 **Team Members**:
-- Oleg Matvejev (omatveje@sfu.ca && omatveje@gmail.com)
-- Eric Nummela (enummela@sfu.ca && enummela@gmail.com)
-- Tian Lin Tan (tianlint@sfu.ca && cyrus9212@gmail.com)
+- Oleg Matvejev
+- Eric Nummela
+- Tian Lin Tan
 
 Usage:
 ======
